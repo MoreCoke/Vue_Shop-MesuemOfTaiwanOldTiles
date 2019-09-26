@@ -27,3 +27,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### scrollor
+npm install Prinzhorn/skrollr
+https://github.com/Aminerman/vue-mouse-parallax

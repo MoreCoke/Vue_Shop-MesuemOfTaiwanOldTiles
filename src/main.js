@@ -22,6 +22,7 @@ Vue.component('Loading', Loading);
 Vue.filter('currency', currencyFilter);
 Vue.filter('timestamp', timestampFilter);
 
+
 Vue.config.productionTip = false;
 // 前端要把 cookie 的開關打開
 axios.defaults.withCredentials = true;

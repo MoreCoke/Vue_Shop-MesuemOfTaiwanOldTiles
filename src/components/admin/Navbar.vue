@@ -1,18 +1,43 @@
 <template>
   <div>
     <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
-      <router-link to="/admin"
-      class="navbar-brand col-sm-3 col-md-2 mr-1 font-weight-bold">台灣花磚博物館</router-link>
-      <ul class="navbar-nav px-3">
+      <router-link
+      to="/admin"
+      class="navbar-brand
+      font-weight-bold
+      col-md-2
+      col-sm-12
+      m-0">
+        台灣花磚博物館
+      </router-link>
+      <ul class="navbar-nav
+      col-md-1
+      offset-md-9
+      col-sm-1
+      offset-sm-10
+      col-xs-1
+      offset-xs-10
+      px-lg-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link text-white" href="#" @click.prevent="signOut">Sign out</a>
         </li>
       </ul>
+      <!-- <button
+        class="navbar-toggler col-sm-1"
+        type="button"
+        data-toggle="collapse"
+        data-target="#sidebarNav"
+        aria-controls="sidebarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
     </nav>
   </div>
 </template>
 
-<style scroped lang="sass">
+<style scoped lang="sass">
 .navbar-brand
   padding-top: .75rem
   padding-bottom: .75rem

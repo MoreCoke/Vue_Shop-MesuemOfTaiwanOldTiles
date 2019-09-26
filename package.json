@@ -13,6 +13,7 @@
     "core-js": "^2.6.5",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
+    "skrollr": "github:Prinzhorn/skrollr",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
     "vue-loading-overlay": "^3.2.0",

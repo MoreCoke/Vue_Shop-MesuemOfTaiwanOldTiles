@@ -1,16 +1,47 @@
 <template>
-  <div>
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="p-0">
+    <nav class="navbar navbar-expand-md navbar-light col-md-2 col-sm-12 bg-light sidebar">
       <div class="sidebar-sticky">
-        <h6
-          class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
-        >
-          <span>管理</span>
-          <a class="d-flex align-items-center text-muted" href="#">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
+        <div class="" id="sidebarNav">
+          <ul class="nav mb-2 flex-column">
+            <h6
+              class="sidebar-heading
+              d-flex
+              justify-content-between
+              align-items-center
+              px-3
+              mt-4
+              mb-1
+              text-muted
+              nav-item"
+            >
+              <span>管理</span>
+            </h6>
+            <li class="nav-item">
+              <router-link to="/admin/product" class="nav-link">
+                <span data-feather="file-text"></span>
+                產品列表
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/admin/order" class="nav-link">
+                <span data-feather="file-text"></span>
+                訂單列表
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/admin/offer" class="nav-link">
+                <span data-feather="file-text"></span>
+                優惠券管理
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- <nav class="navbar navbar-expand-sm bg-light navbar-light align-items-start">
+      <div class="collapse navbar-collapse bg-light" id="sidebarNav">
+        <ul class="navbar-nav flex-column">
           <li class="nav-item">
             <router-link to="/admin/product" class="nav-link">
               <span data-feather="file-text"></span>
@@ -24,7 +55,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/admin/offer" class="nav-link">
+            <router-link to="/admin/offer" class="nav-link" tabindex="-1" aria-disabled="true">
               <span data-feather="file-text"></span>
               優惠券管理
             </router-link>
@@ -32,10 +63,14 @@
         </ul>
       </div>
     </nav>
+    <div class="col-md-2 sidebar bg-light d-none d-md-block"></div>
+    <div class="sidebar bg-light d-block d-sm-block d-lg-none"></div> -->
   </div>
 </template>
 
 <style scpoed lang="sass">
+@import 'src/assets/text.sass'
+
 .sidebar
   position: fixed
   top: 0
@@ -44,7 +79,10 @@
   z-index: 100
   /* Behind the navbar
   padding: 0
+  padding-top: .5rem
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1)
+  @media all and (max-width: 768px)
+    position: relative !important
 
 .sidebar-sticky
   position: -webkit-sticky
@@ -56,13 +94,13 @@
   overflow-x: hidden
   overflow-y: auto
   /* Scrollable contents if viewport is shorter than content.
+  @media all and (max-width: 768px)
+    height: auto
+    flex-direction: row
 
 .sidebar .nav-link
   font-weight: 500
   color: #333
-  .feather
-    margin-right: 4px
-    color: #999
   &.active
     color: #007bff
   &:hover .feather, &.active .feather

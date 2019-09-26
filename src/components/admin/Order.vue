@@ -1,7 +1,7 @@
 <template>
-  <div class="container mt-4">
-    <loading :active.sync="isLoading"></loading>    
-    <div class="mb-4">
+  <div class="container">
+    <loading :active.sync="isLoading"></loading>
+    <div class="mb-3">
       <h2 class="font-weight-bold admin--title">訂單列表</h2>
     </div>
     <div class="table-responsive">
@@ -9,38 +9,47 @@
         <thead class="table-borderless">
           <tr>
             <th width="80" class="text-center">是否付款</th>
-            <th>客戶資訊</th>
-            <th>訂單資訊</th>
+            <th class="pl-4">客戶資訊</th>
+            <th class="pr-4">訂單資訊</th>
             <th width="80">購買日期</th>
             <th width="100" class="text-right">應付金額</th>
-            <th>客戶留言</th>
+            <th width="180" class="pl-5">客戶留言</th>
             <th width="180" class="pl-5">編輯</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in orders" :key="item.id">
+            <!-- 是否付款 -->
             <td class="text-center align-middle">
               <span v-if="item.is_paid === true" class="text-primary">付款成功</span>
               <span v-else class="text-danger">尚未付款</span>
             </td>
-            <td class="align-middle">
+            <!-- 客戶資訊 -->
+            <td class="align-middle pl-4">
               <ul class="list-unstyled mb-0">
-                <li>{{item.user.name || '-'}}</li>
+                <li class="font-weight-bold">{{item.user.name || '-'}}</li>
                 <!-- tel filter -->
                 <li>TEL： {{item.user.tel || '-'}}</li>
-                <li>Email： <a :href="`mailto:${item.user.email}`">{{item.user.email || '-'}}</a></li>
+                <li>Email：
+                  <a :href="`mailto:${item.user.email}`">{{item.user.email || '-'}}</a>
+                </li>
                 <li>ADD： {{item.user.address || '-'}}</li>
               </ul>
             </td>
-            <td class="align-middle">
+            <!-- 訂單資訊 -->
+            <td class="align-middle pr-4">
               <ul class="list-unstyled mb-0" v-for="(product, key) in item.products" :key="key">
                 <li>{{product.product.title}} （{{product.qty}}項）</li>
               </ul>
             </td>
+            <!-- 購買日期 -->
             <td class="align-middle">{{item.create_at | timestamp}}</td>
+            <!-- 應付金額 -->
             <td class="text-right align-middle">{{item.total | currency}}</td>
-            <td class="align-middle">{{item.message}}</td>
-            <td class="pl-5 align-middle">
+            <!-- 客戶留言 -->
+            <td class="align-middle pl-5">{{item.message}}</td>
+            <!-- 編輯 -->
+            <td class="align-middle pl-5">
               <button class="btn btn-outline-primary mr-2" @click="openModal(item)">修改</button>
               <button class="btn btn-outline-danger">刪除</button>
             </td>
@@ -48,13 +57,15 @@
         </tbody>
       </table>
     </div>
-    <Modal :temp-order="tempOrder"></Modal>
+    <Modal :temp-order="tempOrder" @get_orders="getOrders"></Modal>
+    <Pagination :pagination="pagination" @page_change="getOrders"></Pagination>
   </div>
 </template>
 
 <script>
 import $ from 'jquery';
 import Modal from './modal/Order_modal.vue';
+import Pagination from '@/components/Pagination.vue';
 
 export default {
   data() {
@@ -67,6 +78,7 @@ export default {
   },
   components: {
     Modal,
+    Pagination,
   },
   methods: {
     getOrders(page = 1) {
@@ -81,7 +93,8 @@ export default {
       });
     },
     openModal(item) {
-      this.tempOrder = item;
+      // 避免因為傳參考同步修改到畫面上的資料
+      this.tempOrder = Object.assign({}, item);
       $('#orderModal').modal('show');
     },
   },

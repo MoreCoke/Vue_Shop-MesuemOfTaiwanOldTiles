@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container sans_serif">
       <div class="col-xs-12 col-md-6 mx-auto text-center">
         <form class="form-signin" @submit.prevent="signin">
           <h1 class="h3 mt-5 mb-3 text-center font-weight-normal">後台管理系統</h1>
@@ -77,6 +77,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import 'src/assets/text.sass';
+
 html,
 body {
   height: 100%;

@@ -3,10 +3,8 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Shop from './views/Shop.vue';
+import Cart from './views/Cart.vue';
 import Admin from './views/Admin.vue';
-// import Product from './components/admin/Product.vue';
-// import Offer from '.';
-// import Order from './components/admin/Order.vue';
 
 Vue.use(Router);
 
@@ -31,6 +29,12 @@ export default new Router({
           path: 'product',
           name: 'product',
           component: () => import('@/components/admin/Product.vue'),
+          // children: [
+          //   {
+          //     path: ':page',
+          //     name: 'productPage',
+          //   }
+          // ],
         },
         {
           path: 'order',
@@ -46,8 +50,25 @@ export default new Router({
     },
     {
       path: '/shop',
-      name: 'shop',
-      componentn: Shop,
+      component: Shop,
+      children: [
+        {
+          path: '',
+          name: 'shop',
+          component: () => import('@/components/shop/Products.vue'),
+        },
+        {
+          path: ':id',
+          name: 'item',
+          component: () => import('@/components/shop/Product.vue'),
+          // props: ['product',],
+        },
+      ],
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: Cart,
     },
     {
       path: '/about',

@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <Navbar></Navbar>
-
+  <div class="sans_serif">
+    <Navbar class="sticky-top"></Navbar>
     <div class="container-fluid">
       <div class="row">
         <Sidebar></Sidebar>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <main role="main" class="col-md-10 col-lg-10 ml-sm-auto pt-3 px-4">
           <router-view />
         </main>
       </div>
@@ -26,10 +24,9 @@ export default {
 };
 </script>
 
-<style scroped lang='sass'>
-body
-  font-size: .875rem
-  font-family: font-family-sans-serif
+
+<style scoped lang='sass'>
+@import '@/assets/text.sass'
 
 .feather
   width: 16px

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- edit Modal -->
     <div
       class="modal fade"
       id="productModal"
@@ -37,7 +38,7 @@
                 <div class="form-group custom-file">
                   <label for="customFile">
                     或 上傳圖片
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <i class="fas fa-spinner fa-spin" v-if="status.fileUploading"></i>
                   </label>
                   <input
                     type="file"
@@ -83,7 +84,7 @@
                       v-model="tempProduct.category"
                     >
                       <!-- 預設選項無法渲染出 -->
-                      <option value disabled selected>--請選擇分類--</option>
+                      <option :selected="tempProduct.category? '--請選擇分類--':'' " disabled>--請選擇分類--</option>
                       <option :value="item"
                                 v-for="(item,key) in category" :key="key">{{item}}</option>
                     </select>
@@ -150,7 +151,7 @@
                       class="form-check-input"
                       type="checkbox"
                       id="is_enabled"
-                      v-model="tempProduct.is_enable"
+                      v-model="tempProduct.is_enabled"
                       :true-value="1"
                       :false-value="0"
                     />
@@ -162,11 +163,15 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="updatedProduct">確認</button>
+            <button type="button" class="btn btn-primary" @click="updatedProduct">
+            <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
+              確認
+            </button>
           </div>
         </div>
       </div>
     </div>
+    <!-- del Modal -->
     <div
       class="modal fade"
       id="delProductModal"
@@ -192,7 +197,10 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-danger"
-                    @click="delProduct(tempProduct.id)">確認刪除</button>
+                    @click="delProduct(tempProduct.id)">
+            <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
+            確認刪除
+            </button>
           </div>
         </div>
       </div>
@@ -211,12 +219,17 @@ export default {
   data() {
     return {
       category: ['台灣花磚', '花磚小鏡子', '花磚磁鐵', '花磚竹杯墊'],
+      status: {
+        fileUploading: false,
+        lodaing: false,
+      },
     };
   },
   methods: {
     updatedProduct() {
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/product`;
       const vm = this;
+      vm.status.lodaing = true;
       let httpMethod = 'post';
       if (!vm.isNew) {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/product/${vm.tempProduct.id}`;
@@ -224,6 +237,7 @@ export default {
       }
       this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
         console.log(response);
+        vm.status.lodaing = false;
         $('#productModal').modal('hide');
         vm.$emit('get_products');
       });
@@ -231,8 +245,10 @@ export default {
     delProduct() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/product/${this.tempProduct.id}`;
       const vm = this;
+      vm.status.lodaing = true;
       this.$http.delete(api).then((response) => {
         console.log(response);
+        vm.status.lodaing = false;
         $('#delProductModal').modal('hide');
         vm.$emit('get_products');
       });
@@ -244,6 +260,7 @@ export default {
       const uploadFile = this.$refs.files.files[0];
       const formData = new FormData();
       formData.append('file-to-upload', uploadFile);
+      vm.status.fileUploading = true;
       this.$http
         .post(api, formData, {
           header: {
@@ -255,6 +272,7 @@ export default {
           if (response.data.success) {
             // vm.tempProduct.imageUrl = response.data.imageUrl;
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
+            vm.status.fileUploading = false;
             vm.tempProduct.image = vm.tempProduct.title;
           }
         });
