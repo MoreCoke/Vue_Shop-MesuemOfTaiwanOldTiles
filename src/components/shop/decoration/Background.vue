@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="text-info decoration_text">
-      <span style="vertical-align: text-bottom">_____</span> Museum of Old Taiwan Tiles
+      <span class="decoration_text_"></span> Museum of Old Taiwan Tiles
     </p>
     <div class="decoration_tiles"></div>
     <img class="decoration_tiles" src="@/assets/img/black_1x/堅持_四方連續_線稿_black.png" alt />
@@ -11,12 +11,19 @@
 </template>
 
 <style scpoed lang="sass">
+@import '@/assets/color.sass'
+
 .decoration_text
+  display: inline-block
   position: fixed
-  bottom: 150px
-  right: -40px
+  top: 70vh
+  right: -50px
   transform: rotate(90deg)
   z-index: 100
+  .decoration_text_
+    width: 50px
+    display: inline-block
+    border-bottom: 1px solid $cyan
 
 .decoration_tiles
   width: 300px
@@ -31,4 +38,5 @@
     top: 300px
   &.three
     top: 600px
+  
 </style>

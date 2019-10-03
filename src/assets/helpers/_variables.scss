@@ -72,7 +72,7 @@ $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100 !default;
+$light:         $white !default;
 $dark:          $black !default;
 
 $theme-colors: () !default;
@@ -288,11 +288,11 @@ $font-weight-bolder:          bolder !default;
 $font-weight-base:            $font-weight-normal !default;
 $line-height-base:            1.5 !default;
 
-$h1-font-size:                $font-size-base * 2.5 !default;
-$h2-font-size:                $font-size-base * 2 !default;
-$h3-font-size:                $font-size-base * 1.75 !default;
-$h4-font-size:                $font-size-base * 1.5 !default;
-$h5-font-size:                $font-size-base * 1.25 !default;
+$h1-font-size:                $font-size-base * 3.5 !default;
+$h2-font-size:                $font-size-base * 3.25 !default;
+$h3-font-size:                $font-size-base * 2.5 !default;
+$h4-font-size:                $font-size-base * 2.25 !default;
+$h5-font-size:                $font-size-base * 1.75 !default;
 $h6-font-size:                $font-size-base !default;
 
 $headings-margin-bottom:      $spacer / 2 !default;
@@ -380,8 +380,8 @@ $table-border-level:          -6 !default;
 //
 // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
 
-$input-btn-padding-y:         .375rem !default;
-$input-btn-padding-x:         .75rem !default;
+$input-btn-padding-y:         .475rem !default;
+$input-btn-padding-x:         .9rem !default;
 $input-btn-font-family:       null !default;
 $input-btn-font-size:         $font-size-base !default;
 $input-btn-line-height:       $line-height-base !default;
@@ -929,8 +929,8 @@ $badge-pill-border-radius:          10rem !default;
 // Padding applied to the modal body
 $modal-inner-padding:               1rem !default;
 
-$modal-dialog-margin:               .5rem !default;
-$modal-dialog-margin-y-sm-up:       1.75rem !default;
+$modal-dialog-margin:               0rem !default;
+$modal-dialog-margin-y-sm-up:       0rem !default;
 
 $modal-title-line-height:           $line-height-base !default;
 
@@ -952,12 +952,12 @@ $modal-header-padding-y:            1rem !default;
 $modal-header-padding-x:            1rem !default;
 $modal-header-padding:              $modal-header-padding-y $modal-header-padding-x !default; // Keep this for backwards compatibility
 
-$modal-xl:                          1140px !default;
-$modal-lg:                          800px !default;
-$modal-md:                          500px !default;
-$modal-sm:                          300px !default;
+$modal-xl:                          100wh !default;
+$modal-lg:                          100wh !default;
+$modal-md:                          100wh !default;
+$modal-sm:                          100wh !default;
 
-$modal-fade-transform:              translate(0, -50px) !default;
+$modal-fade-transform:              scale(.9) !default;
 $modal-show-transform:              none !default;
 $modal-transition:                  transform .3s ease-out !default;
 

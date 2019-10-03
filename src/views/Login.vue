@@ -77,8 +77,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import 'src/assets/text.sass';
-
 html,
 body {
   height: 100%;

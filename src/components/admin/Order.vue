@@ -14,7 +14,7 @@
             <th width="80">購買日期</th>
             <th width="100" class="text-right">應付金額</th>
             <th width="180" class="pl-5">客戶留言</th>
-            <th width="180" class="pl-5">編輯</th>
+            <th width="200" class="pl-5">編輯</th>
           </tr>
         </thead>
         <tbody>
@@ -27,13 +27,13 @@
             <!-- 客戶資訊 -->
             <td class="align-middle pl-4">
               <ul class="list-unstyled mb-0">
-                <li class="font-weight-bold">{{item.user.name || '-'}}</li>
+                <li class="font-weight-bold">{{item.user? item.user.name : '-'}}</li>
                 <!-- tel filter -->
-                <li>TEL： {{item.user.tel || '-'}}</li>
+                <li>TEL： {{item.user? item.user.tel : '-'}}</li>
                 <li>Email：
-                  <a :href="`mailto:${item.user.email}`">{{item.user.email || '-'}}</a>
+                  <a :href="`mailto:${item.user? item.user.email:''}`">{{item.user? item.user.email : '-'}}</a>
                 </li>
-                <li>ADD： {{item.user.address || '-'}}</li>
+                <li>ADD： {{item.user? item.user.address : '-'}}</li>
               </ul>
             </td>
             <!-- 訂單資訊 -->
@@ -82,11 +82,11 @@ export default {
   },
   methods: {
     getOrders(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/orders?page=${page}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`;
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
-        console.log(response);
+        // console.log(response);
         vm.isLoading = false;
         vm.orders = response.data.orders;
         vm.pagination = response.data.pagination;
@@ -103,3 +103,7 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="sass">
+@import '@/assets/admin.sass'
+</style>

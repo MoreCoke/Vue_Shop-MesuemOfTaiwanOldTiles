@@ -14,7 +14,7 @@
             <th width="130">折扣碼</th>
             <th width="100">折扣</th>
             <th width="100" class="text-center">到期日</th>
-            <th width="180" class="pl-5">編輯</th>
+            <th width="200" class="pl-5">編輯</th>
           </tr>
         </thead>
         <tbody>
@@ -67,11 +67,11 @@ export default {
   },
   methods: {
     getCoupons(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/coupons?page=${page}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
-        console.log(response);
+        // console.log(response);
         vm.isLoading = false;
         vm.coupons = response.data.coupons;
         vm.pagination = response.data.pagination;
@@ -102,3 +102,7 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="sass">
+@import '@/assets/admin.sass'
+</style>

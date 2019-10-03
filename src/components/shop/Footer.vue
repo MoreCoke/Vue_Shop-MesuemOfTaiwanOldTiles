@@ -36,12 +36,17 @@
 </template>
 
 <style scoped lang='sass'>
+@import '@/assets/color.sass'
+
+h3,p,li
+  &::selection
+    background-color: white
+
 .footer
   margin-top: 100px
   padding: 100px 0 20px
   .footer--title
     margin-bottom: 40px
-    font-size: 2.5em
     font-weight: 700
     letter-spacing: 7px
   .footer--content

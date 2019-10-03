@@ -61,9 +61,8 @@
     <div class="row">
       <div class="col-12 col-lg-5 offset-lg-7">
         <p class="text item--info">
-          <span class="text" style="font-weight: 700">產品說明：</span>
-          <br />
-          {{product.content}}
+          <span style="font-weight: 700">產品說明：</span>
+          <br />{{product.content}}
         </p>
       </div>
     </div>
@@ -86,28 +85,32 @@ export default {
       if ((calc === 1) && (this.qty >= 1)) {
         this.qty = qty + 1;
       }
-      if (calc === 0) {
-        if (this.qty >= 1) {
-          this.qty = qty - 1;
-        }
-        if (this.qty === 0) {
-          this.qty = 1;
-        }
+      if ((calc === 0) && (this.qty >= 2)) {
+        this.qty = qty - 1;
       }
+      // if (calc === 0) {
+      //   if (this.qty >= 1) {
+      //     this.qty = qty - 1;
+      //   }
+      //   if (this.qty === 0) {
+      //     this.qty = 1;
+      //   }
+      // }
     },
     addToCart() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
       const vm = this;
       const cart = {
         product_id: vm.product.id,
         qty: vm.qty,
       };
-      console.log(cart);
+      // console.log(cart);
       if (!vm.qty) {
-        console.log('請選擇數量');
+        // console.log('請選擇數量');
       }
       this.$http.post(api, { data: cart }).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
+        this.$emit('get_cart');
       });
     },
   },
@@ -116,7 +119,6 @@ export default {
 
 <style scoped lang='sass'>
 @import '@/assets/color.sass'
-@import '@/assets/text.sass'
 
 .path
   margin-top: .3em
@@ -130,6 +132,8 @@ export default {
   height: 25.625rem
   display: flex
   flex-direction: column
+  @media all and (max-width: 1200px)
+    height: 30rem
   @media all and (max-width: 992px)
     height: 21.875rem
 
@@ -157,9 +161,12 @@ export default {
     flex-grow: 8
 
   .item--btns
-    flex-gorw: 1
+    flex-grow: 1
     .item--btn
       width: 100%
+      @media all and (max-width: 1200px)
+        padding-left: 6px
+        padding-right: 6px
 
 .item--info
   margin-top: 1em

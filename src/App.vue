@@ -31,3 +31,7 @@
 //   }
 // }
 </style>
+
+<style lang="sass">
+@import './assets/common'
+</style>

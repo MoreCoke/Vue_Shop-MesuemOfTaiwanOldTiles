@@ -162,12 +162,12 @@ export default {
   },
   methods: {
     updatedOrder() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/order/${this.tempOrder.id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/order/${this.tempOrder.id}`;
       const vm = this;
       vm.isLoading = true;
       vm.status.loading = true;
       this.$http.put(api, { data: vm.tempOrder }).then((response) => {
-        console.log(response);
+        // console.log(response);
         $('#orderModal').modal('hide');
         vm.isLoading = false;
         vm.status.loading = false;
@@ -177,3 +177,8 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="sass">
+.modal-dialog
+  margin: 50px 25%
+</style>

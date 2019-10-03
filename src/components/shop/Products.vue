@@ -1,14 +1,21 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
+    <loading :active.sync="status.isLoading"></loading>
     <div class="row">
+      <!-- <p @click="test">123</p> -->
       <div
         class="col-12 col-md-6 col-lg-4"
+        v-show="item.is_enabled"
         v-for="item in products"
         :key="item.id"
-        @click="getProduct(item.id)"
       >
-        <div class="card">
+        <i
+          class="fas fa-heart text-primary"
+          v-if="getFilteredFavorite(item)"
+          @click="removeFavorite(item)"
+        ></i>
+        <i class="far fa-heart text-primary" v-else @click="addFavorite(item)"></i>
+        <div class="card" @click="getProduct(item.id)">
           <img
             :src="item.imageUrl"
             class="card-img-top items_img"
@@ -17,7 +24,9 @@
           <div class="card-body items">
             <table class="items--table">
               <tr>
-                <td class="items--category">【{{item.category}}】</td>
+                <td class="items--category">
+                  <span>【{{item.category}}】</span>
+                </td>
                 <td
                   class="text-right items--origin_price"
                   v-if="item.origin_price"
@@ -25,9 +34,16 @@
               </tr>
               <tr>
                 <td class="card-text items--name">{{item.title}}</td>
-                <td class="text-right items--price" :class="{'text-danger': item.origin_price}">
+                <td
+                  width="90"
+                  class="text-right items--price"
+                  :class="{'text-danger': item.origin_price}"
+                >
                   {{item.price | currency}}
-                  <span style="font-size: 0.7em" v-if="item.unit">/{{item.unit}}</span>
+                  <span
+                    style="font-size: 0.7em"
+                    v-if="item.unit"
+                  >/{{item.unit}}</span>
                 </td>
               </tr>
             </table>
@@ -35,48 +51,128 @@
         </div>
       </div>
     </div>
-    <Pagination :pagination="pagination" @page_change="getProducts"></Pagination>
+    <!-- <Pagination :pagination="pagination" @page_change="getProducts"></Pagination> -->
   </div>
 </template>
 
+
+
 <script>
-import Pagination from '@/components/Pagination.vue';
+import Pagination from "@/components/Pagination.vue";
 
 export default {
   data() {
     return {
+      allProducts: [],
       products: [],
       product: {},
       pagination: {},
-      isLoading: false,
+      status: {
+        isLoading: false,
+        favoriteItems: []
+      },
+      path: this.$router.currentRoute.path
     };
   },
   components: {
     Pagination,
+    Icon: {
+      template: `<slot name="Icon">
+<i class="fas fa-heart text-primary"></i>
+</slot>`
+    }
   },
   methods: {
-    getProducts(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/products?page=${page}`;
+    getProducts(page = 1, category) {
       const vm = this;
-      vm.isLoading = true;
-      this.$http.get(api).then((response) => {
-        vm.products = response.data.products;
-        vm.pagination = response.data.pagination;
-        vm.isLoading = false;
+      vm.status.isLoading = true;
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
+      vm.$http.get(api).then(response => {
+        vm.allProducts = response.data.products;
+        vm.products = Object.assign([], vm.allProducts);
+        vm.status.isLoading = false;
       });
     },
-    getProduct(id) {
-      this.$emit('get_product', id);
+    getFilteredProducts(page = 1, category) {
+      const vm = this;
+      if (category === "所有商品") {
+        return (vm.products = vm.allProducts);
+      }
+      vm.products = vm.allProducts.filter(el => {
+        return el.category === category;
+      });
     },
+    addFavorite(item) {
+      let obj = {
+        id: item.id,
+        title: item.title
+      };
+      this.status.favoriteItems.push(obj);
+      localStorage.setItem(
+        "favorite",
+        JSON.stringify(this.status.favoriteItems)
+      );
+      console.log(localStorage.getItem("favorite"));
+    },
+    removeFavorite(item) {
+      let i = this.status.favoriteItems.findIndex(el => {
+        return el.id === item.id;
+      });
+      this.status.favoriteItems.splice(i, 1);
+      localStorage.setItem(
+        "favorite",
+        JSON.stringify(this.status.favoriteItems)
+      );
+    },
+    // init(page = 1) {
+    //   const vm = this;
+    //   const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
+    //   vm.isLoading = true;
+    //   // console.log(this.$route.params)
+    //   this.$http.get(api).then(response => {
+    //     // vm.$router.push(`/shop/page${page}`)
+    //     vm.products = response.data.products;
+    //     // vm.$emit('')
+    //     vm.pagination = response.data.pagination;
+    //     vm.isLoading = false;
+    //   });
+    // },
+    getProduct(id) {
+      this.$emit("get_product", id);
+    },
+    getFilteredFavorite(item) {
+      return this.status.favoriteItems.some(el => {
+        return item.id === el.id;
+      });
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.path = this.$router.currentRoute.path;
+    }
   },
   created() {
-    this.getProducts();
-  },
+    this.getProducts(1, "所有商品");
+    this.status.favoriteItems =
+      JSON.parse(localStorage.getItem("favorite")) || [];
+  }
 };
 </script>
 
 <style scoped lang="sass">
 @import '@/assets/color.sass'
+
+.far,.fas
+  display: inline-block
+  position: absolute
+  top: 15px
+  right: 2.5rem
+  font-size: 1.2em
+  transition: .5s
+  cursor: pointer
+  z-index: 100
+  &:hover
+    transform: scale(1.5)
 
 .card
   border: none
@@ -89,6 +185,9 @@ export default {
     transform: translateY(5px)
     .items
       padding: 20px
+    @media all and (min-width: 992px) and (max-width: 1200px)
+      .items
+        padding: 20px 5px
   .items_img
     transition: .5s
     &:hover
@@ -98,7 +197,6 @@ export default {
     padding: 10px 5px 0
     transition: .5s
     .items--table
-      width: 100%
       font-size: 1.2em
       .items--category
         width: 100%
@@ -106,13 +204,18 @@ export default {
         left: -5px
         font-size: .75em
         opacity: .5
+        word-break: keep-all
       .items--name
-        letter-spacing: 1px
+        width: 70%
       .items--price
         display: inline-block
-        width: 5rem
       .items--origin_price
         font-size: .9em
         text-decoration: line-through
         vertical-align: text-bottom
+
+@media all and (min-width: 992px) and (max-width: 1200px)
+  .card
+    margin: 0
+    margin-bottom: 70px
 </style>

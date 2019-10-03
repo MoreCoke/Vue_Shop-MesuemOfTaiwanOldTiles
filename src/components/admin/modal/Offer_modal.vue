@@ -156,11 +156,11 @@ export default {
         let yyyy = new Date(timestamp).getFullYear();
         let time = `${yyyy}-${MM}-${dd}`;
         this.date = time;
-        console.log(this.date)
+        // console.log(this.date)
       }
     },
     updatedCoupons() {
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/coupon`;
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
       const vm = this;
       const date = Math.floor(new Date(vm.date) / 1000);
       vm.tempCoupon.due_date = date;
@@ -168,11 +168,11 @@ export default {
       vm.status.loading = true;
       let httpMethod = 'post';
       if (!vm.isNew) {
-        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/coupon/${vm.tempCoupon.id}`;
+        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
         httpMethod = 'put';
       }
       this.$http[httpMethod](api, { data: vm.tempCoupon }).then((response) => {
-        console.log(response);
+        // console.log(response);
         vm.date = '';
         vm.isLoading = false;
         vm.status.loading = false;
@@ -181,11 +181,11 @@ export default {
       });
     },
     delCoupon() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/coupon/${this.tempCoupon.id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${this.tempCoupon.id}`;
       const vm = this;
       vm.status.loading = true;
       this.$http.delete(api).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         vm.status.loading = false;
         $('#delOfferModal').modal('hide');
         vm.$emit('get_coupons');
@@ -194,3 +194,8 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="sass">
+.modal-dialog
+  margin: 50px 25%
+</style>

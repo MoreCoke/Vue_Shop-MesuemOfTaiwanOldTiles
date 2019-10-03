@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <loading :active.sync="isLoading"></loading>
+    <loading :active.sync="status.isLoading"></loading>
     <div class="mb-3">
       <h2 class="font-weight-bold admin--title">產品列表</h2>
       <button class="btn btn-primary admin--btn" @click="openModal(true)">建立新產品</button>
@@ -14,7 +14,7 @@
             <th>產品名稱</th>
             <th width="100" class="text-right">原價</th>
             <th width="100" class="text-right">售價</th>
-            <th width="180" class="pl-5">編輯</th>
+            <th width="200" class="pl-5">編輯</th>
           </tr>
         </thead>
         <tbody>
@@ -40,8 +40,7 @@
             <td class="text-right align-middle">{{item.price | currency}}</td>
             <!-- 編輯 -->
             <td class="pl-5">
-              <button class="btn btn-outline-primary mr-2"
-              @click="openModal(false, item)">編輯</button>
+              <button class="btn btn-outline-primary mr-2" @click="openModal(false, item)">編輯</button>
               <button class="btn btn-outline-danger" @click="openDelModal(item)">刪除</button>
             </td>
           </tr>
@@ -50,7 +49,7 @@
     </div>
     <Modal
       :temp-product="tempProduct"
-      :is-new="isNew"
+      :is-new="status.isNew"
       @get_products="getProducts"
       @updated-product="updatedProduct"
       ref="child"
@@ -60,9 +59,9 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import Modal from './modal/Product_modal.vue';
-import Pagination from '@/components/Pagination.vue';
+import $ from "jquery";
+import Modal from "./modal/Product_modal.vue";
+import Pagination from "@/components/Pagination.vue";
 
 export default {
   data() {
@@ -70,53 +69,60 @@ export default {
       products: [],
       tempProduct: {},
       pagination: {},
-      isLoading: false,
-      isNew: false,
+      status: {
+        isLoading: false,
+        isNew: false
+      }
     };
   },
   components: {
     Modal,
-    Pagination,
+    Pagination
   },
   methods: {
     updatedProduct(item) {
-      console.log(this);
+      // console.log(this);
       // 一直都是發送更動前的資料
       this.tempProduct = Object.assign({}, item);
       this.tempProduct.is_enabled = item.is_enabled;
-      console.log(this.tempProduct);
+      // console.log(this.tempProduct);
       this.$refs.child.updatedProduct();
     },
     getProducts(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMAPI}/admin/products?page=${page}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
       const vm = this;
-      vm.isLoading = true;
-      this.$http.get(api).then((response) => {
-        console.log(response);
-        vm.isLoading = false;
+      vm.status.isLoading = true;
+      this.$http.get(api).then(response => {
+        // console.log(response);
+        vm.status.isLoading = false;
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
+        // vm.$router.push(`/admin/product/${page}`);
       });
     },
     openModal(isNew, item) {
-      console.log(item);
+      // console.log(item);
       this.tempProduct = {};
       if (isNew) {
-        this.isNew = true;
+        this.status.isNew = true;
       } else {
         // 避免因為傳參考同步修改到畫面上的資料
         this.tempProduct = Object.assign({}, item);
-        this.isNew = false;
+        this.status.isNew = false;
       }
-      $('#productModal').modal('show');
+      $("#productModal").modal("show");
     },
     openDelModal(item) {
       this.tempProduct = item;
-      $('#delProductModal').modal('show');
-    },
+      $("#delProductModal").modal("show");
+    }
   },
   created() {
     this.getProducts();
-  },
+  }
 };
 </script>
+
+<style scoped lang="sass">
+@import '@/assets/admin.sass'
+</style>
