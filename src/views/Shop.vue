@@ -10,6 +10,7 @@
       <Header
         :is-loading="isLoading"
         :carts-length="cartsLength"
+        :favorite-length="favoriteLength"
         @open_cart_modal="openCartModal"
         @get_cart="getCart"
       ></Header>
@@ -20,8 +21,10 @@
               ref="child"
               :order="order"
               :product="product"
+              @test="favoriteLength"
               @get_product="getProduct"
               @get_cart="getCart"
+              @get_favorite="getFavorite"
             ></router-view>
           </keep-alive>
         </div>
@@ -94,11 +97,11 @@
 <script>
 import $ from "jquery";
 import Header from "@/components/shop/Header.vue";
+import Sidebar from "@/components/shop/Sidebar.vue";
 import Footer from "@/components/shop/Footer.vue";
 import Background from "@/components/shop/decoration/Background.vue";
 import Cart from "@/components/shop/modal/Cart.vue";
 import AlertMsg from "@/components/AlertMsg.vue";
-import Sidebar from "@/components/shop/Sidebar.vue";
 
 export default {
   data() {
@@ -106,6 +109,7 @@ export default {
       product: {},
       carts: [],
       cartsLength: 0,
+      favoriteLength: 0,
       order: {},
       isLoading: false
     };
@@ -136,7 +140,9 @@ export default {
         vm.product = response.data.product;
         console.log("get product", vm.product);
         if (response.data.success) {
-          vm.$router.push(`/shop/product_id=${response.data.product.id}`).catch(err => {});
+          vm.$router
+            .push(`/shop/product_id=${response.data.product.id}`)
+            .catch(err => {});
           console.log(vm);
           vm.isLoading = false;
         }
@@ -150,6 +156,9 @@ export default {
         vm.cartsLength = response.data.data.carts.length;
       });
     },
+    getFavorite() {
+
+    }
     // delCartItem(id) {
     //   const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
     //   const vm = this;
@@ -160,6 +169,7 @@ export default {
     //   });
     // }
   },
+  created() {},
   mounted() {
     const s = skrollr.init();
   }

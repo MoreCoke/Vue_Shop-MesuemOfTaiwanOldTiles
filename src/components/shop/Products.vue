@@ -67,6 +67,7 @@ export default {
       products: [],
       product: {},
       pagination: {},
+      favoriteLength: 0,
       status: {
         isLoading: false,
         favoriteItems: []
@@ -102,6 +103,9 @@ export default {
         return el.category === category;
       });
     },
+    getProduct(id) {
+      this.$emit("get_product", id);
+    },
     addFavorite(item) {
       let obj = {
         id: item.id,
@@ -112,6 +116,7 @@ export default {
         "favorite",
         JSON.stringify(this.status.favoriteItems)
       );
+      this.getFavoriteLength();
       console.log(localStorage.getItem("favorite"));
     },
     removeFavorite(item) {
@@ -123,14 +128,16 @@ export default {
         "favorite",
         JSON.stringify(this.status.favoriteItems)
       );
-    },
-    getProduct(id) {
-      this.$emit("get_product", id);
+      this.getFavoriteLength();
     },
     getFilteredFavorite(item) {
       return this.status.favoriteItems.some(el => {
         return item.id === el.id;
       });
+    },
+    getFavoriteLength() {
+      this.favoriteLength = JSON.parse(localStorage.getItem("favorite")).length;
+      this.$bus.$emit("favoriteLength", this.favoriteLength);
     }
   },
   watch: {
@@ -142,6 +149,7 @@ export default {
     this.getProducts(1, "所有商品");
     this.status.favoriteItems =
       JSON.parse(localStorage.getItem("favorite")) || [];
+    this.getFavoriteLength();
   }
 };
 </script>

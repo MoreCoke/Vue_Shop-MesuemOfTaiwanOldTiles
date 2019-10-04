@@ -18,6 +18,7 @@
           <button
             type="button"
             class="btn text-center icon--fas"
+            :class="{'text-primary': favoriteLength}"
             id="dropdownMenuOffset"
             data-toggle="dropdown"
             data-display="static"
@@ -54,11 +55,12 @@ export default {
   props: {
     carts: [Array, Object],
     cartsLength: Number,
+    // favoriteLength: Number,
     isLoading: Boolean
   },
   data() {
     return {
-      // favoriteLength: 0,
+      favoriteLength: 0
     };
   },
   methods: {
@@ -67,9 +69,15 @@ export default {
     }
   },
   computed: {
-    favoriteLength() {
-      return JSON.parse(localStorage.getItem("favorite")).length;
-    }
+
+  },
+  created() {
+    this.$bus.$on("favoriteLength", (favoriteLength) => {
+        this.favoriteLength = favoriteLength;
+      });
+  },
+  beforeDestroy() {
+    this.$bus.$off("favoriteLength");
   }
 };
 </script>
@@ -107,7 +115,6 @@ button
     color: $cyan
     &:hover
       color: $teal
-      // text-decoration: none
     .fas--num
       font-size: .4em
       position: relative
