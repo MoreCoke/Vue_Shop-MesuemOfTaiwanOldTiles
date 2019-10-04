@@ -62,7 +62,8 @@
       <div class="col-12 col-lg-5 offset-lg-7">
         <p class="text item--info">
           <span style="font-weight: 700">產品說明：</span>
-          <br />{{product.content}}
+          <br />
+          {{product.content}}
         </p>
       </div>
     </div>
@@ -72,20 +73,21 @@
 <script>
 export default {
   props: {
-    product: Object,
+    product: Object
   },
   data() {
     return {
-      qty: 1,
+      currentProduct: {},
+      qty: 1
     };
   },
   methods: {
     num(calc) {
       const qty = Number(this.qty);
-      if ((calc === 1) && (this.qty >= 1)) {
+      if (calc === 1 && this.qty >= 1) {
         this.qty = qty + 1;
       }
-      if ((calc === 0) && (this.qty >= 2)) {
+      if (calc === 0 && this.qty >= 2) {
         this.qty = qty - 1;
       }
       // if (calc === 0) {
@@ -102,18 +104,21 @@ export default {
       const vm = this;
       const cart = {
         product_id: vm.product.id,
-        qty: vm.qty,
+        qty: vm.qty
       };
       // console.log(cart);
       if (!vm.qty) {
         // console.log('請選擇數量');
       }
-      this.$http.post(api, { data: cart }).then((response) => {
+      this.$http.post(api, { data: cart }).then(response => {
         // console.log(response.data);
-        this.$emit('get_cart');
+        this.$emit("get_cart");
       });
-    },
+    }
   },
+  created() {
+    this.$emit('get_product',this.$route.params.id);
+  }
 };
 </script>
 

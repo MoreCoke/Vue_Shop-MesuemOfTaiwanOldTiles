@@ -11,7 +11,7 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: '/shop'
+      redirect: '/'
     },
     {
       path: '/',
@@ -101,6 +101,11 @@ export default new Router({
           name: 'order',
           component: () => import('@/components/shop/Order.vue'),
         },
+        {
+          path: 'test',
+          name: 'test',
+          component: () => import('@/components/shop/test.vue'),
+        }
       ],
     },
     {

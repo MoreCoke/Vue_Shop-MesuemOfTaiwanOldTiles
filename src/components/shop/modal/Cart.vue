@@ -9,7 +9,7 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-xl cart" role="document">
+      <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content border-0 bg-primary text-white">
           <div class="modal-body ml-2 mr-2">
             <button
@@ -27,7 +27,6 @@
                 :carts="carts"
                 @change_page="changePage"
                 @get_cart="getCart"
-                @del_cart_item="delCartItem"
               ></CartInfo>
               <CheckOut
                 v-show="status.isStep === 2"
@@ -75,9 +74,9 @@ export default {
       $("#cartModal").modal("hide");
       this.orderData();
     },
-    delCartItem(id) {
-      this.$emit("del_cart_item", id);
-    },
+    // delCartItem(id) {
+    //   this.$emit("del_cart_item", id);
+    // },
     changePage(status) {
       this.status.isStep = status;
     },
@@ -89,18 +88,25 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.cart
-  width: 100wh
-  .modal-content
-    padding-top: 10vh
-    padding-bottom: 10vh
-    height: 100vh
-    @media all and (max-width: 1440px)
-      padding-top: 5vh
-  .decoration_text
-    position: fixed
-    bottom: 150px
-    right: -40px
-    transform: rotate(90deg)
-    z-index: 100
+
+*
+  border: 1px solid black
+
+.modal
+  width: auto
+  left: unset
+  right: 0
+
+.modal-content
+  padding-top: 10vh
+  padding-bottom: 10vh
+  height: 100vh
+  @media all and (max-width: 1440px)
+    padding-top: 5vh
+.decoration_text
+  position: fixed
+  bottom: 150px
+  right: -40px
+  transform: rotate(90deg)
+  z-index: 100
 </style>

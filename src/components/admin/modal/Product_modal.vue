@@ -1,6 +1,5 @@
 <template>
   <div>
-    <loading :active.sync="status.isLoading"></loading>
     <!-- edit Modal -->
     <div
       class="modal fade"
@@ -10,7 +9,7 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <ValidationObserver reset ref="observer" tag="form">
+      <ValidationObserver ref="observer">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content border-0">
             <div class="modal-header bg-dark text-white">
@@ -191,12 +190,10 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-              <!-- <ValidationProvider rules="required" v-slot="{ changed }"> -->
               <button type="button" class="btn btn-primary" @click="updatedProduct">
-                <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
+                <i class="fas fa-spinner fa-spin" v-if="status.isLoading"></i>
                 確認
               </button>
-              <!-- </ValidationProvider> -->
             </div>
           </div>
         </div>
@@ -228,7 +225,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
             <button type="button" class="btn btn-danger" @click="delProduct(tempProduct.id)">
-              <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
+              <i class="fas fa-spinner fa-spin" v-if="status.isLoading"></i>
               確認刪除
             </button>
           </div>
@@ -261,63 +258,86 @@ export default {
   data() {
     return {
       category: {
-        one: "台灣花磚",
-        two: "花磚小鏡子",
-        three: "花磚磁鐵",
-        four: "花磚竹杯墊"
+        I: "台灣花磚",
+        II: "花磚小鏡子",
+        III: "花磚磁鐵",
+        IV: "花磚竹杯墊"
       },
-      // category: ["台灣花磚", "花磚小鏡子", "花磚磁鐵", "花磚竹杯墊"],
       status: {
         fileUploading: false,
-        isLodaing: false
+        isLoading: false
       }
     };
   },
   methods: {
     async updatedProduct() {
+      // validate before submit
       const isValid = await this.$refs.observer.validate();
       if (!isValid) {
-        // ABORT!!
         return;
       }
-      // 🐿 ship it
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
+
+      // Api path
       const vm = this;
-      vm.status.isLodaing = true;
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
+      
+      // add Loading animation
+      vm.status.isLoading = true;
+
+      // Ajax method
       let httpMethod = "post";
       if (!vm.isNew) {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
         httpMethod = "put";
       }
+
+      // Ajax (vue axios)
       this.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
-        // console.log(response);
-        vm.status.isLodaing = false;
+
+        // remove Loading animation
+        vm.status.isLoading = false;
+
+        // Modal close
         $("#productModal").modal("hide");
+
+        // update Products list
         vm.$emit("get_products");
 
-        this.tempProduct.title = "";
-        this.tempProduct.category = "";
-        this.tempProduct.price = "";
-
+        // reset ValidateObserver (vee-validate)
+        vm.tempProduct.title = "";
+        vm.tempProduct.category = "";
+        vm.tempProduct.price = "";
         requestAnimationFrame(() => {
-          this.$refs.observer.reset();
+          vm.$refs.observer.reset();
         });
       });
     },
     delProduct() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${this.tempProduct.id}`;
+      // Api path
       const vm = this;
-      vm.status.isLodaing = true;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+
+      // add Loading animation
+      vm.status.isLoading = true;
+
+      // Ajax (vue axios)
       this.$http.delete(api).then(response => {
-        // console.log(response);
-        vm.status.isLodaing = false;
+
+        // remove Loading animation
+        vm.status.isLoading = false;
+
+        // Modal close
         $("#delProductModal").modal("hide");
+        
+        // update Products list
         vm.$emit("get_products");
       });
     },
     uploadFile() {
+      // Api path
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
+
       const uploadFile = this.$refs.files.files[0];
       const formData = new FormData();
       formData.append("file-to-upload", uploadFile);
@@ -342,9 +362,6 @@ export default {
         });
     }
   },
-  created() {
-    // this.category = ["請選擇"]
-  }
 };
 </script>
 

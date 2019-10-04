@@ -42,7 +42,7 @@
             </td>
             <td width="50" class="text-center">
               <p class="m-0" @click="delCartItem(item.id)">
-                <i v-if="!isLoading" class="far fa-trash-alt"></i>
+                <i v-if="!status.isLoading" class="far fa-trash-alt"></i>
                 <i v-else class="fas fa-spinner fa-spin"></i>
               </p>
             </td>
@@ -92,7 +92,7 @@
       </table>
     </div>
     <div class="col-12">
-        <button class="btn btn-outline-light cart--next" @click="changePage(2)">填寫購物資料</button>
+      <button class="btn btn-outline-light cart--next" @click="changePage(2)">填寫購物資料</button>
     </div>
   </div>
 </template>
@@ -101,19 +101,28 @@
 export default {
   props: {
     carts: [Object, Array],
-    isLoading: Boolean
   },
   data() {
     return {
       couponCode: "OLDTILES",
       status: {
-        isMsg: ""
+        isMsg: "",
+        isLoading: false,
       }
     };
   },
   methods: {
+    // delCartItem(id) {
+    //   this.$emit("del_cart_item", id);
+    // },
     delCartItem(id) {
-      this.$emit("del_cart_item", id);
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
+      const vm = this;
+      vm.status.isLoading = true;
+      this.$http.delete(api).then(response => {
+        vm.$emit('get_cart');
+        vm.status.isLoading = false;
+      });
     },
     addCouponCode() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
@@ -140,7 +149,7 @@ export default {
     }
   },
   created() {
-    this.$emit('get_cart')
+    this.$emit("get_cart");
   }
 };
 </script>
@@ -148,6 +157,9 @@ export default {
 <style scoped lang="sass">
 @import '@/assets/color.sass'
 @import '@/assets/carts.sass'
+
+*
+  border: 1px solid black
 
 .cart--header--type
   letter-spacing: 2px

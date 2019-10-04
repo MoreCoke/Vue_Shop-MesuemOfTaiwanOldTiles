@@ -13,26 +13,31 @@
         <router-link to="/login" class="icon--fas">
           <i class="fas fa-edit" title="後台管理"></i>
         </router-link>
-        <button
-          type="button"
-          class="btn text-center icon--fas"
-          id="dropdownMenuOffset"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          data-offset="10,20"
-          title="我的最愛"
-        >
-          <span class="fas--num">
-            <i class="fas fa-heart"></i>
-            [{{favoriteLength}}]
-          </span>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn text-center icon--fas"
+            id="dropdownMenuOffset"
+            data-toggle="dropdown"
+            data-display="static"
+            aria-haspopup="true"
+            aria-expanded="false"
+            data-offset="10,20"
+            title="我的最愛"
+          >
+            <span class="fas--num">
+              <i class="fas fa-heart"></i>
+              [{{favoriteLength}}]
+            </span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuOffset">
+            <p class="dropdown-header">我的最愛</p>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-right" href="#">黃槿謙德 $320 /片</a>
+          </div>
         </div>
+
         <button class="btn text-center icon--fas" href="#" title="購物車" @click.prevent="openModal">
           <span class="fas--num">
             <i class="fas fa-shopping-cart" style="right:5%"></i>
@@ -88,8 +93,6 @@ button
   transition: .5s
   &:hover
     color: $teal
-  @media all and (max-width: 768px)
-    font-size: 3em
 
 .icon
   width: 100%

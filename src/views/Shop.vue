@@ -26,10 +26,11 @@
           </keep-alive>
         </div>
         <!-- Sidebar -->
-        <div class="col-2 test">
+        <div class="col-2">
+          <Sidebar @get_category_products="getCategoryProducts"></Sidebar>
           <!-- navbar-expand-lg -->
-          <nav class="navbar p-0 shop--sidebar">
-            <!-- <button
+          <!-- <nav class="navbar p-0 shop--sidebar">
+            <button
               class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -39,7 +40,7 @@
               aria-label="Toggle navigation"
             >
               <span class="navbar-toggler-icon"></span>
-            </button>-->
+            </button>
 
             <div
               class="sticky"
@@ -80,13 +81,13 @@
                 </li>
               </ul>
             </div>
-          </nav>
+          </nav>-->
         </div>
       </main>
     </div>
     <Footer></Footer>
     <Background></Background>
-    <Cart :carts="carts" @order_data="orderData" @get_cart="getCart" @del_cart_item="delCartItem"></Cart>
+    <Cart :carts="carts" @order_data="orderData" @get_cart="getCart"></Cart>
   </div>
 </template>
 
@@ -97,6 +98,7 @@ import Footer from "@/components/shop/Footer.vue";
 import Background from "@/components/shop/decoration/Background.vue";
 import Cart from "@/components/shop/modal/Cart.vue";
 import AlertMsg from "@/components/AlertMsg.vue";
+import Sidebar from "@/components/shop/Sidebar.vue";
 
 export default {
   data() {
@@ -112,7 +114,8 @@ export default {
     Header,
     Footer,
     Background,
-    Cart
+    Cart,
+    Sidebar
   },
   methods: {
     orderData(data) {
@@ -133,7 +136,7 @@ export default {
         vm.product = response.data.product;
         console.log("get product", vm.product);
         if (response.data.success) {
-          vm.$router.push(`/shop/product_id=${response.data.product.id}`);
+          vm.$router.push(`/shop/product_id=${response.data.product.id}`).catch(err => {});
           console.log(vm);
           vm.isLoading = false;
         }
@@ -147,15 +150,15 @@ export default {
         vm.cartsLength = response.data.data.carts.length;
       });
     },
-    delCartItem(id) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
-      const vm = this;
-      vm.isLoading = true;
-      this.$http.delete(api).then(response => {
-        vm.isLoading = false;
-        vm.getCart();
-      });
-    }
+    // delCartItem(id) {
+    //   const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
+    //   const vm = this;
+    //   vm.isLoading = true;
+    //   this.$http.delete(api).then(response => {
+    //     vm.isLoading = false;
+    //     vm.getCart();
+    //   });
+    // }
   },
   mounted() {
     const s = skrollr.init();
@@ -181,9 +184,6 @@ export default {
 .navbar
   align-items: flex-start
 
-.test
-  display: flex
-  justify-content: flex-end
 .shop--sidebar
   .sticky
     position: sticky

@@ -124,19 +124,6 @@ export default {
         JSON.stringify(this.status.favoriteItems)
       );
     },
-    // init(page = 1) {
-    //   const vm = this;
-    //   const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
-    //   vm.isLoading = true;
-    //   // console.log(this.$route.params)
-    //   this.$http.get(api).then(response => {
-    //     // vm.$router.push(`/shop/page${page}`)
-    //     vm.products = response.data.products;
-    //     // vm.$emit('')
-    //     vm.pagination = response.data.pagination;
-    //     vm.isLoading = false;
-    //   });
-    // },
     getProduct(id) {
       this.$emit("get_product", id);
     },
