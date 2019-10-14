@@ -4,9 +4,9 @@
       <span class="decoration_text_"></span> Museum of Old Taiwan Tiles
     </p>
     <div class="decoration_tiles"></div>
-    <img class="decoration_tiles" src="@/assets/img/black_1x/堅持_四方連續_線稿_black.png" alt />
+    <!-- <img class="decoration_tiles" src="@/assets/img/black_1x/堅持_四方連續_線稿_black.png" alt />
     <img class="decoration_tiles two" src="@/assets/img/black_1x/秋菊高潔_四方連續_線稿_black.png" alt />
-    <img class="decoration_tiles three" src="@/assets/img/black_1x/幸運_四方連續_線稿_black.png" alt />
+    <img class="decoration_tiles three" src="@/assets/img/black_1x/幸運_四方連續_線稿_black.png" alt /> -->
   </div>
 </template>
 

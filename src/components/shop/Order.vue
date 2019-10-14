@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-10 offset-1 p-0 b">
-      <div class="b gap">
+      <div class="b gap" v-if="this.order">
         <h3
           class="font-weight-bold mb-3 m-0 cart--header--title"
           :class="{'text-primary': order.is_paid}"
@@ -18,7 +18,7 @@
               <td width="70" class="pt-4">
                 <p>地址：</p>
               </td>
-              <td class="pt-4" colspan="3">
+              <td width="250" class="pt-4">
                 <p>{{order.user? order.user.address : ''}}</p>
               </td>
             </tr>
@@ -32,7 +32,7 @@
               <td width="60" rowspan="2" style="vertical-align: top">
                 <p>備註：</p>
               </td>
-              <td colspan="3" rowspan="2" style="vertical-align: top">{{order.message}}</td>
+              <td width="250" rowspan="2" style="vertical-align: top">{{order.message}}</td>
             </tr>
             <tr>
               <td class="pb-3">
@@ -43,20 +43,20 @@
               </td>
             </tr>
             <tr class="bd bt">
-              <td width="100" colspan="4"></td>
-              <td width="100" class="pt-3 pb-3 text-right font-weight-bold">數量</td>
-              <td width="100" class="text-right font-weight-bold">價格</td>
+              <td colspan="3"></td>
+              <td class="pt-3 pb-3 text-right font-weight-bold">數量</td>
+              <!-- <td width="100" class="text-right font-weight-bold">價格</td> -->
             </tr>
             <tr v-for="item in order.products" :key="item.id">
-              <td width="200" colspan="4">
+              <td colspan="3">
                 <p class="m-0 mt-2 mb-2">【{{item.product.category}}】{{item.product.title}}</p>
               </td>
               <td class="text-right">
                 <p class="m-0 mt-2 mb-2">{{item.qty}} {{item.product.unit}}</p>
               </td>
-              <td class="text-right">
+              <!-- <td class="text-right">
                 <p class="m-0 mt-2 mb-2">{{item.product.price * item.qty | currency}}</p>
-              </td>
+              </td>-->
             </tr>
           </table>
         </div>
@@ -73,8 +73,11 @@
         <button
           class="btn btn-outline-primary cart--next"
           @click.once="payOrder(order.id)"
-        >{{order.is_paid? '付款成功':'確認並付款'}}</button>
+          v-if="!order.is_paid"
+        >確認並付款</button>
+        <button class="btn btn-outline-primary cart--next" disabled v-else>付款成功</button>
       </div>
+      <p v-else>您的訂單成立中⋯⋯</p>
     </div>
   </div>
 </template>
@@ -93,7 +96,8 @@ export default {
       const vm = this;
       this.$http.get(api).then(response => {
         vm.order = response.data.order;
-        console.log(response.data)
+        // this.$bus.$emit("getOrder", vm.order);
+        console.log('getorder',response.data);
       });
     },
     payOrder(id) {
@@ -107,6 +111,17 @@ export default {
   created() {
     this.orderId = this.$route.params.id;
     this.getOrder();
+
+    // this.$bus.$on('getOrderId', orderId => {
+    //   this.orderId = orderId;
+    //   this.getOrder();
+    // });
+    // this.$bus.$on('getOrder', this.getOrder);
+  },
+  beforeDestroy() {
+    // this.$bus.$off('getOrderId');
+    // this.$bus.$off('getOrder');
+
   }
 };
 </script>

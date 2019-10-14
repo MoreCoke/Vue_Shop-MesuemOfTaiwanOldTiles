@@ -3,20 +3,28 @@
     <div class="row">
       <div class="col-12 col-lg-7">
         <img
+          v-if="product.imageUrl"
           class="item_img"
           :src="product.imageUrl"
           :alt="'【' + product.category + '】' + product.title"
         />
         <p class="text-primary path">
-          <router-link to="/">首頁</router-link>>
-          <router-link to="/shop">所有商品</router-link>> 台灣花磚 > 秋菊高潔
+          <router-link to="/">首頁</router-link> >
+          <router-link to="/shop">所有商品</router-link> > {{product.category}} > {{product.title}}
         </p>
       </div>
       <div class="col-12 col-lg-5 item">
-        <h3 class="item--title">{{product.title}}</h3>
+        <h3 class="item--title">
+          <i
+            class="fas fa-heart text-primary"
+            v-if="getFilteredFavorite(product)"
+            @click="removeFavorite(product)"
+          ></i>
+          <i class="far fa-heart text-primary" v-else @click="addFavorite(product)"></i>
+          {{product.title}}
+        </h3>
         <p class="text item--intro">{{product.description}}</p>
         <p class="item--price text-right">
-          <!-- <span class="item--price_ps">售價： </span> -->
           <span
             class="text-primary item--origin_price"
             v-if="product.origin_price"
@@ -77,8 +85,7 @@ export default {
   },
   data() {
     return {
-      currentProduct: {},
-      qty: 1
+      qty: 1,
     };
   },
   methods: {
@@ -99,6 +106,15 @@ export default {
       //   }
       // }
     },
+    addFavorite(item) {
+      this.$bus.$emit("addFavorite", item);
+    },
+    removeFavorite(item) {
+      this.$bus.$emit("removeFavorite", item);
+    },
+    getFilteredFavorite(item) {
+      this.$bus.$emit("getFilteredFavorite", item);
+    },
     addToCart() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
       const vm = this;
@@ -106,18 +122,13 @@ export default {
         product_id: vm.product.id,
         qty: vm.qty
       };
-      // console.log(cart);
-      if (!vm.qty) {
-        // console.log('請選擇數量');
-      }
       this.$http.post(api, { data: cart }).then(response => {
-        // console.log(response.data);
-        this.$emit("get_cart");
+        vm.$bus.$emit("getCart");
       });
     }
   },
   created() {
-    this.$emit('get_product',this.$route.params.id);
+    this.$emit("get_product", this.$route.params.id);
   }
 };
 </script>
@@ -132,6 +143,9 @@ export default {
     text-align: right
 .item_img
   width: 100%
+.fa-heart
+  &:hover
+    cursor: pointer
 
 .item
   height: 25.625rem
@@ -143,7 +157,6 @@ export default {
     height: 21.875rem
 
   .item--title
-    font-size: 2em
     letter-spacing: 2px
     flex-grow: 1
     @media all and (max-width: 992px)

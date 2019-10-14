@@ -14,6 +14,10 @@
       </table>
       <hr />
       <div class="cart--content">
+        <p
+          class="text-center cart__empty"
+          v-show="carts.carts && carts.carts.length === 0"
+        >挑些喜歡的花磚再回來吧 ^_^</p>
         <table class="cart--contents">
           <tr class="cart--contents_bd" v-for="item in carts.carts" :key="item.id">
             <td width="190" class="pt-4 pb-4">
@@ -91,8 +95,13 @@
         </tr>
       </table>
     </div>
-    <div class="col-12">
-      <button class="btn btn-outline-light cart--next" @click="changePage(2)">填寫購物資料</button>
+    <div class="col-2 offset-9">
+      <button
+        class="btn btn-outline-light cart--next"
+        @click="backToShop"
+        v-if="carts.carts && carts.carts.length === 0"
+      >前往挑選</button>
+      <button class="btn btn-outline-light cart--next" @click="changePage(true)" v-else>填寫購物資料</button>
     </div>
   </div>
 </template>
@@ -100,31 +109,32 @@
 <script>
 export default {
   props: {
-    carts: [Object, Array],
+    carts: [Object, Array]
   },
   data() {
     return {
       couponCode: "OLDTILES",
       status: {
         isMsg: "",
-        isLoading: false,
+        isLoading: false
       }
     };
   },
   methods: {
-    // delCartItem(id) {
-    //   this.$emit("del_cart_item", id);
-    // },
     delCartItem(id) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
       const vm = this;
       vm.status.isLoading = true;
       this.$http.delete(api).then(response => {
-        vm.$emit('get_cart');
+        vm.$emit("get_cart");
         vm.status.isLoading = false;
       });
     },
     addCouponCode() {
+      if (this.carts.carts && this.carts.carts.length === 0) {
+        return (this.status.isMsg = "＊請選購商品再使用優惠券");
+      }
+
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
       const vm = this;
       const coupon = {
@@ -134,6 +144,7 @@ export default {
       this.$http.post(api, { data: coupon }).then(response => {
         // console.log(response.data);
         this.$emit("get_cart");
+
         if (!response.data.success) {
           vm.status.isMsg = `＊${response.data.message}`;
         } else {
@@ -142,9 +153,13 @@ export default {
       });
     },
     changePage() {
-      this.$emit("change_page", 2);
-      if (this.carts.length === 0) {
-        // console.log("請選購商品再進回來");
+      this.$emit("change_page", true);
+    },
+    backToShop() {
+      this.$emit("close_modal");
+      console.log(this.$route);
+      if (this.$route.path !== "/shop") {
+        this.$router.push("/shop");
       }
     }
   },
@@ -159,11 +174,23 @@ export default {
 @import '@/assets/carts.sass'
 
 *
-  border: 1px solid black
+  // border: 1px solid black
+
+h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
+  &::selection
+    background-color: $white
 
 .cart--header--type
   letter-spacing: 2px
   vertical-align: bottom
+
+.cart__empty
+  position: relative
+  top: 50%
+  font-size: 1.5em
+  letter-spacing: 2px
+  transform: translateY(-50%)
+
 .cart--contents
   width: 100%
   .cart--contents_bd
@@ -198,8 +225,9 @@ export default {
     padding-right: -10px
     vertical-align: bottom
 .cart--next
-  width: 15%
-  position: relative
-  left: 78%
+  width: 110%
+  // position: relative
+  // left: 78%
   font-size: 1.2em
+  // padding: auto 30px
 </style>

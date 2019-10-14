@@ -2,7 +2,6 @@
   <div>
     <loading :active.sync="status.isLoading"></loading>
     <div class="row">
-      <!-- <p @click="test">123</p> -->
       <div
         class="col-12 col-md-6 col-lg-4"
         v-show="item.is_enabled"
@@ -55,8 +54,6 @@
   </div>
 </template>
 
-
-
 <script>
 import Pagination from "@/components/Pagination.vue";
 
@@ -67,21 +64,16 @@ export default {
       products: [],
       product: {},
       pagination: {},
+      favorites: [],
       favoriteLength: 0,
       status: {
-        isLoading: false,
-        favoriteItems: []
+        isLoading: false
       },
       path: this.$router.currentRoute.path
     };
   },
   components: {
-    Pagination,
-    Icon: {
-      template: `<slot name="Icon">
-<i class="fas fa-heart text-primary"></i>
-</slot>`
-    }
+    Pagination
   },
   methods: {
     getProducts(page = 1, category) {
@@ -90,11 +82,13 @@ export default {
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
       vm.$http.get(api).then(response => {
         vm.allProducts = response.data.products;
+        vm.$bus.$emit('getAllProduct', vm.allProducts);
         vm.products = Object.assign([], vm.allProducts);
         vm.status.isLoading = false;
       });
     },
     getFilteredProducts(page = 1, category) {
+      console.log(this.$route);
       const vm = this;
       if (category === "所有商品") {
         return (vm.products = vm.allProducts);
@@ -109,29 +103,27 @@ export default {
     addFavorite(item) {
       let obj = {
         id: item.id,
-        title: item.title
+        category: item.category,
+        title: item.title,
+        price: item.price,
+        unit: item.unit
       };
-      this.status.favoriteItems.push(obj);
-      localStorage.setItem(
-        "favorite",
-        JSON.stringify(this.status.favoriteItems)
-      );
+      this.favorites.push(obj);
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
       this.getFavoriteLength();
+      this.$bus.$emit("favorite", this.favorites);
       console.log(localStorage.getItem("favorite"));
     },
     removeFavorite(item) {
-      let i = this.status.favoriteItems.findIndex(el => {
+      let i = this.favorites.findIndex(el => {
         return el.id === item.id;
       });
-      this.status.favoriteItems.splice(i, 1);
-      localStorage.setItem(
-        "favorite",
-        JSON.stringify(this.status.favoriteItems)
-      );
+      this.favorites.splice(i, 1);
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
       this.getFavoriteLength();
     },
     getFilteredFavorite(item) {
-      return this.status.favoriteItems.some(el => {
+      return this.favorites.some(el => {
         return item.id === el.id;
       });
     },
@@ -140,16 +132,32 @@ export default {
       this.$bus.$emit("favoriteLength", this.favoriteLength);
     }
   },
-  watch: {
-    $route(to, from) {
-      this.path = this.$router.currentRoute.path;
-    }
-  },
   created() {
     this.getProducts(1, "所有商品");
-    this.status.favoriteItems =
-      JSON.parse(localStorage.getItem("favorite")) || [];
+    this.favorites = JSON.parse(localStorage.getItem("favorite")) || [];
     this.getFavoriteLength();
+    this.$bus.$on("getFilteredProducts", (pagenum, category) => {
+      this.getFilteredProducts(pagenum, category);
+    });
+    // products to header
+    this.$bus.$emit("favorite", this.favorites);
+    // header to products
+    this.$bus.$on("addFavorite", item => {
+      this.addFavorite(item);
+    });
+    this.$bus.$on("removeFavorite", item => {
+      this.removeFavorite(item);
+    });
+    this.$bus.$on("getFilteredFavorite", item => {
+      this.getFilteredFavorite(item);
+    });
+    this.$bus.$emit('getAllProduct', this.allProducts);
+  },
+  beforeDestroy() {
+    this.$bus.$off("getFilteredProducts");
+    this.$bus.$off("addFavorite");
+    this.$bus.$off("removeFavorite");
+    this.$bus.$off("getFilteredFavorite");
   }
 };
 </script>

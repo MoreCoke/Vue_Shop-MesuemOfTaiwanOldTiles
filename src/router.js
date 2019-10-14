@@ -4,15 +4,19 @@ import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Shop from './views/Shop.vue';
 import Admin from './views/Admin.vue';
+import Products from '@/components/shop/Products.vue';
+import Product from '@/components/shop/Product.vue';
+import Order from '@/components/shop/Order.vue';
+import Sidebar from '@/components/shop/Sidebar.vue';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-    {
-      path: '*',
-      redirect: '/'
-    },
+    // {
+    //   path: '*',
+    //   redirect: '/'
+    // },
     {
       path: '/',
       name: 'home',
@@ -69,43 +73,64 @@ export default new Router({
         {
           path: '',
           name: 'shop',
-          component: () => import('@/components/shop/Products.vue'),
+          components: {
+            default: Products,
+            sidebar: Sidebar
+          },
         },
         {
           path: 'product_id=:id',
           name: 'item',
-          component: () => import('@/components/shop/Product.vue'),
+          components: {
+            default: Product,
+            sidebar: Sidebar
+          },
         },
         {
           path: 'taiwan_old_tiles',
           name: 'taiwan_old_tiles',
-          component: () => import('@/components/shop/Products.vue'),
+          components: {
+            default: Products,
+            sidebar: Sidebar
+          },
         },
         {
           path: 'mirrors',
           name: 'mirror',
-          component: () => import('@/components/shop/Products.vue'),
+          components: {
+            default: Products,
+            sidebar: Sidebar
+          },
         },
         {
           path: 'magnets',
           name: 'magnet',
-          component: () => import('@/components/shop/Products.vue'),
+          components: {
+            default: Products,
+            sidebar: Sidebar
+          },
         },
         {
           path: 'coasters',
           name: 'coaster',
-          component: () => import('@/components/shop/Products.vue'),
+          components: {
+            default: Products,
+            sidebar: Sidebar
+          },
         },
         {
           path: 'order_id=:id',
           name: 'order',
-          component: () => import('@/components/shop/Order.vue'),
+          components: {
+            default: Order,
+            sidebar: Sidebar
+          },
         },
-        {
-          path: 'test',
-          name: 'test',
-          component: () => import('@/components/shop/test.vue'),
-        }
+        // {
+        //   path: ':filter',
+        //   name: 'filter',
+        //   component: Products,
+        // }
       ],
     },
     {
@@ -117,4 +142,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 });

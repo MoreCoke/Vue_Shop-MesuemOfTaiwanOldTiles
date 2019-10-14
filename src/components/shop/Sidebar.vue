@@ -1,5 +1,5 @@
 <template>
-  <!-- <div> -->
+  <div class="col-2">
     <!-- navbar-expand-lg -->
     <nav class="navbar p-0 shop--sidebar">
       <!-- <button
@@ -15,7 +15,6 @@
       </button>-->
 
       <div
-        class="sticky"
         id="navbarSupportedContent"
         data-50="padding-top: 0"
         data-200="padding-top: 25vh"
@@ -51,14 +50,14 @@
         </ul>
       </div>
     </nav>
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>
 export default {
   methods: {
     getCategoryProducts(category) {
-      this.$parent.$refs.child.getFilteredProducts(1, category);
+      this.$bus.$emit("getFilteredProducts", 1, category);
     }
   }
 };
@@ -68,9 +67,9 @@ export default {
 @import '@/assets/color.sass'
 
 .shop--sidebar
-  .sticky
-    position: sticky
-    top: 0
+  position: sticky
+  top: 0
+  #navbarSupportedContent
     transition: .5s
     .shop--sidebar--li
       word-break: keep-all

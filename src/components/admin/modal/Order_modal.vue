@@ -17,7 +17,12 @@
                 <span class="align-middle">修改客戶訂單資料</span>
               </h4>
               <p class="text-danger m-0 align-bottom">＊請小心修改</p>
-              <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+              <button
+                type="button"
+                class="close text-light"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -25,7 +30,7 @@
               <div class="row">
                 <div class="col">
                   <div class="form-row">
-                    <div class="form-group col-md-7">
+                    <div class="form-group col-md-6">
                       <label for="username">客戶名稱</label>
                       <ValidationProvider
                         name="標題"
@@ -47,7 +52,7 @@
                         </span>
                       </ValidationProvider>
                     </div>
-                    <div class="form-goupr col-md-5">
+                    <div class="form-group col-md-4">
                       <label for="tel">電話</label>
                       <ValidationProvider
                         name="電話"
@@ -69,6 +74,17 @@
                           <br />
                         </span>
                       </ValidationProvider>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <div class="form-check pt-4 pl-4">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="is_enabled"
+                          v-model="tempOrder.is_paid"
+                        />
+                        <label class="form-check-label" for="is_enabled">是否付款</label>
+                      </div>
                     </div>
                   </div>
                   <div class="form-group">
@@ -155,17 +171,7 @@
                     <label>應付金額</label>
                     <input type="number" class="form-control" id="num" v-model="tempOrder.total" />
                   </div>
-                  <div class="form-group">
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="is_enabled"
-                        v-model="tempOrder.is_paid"
-                      />
-                      <label class="form-check-label" for="is_enabled">是否付款</label>
-                    </div>
-                  </div>
+                  
                 </div>-->
               </div>
             </div>
