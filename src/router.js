@@ -29,7 +29,6 @@ export default new Router({
     },
     {
       path: '/admin',
-      // name: 'admin',
       component: Admin,
       children: [
         {
@@ -43,13 +42,6 @@ export default new Router({
           name: 'adminProduct',
           component: () => import('@/components/admin/Product.vue'),
           meta: { requiresAuth: true }
-          // children: [
-          //   {
-          //     path: ':page',
-          //     name: 'productPage',
-          //     component: () => import('@/components/admin/Product.vue'),
-          //   }
-          // ],
         },
         {
           path: 'order',
@@ -67,7 +59,6 @@ export default new Router({
     },
     {
       path: '/shop',
-      // name: 'shop',
       component: Shop,
       children: [
         {
@@ -85,14 +76,25 @@ export default new Router({
             default: Product,
             sidebar: Sidebar
           },
+          meta: { scroll: true },
         },
         {
-          path: 'taiwan_old_tiles',
-          name: 'taiwan_old_tiles',
+          path: 'all',
+          name: 'all',
           components: {
             default: Products,
             sidebar: Sidebar
           },
+          meta: { scroll: true },
+        },
+        {
+          path: 'taiwan_old_tiles',
+          name: 'taiwan_old_tile',
+          components: {
+            default: Products,
+            sidebar: Sidebar
+          },
+          meta: { scroll: true },
         },
         {
           path: 'mirrors',
@@ -101,6 +103,7 @@ export default new Router({
             default: Products,
             sidebar: Sidebar
           },
+          meta: { scroll: true },
         },
         {
           path: 'magnets',
@@ -109,6 +112,7 @@ export default new Router({
             default: Products,
             sidebar: Sidebar
           },
+          meta: { scroll: true },
         },
         {
           path: 'coasters',
@@ -117,6 +121,7 @@ export default new Router({
             default: Products,
             sidebar: Sidebar
           },
+          meta: { scroll: true },
         },
         {
           path: 'order_id=:id',
@@ -125,12 +130,8 @@ export default new Router({
             default: Order,
             sidebar: Sidebar
           },
+          meta: { scroll: true },
         },
-        // {
-        //   path: ':filter',
-        //   name: 'filter',
-        //   component: Products,
-        // }
       ],
     },
     {
@@ -144,9 +145,11 @@ export default new Router({
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      return savedPosition;
+    } else if (to.matched.some(record => record.meta.scroll)) {
+      return { x: 0, y: 510 };
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
   }
 });

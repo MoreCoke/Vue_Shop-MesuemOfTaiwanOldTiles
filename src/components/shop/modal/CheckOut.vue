@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver ref="observer">
     <div class="row">
-      <div class="col-10 offset-1">
+      <div class="col-12 col-md-10 offset-md-1">
         <table class="font-weight-bold cart--header">
           <tr>
             <td>
@@ -14,8 +14,8 @@
         <div class="cart--content">
           <form class="cart--contents">
             <div class="form-group row">
-              <label for="username" class="col-sm-1 pl-0 pr-0 col-form-label">姓名：</label>
-              <div class="col-sm-11 pl-3">
+              <label for="username" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">姓名：</label>
+              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="姓名"
                   rules="required|min:2"
@@ -35,8 +35,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="usertel" class="col-sm-1 pl-0 pr-0 col-form-label">電話：</label>
-              <div class="col-sm-11 pl-3">
+              <label for="usertel" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">電話：</label>
+              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="電話"
                   rules="required|numeric|min:8|max:10"
@@ -57,8 +57,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="useremail" class="col-sm-1 pl-0 pr-0 col-form-label">Email：</label>
-              <div class="col-sm-11 pl-3">
+              <label for="useremail" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">Email：</label>
+              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="Email"
                   rules="required|email"
@@ -78,8 +78,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="useradd" class="col-sm-1 pl-0 pr-0 col-form-label">地址：</label>
-              <div class="col-sm-11 pl-3">
+              <label for="useradd" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">地址：</label>
+              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="地址"
                   rules="required"
@@ -99,8 +99,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputPs" class="col-sm-1 pl-0 pr-0 col-form-label">備註：</label>
-              <div class="col-sm-11 pl-3">
+              <label for="inputPs" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">備註：</label>
+              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <textarea
                   name
                   id="inputPs"
@@ -125,10 +125,10 @@
           </tr>
         </table>
       </div>
-      <div class="col-2 offset-7">
+      <div class="col-12 col-md-4 offset-md-3 col-lg-3 col-xl-2 offset-xl-2">
         <button class="btn btn-outline-light cart--next" @click="changePage(false)">回到購物車</button>
       </div>
-      <div class="col-2 offset">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2">
         <button type="submit" class="btn btn-outline-light cart--next" @click="createOrder">送出訂單</button>
       </div>
     </div>
@@ -211,17 +211,16 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/carts.sass'
+@import '@/assets/_carts.sass'
 
 .cart--contents
   width: 90%
+
 .cart--footer
   width: 100%
   margin: 20px 0 40px
-.cart--next
-  width: 110%
-  // position: relative
-  // margin-left: 30px
-  // left: 64%
-  font-size: 1.2em
+
+@media all and (max-width: 567.98px)
+  .cart--next
+    font-size: 1rem
 </style>

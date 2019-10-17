@@ -1,51 +1,26 @@
 <template>
-  <div class="col-2">
-    <!-- navbar-expand-lg -->
-    <nav class="navbar p-0 shop--sidebar">
-      <!-- <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-      </button>-->
-
-      <div
-        id="navbarSupportedContent"
-        data-50="padding-top: 0"
-        data-200="padding-top: 25vh"
-      >
+  <div class="col-12 col-md-2 order-md-last">
+    <nav class="navbar navbar-expand-md shop--sidebar">
+      <!-- data-50="padding-top: 0" data-200="padding-top: 25vh" -->
+      <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav flex-column">
-          <li class="nav-item shop--sidebar--li" @click="getCategoryProducts('所有商品')">
-            <router-link to="/shop" class="nav-link text-right pt-1 pb-1 shop--sidebar--a">所有商品</router-link>
+          <li class="nav-item shop--sidebar--li">
+            <router-link to="/shop/all" class="nav-link shop--sidebar--a">所有商品</router-link>
           </li>
-          <li class="nav-item shop--sidebar--li" @click="getCategoryProducts('台灣花磚')">
+          <li class="nav-item shop--sidebar--li">
             <router-link
               to="/shop/taiwan_old_tiles"
-              class="nav-link text-right pt-1 pb-1 shop--sidebar--a"
+              class="nav-link shop--sidebar--a"
             >台灣花磚</router-link>
           </li>
-          <li class="nav-item shop--sidebar--li" @click="getCategoryProducts('花磚小鏡子')">
-            <router-link
-              to="/shop/mirrors"
-              class="nav-link text-right pt-1 pb-1 shop--sidebar--a"
-            >花磚小鏡子</router-link>
+          <li class="nav-item shop--sidebar--li">
+            <router-link to="/shop/mirrors" class="nav-link shop--sidebar--a">花磚小鏡子</router-link>
           </li>
-          <li class="nav-item shop--sidebar--li" @click="getCategoryProducts('花磚磁鐵')">
-            <router-link
-              to="/shop/magnets"
-              class="nav-link text-right pt-1 pb-1 shop--sidebar--a"
-            >花磚磁鐵</router-link>
+          <li class="nav-item shop--sidebar--li">
+            <router-link to="/shop/magnets" class="nav-link shop--sidebar--a">花磚磁鐵</router-link>
           </li>
-          <li class="nav-item shop--sidebar--li" @click="getCategoryProducts('花磚竹杯墊')">
-            <router-link
-              to="/shop/coasters"
-              class="nav-link text-right pt-1 pb-1 shop--sidebar--a"
-            >花磚竹杯墊</router-link>
+          <li class="nav-item shop--sidebar--li">
+            <router-link to="/shop/coasters" class="nav-link shop--sidebar--a">花磚竹杯墊</router-link>
           </li>
         </ul>
       </div>
@@ -53,32 +28,36 @@
   </div>
 </template>
 
-<script>
-export default {
-  methods: {
-    getCategoryProducts(category) {
-      this.$bus.$emit("getFilteredProducts", 1, category);
-    }
-  }
-};
-</script>
-
 <style scoped lang="sass">
-@import '@/assets/color.sass'
+@import '@/assets/_color.sass'
+
+@mixin fz($p)
+  font-size: 1rem * $p
 
 .shop--sidebar
+  padding: 0
   position: sticky
   top: 0
-  #navbarSupportedContent
+  @media all and (max-width: 768px)
+    padding-top: 5vh
+
+  #navbarContent
+    position: relative
+    left: 3.5vw
     transition: .5s
+    @media all and (min-width: 1441px)
+      left: 2.5vw
+    @media all and (max-width: 768px)
+      left: 0
+
     .shop--sidebar--li
       word-break: keep-all
       &:after
         content: ''
         position: relative
-        right: -100px
-        font-size: 2em
-        border-right: 1px $teal solid
+        right: -80px
+        +fz(2)
+        border-right: 1px solid $teal
       &:hover:after
         content: ''
         color: $teal
@@ -86,23 +65,17 @@ export default {
         border: none
       &:first-child:before
         border: none
+
       .shop--sidebar--a
+        text-align: right
         color: $teal
-        padding: 0
-        padding-left: 20px
+        padding: 1vh 0
         transition: .5s
-        // 圖片路徑無法打包
-        // &:before
-          content: ''
-          position: absolute
-          width: 20px
-          height: 20px
-          right: 70px
-          background: url('')
         &:hover
           color: $black
         &:active
           color: $black
+
         // 超帥動畫
         // &:hover
         //   color: $black
@@ -137,4 +110,20 @@ export default {
         //   border: none
         // &:first-child:before
         //   border: none
+
+@media all and (max-width: 767.98px)
+  .shop--sidebar
+    position: static
+    padding-top: 5vh
+
+    #navbarContent
+      margin: 0 auto
+
+      .shop--sidebar--li
+        margin-bottom: 20px
+        &:after
+          border: none
+
+        .shop--sidebar--a
+          text-align: center
 </style>

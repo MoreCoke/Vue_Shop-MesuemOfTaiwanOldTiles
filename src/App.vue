@@ -33,5 +33,5 @@
 </style>
 
 <style lang="sass">
-@import './assets/common'
+@import './assets/reset'
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <loading :active.sync="status.isLoading"></loading>
+    <loading :active.sync="status.isLoading" color="#71A2A7"></loading>
     <div class="mb-3">
       <h2 class="font-weight-bold admin--title">產品列表</h2>
       <button class="btn btn-primary admin--btn" @click="openModal(true)">建立新產品</button>

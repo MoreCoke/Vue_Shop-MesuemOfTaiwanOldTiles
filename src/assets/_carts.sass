@@ -1,0 +1,51 @@
+@import '@/assets/_color.sass'
+
+@mixin fz($p)
+  font-size: 1rem * $p
+
+.btn,.form-control,.form-control::placeholder,.input-group-text
+  color: $white
+  border-color: rgba($white, .7)
+  background-color: transparent
+
+.form-control::placeholder
+  color: rgba($white, .7)
+
+hr
+  margin-top: 10px
+  background-color: rgba($white, .7)
+
+h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
+  &::selection
+    background-color: $white
+
+.cart--header
+  width: 100%
+  
+.cart--header--title
+  +fz(2.5)
+  letter-spacing: 5px
+  word-break: keep-all
+  @media all and (max-width: 567.98px)
+    +fz(2)
+
+.cart--content
+  height: 50vh
+  overflow: scroll
+
+.cart--contents
+  margin: 0 auto
+
+.cart--hr
+  width: 85%
+  margin-bottom: 10px
+  @media all and (max-width: 567.98px)
+    width: 100%
+      
+.cart--next
+  width: 110%
+  +fz(1.2)
+
+.cart__bd
+  border-bottom: 1px solid rgba($white, .7)
+

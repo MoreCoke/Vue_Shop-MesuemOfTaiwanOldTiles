@@ -1,21 +1,21 @@
 <template>
   <div class="row">
-    <div class="col-10 offset-1 p-0 b">
-      <div class="b gap" v-if="this.order">
+    <div class="col-12 col-md-10 offset-md-1 p-0 __bd">
+      <div class="__bd __gap" v-if="this.order">
         <h3
           class="font-weight-bold mb-3 m-0 cart--header--title"
           :class="{'text-primary': order.is_paid}"
         >{{order.is_paid? '付款成功':'訂單成立'}}</h3>
         <div class="cart--content">
-          <table class="pb-3 cart--contents bt">
+          <table class="pb-3 cart--contents __bdt __bdb">
             <tr>
-              <td width="70" class="pt-4">
+              <td width="70" class="pt-4 carts--subtitle">
                 <p>姓名：</p>
               </td>
               <td class="pt-4">
                 <p>{{order.user? order.user.name : ''}}</p>
               </td>
-              <td width="70" class="pt-4">
+              <td width="70" class="pt-4 carts--subtitle">
                 <p>地址：</p>
               </td>
               <td width="250" class="pt-4">
@@ -23,29 +23,28 @@
               </td>
             </tr>
             <tr>
-              <td>
+              <td class="carts--subtitle">
                 <p>電話：</p>
               </td>
               <td>
                 <p>{{order.user? order.user.tel : ''}}</p>
               </td>
-              <td width="60" rowspan="2" style="vertical-align: top">
+              <td width="60" class="__vat carts--subtitle" rowspan="2">
                 <p>備註：</p>
               </td>
-              <td width="250" rowspan="2" style="vertical-align: top">{{order.message}}</td>
+              <td width="250" class="__vat" rowspan="2">{{order.message}}</td>
             </tr>
             <tr>
-              <td class="pb-3">
+              <td class="pb-3 carts--subtitle">
                 <p>Email：</p>
               </td>
               <td class="pb-3">
                 <p>{{order.user? order.user.email : ''}}</p>
               </td>
             </tr>
-            <tr class="bd bt">
+            <tr class="__bdb __bdt">
               <td colspan="3"></td>
               <td class="pt-3 pb-3 text-right font-weight-bold">數量</td>
-              <!-- <td width="100" class="text-right font-weight-bold">價格</td> -->
             </tr>
             <tr v-for="item in order.products" :key="item.id">
               <td colspan="3">
@@ -54,9 +53,6 @@
               <td class="text-right">
                 <p class="m-0 mt-2 mb-2">{{item.qty}} {{item.product.unit}}</p>
               </td>
-              <!-- <td class="text-right">
-                <p class="m-0 mt-2 mb-2">{{item.product.price * item.qty | currency}}</p>
-              </td>-->
             </tr>
           </table>
         </div>
@@ -96,8 +92,7 @@ export default {
       const vm = this;
       this.$http.get(api).then(response => {
         vm.order = response.data.order;
-        // this.$bus.$emit("getOrder", vm.order);
-        console.log('getorder',response.data);
+        // console.log('getorder',response.data);
       });
     },
     payOrder(id) {
@@ -111,58 +106,71 @@ export default {
   created() {
     this.orderId = this.$route.params.id;
     this.getOrder();
-
-    // this.$bus.$on('getOrderId', orderId => {
-    //   this.orderId = orderId;
-    //   this.getOrder();
-    // });
-    // this.$bus.$on('getOrder', this.getOrder);
   },
-  beforeDestroy() {
-    // this.$bus.$off('getOrderId');
-    // this.$bus.$off('getOrder');
-
-  }
 };
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/color.sass'
+@import '@/assets/_color.sass'
 
-.gap
+@mixin fz($p)
+  font-size: 1rem * $p
+
+.__gap
   margin: 10px
-  padding: 70px
+  padding: 5vw
+  @media all and (max-width: 567.98px)
+    padding: 10vw
 
-.b
+.__bd
   border: 1px solid $cyan
 
-.bd
+.__bdb
   border-bottom: 1px solid $cyan
 
-.bt
+.__bdt
   border-top: 1px solid $cyan
+
+.__vat
+  vertical-align: top
 
 .cart--contents
   width: 100%
-  border-bottom: 1px solid $cyan
+  @media all and (max-width: 567.98px)
+    font-size: calc(1rem * .9)
+
+.carts--subtitle
+  font-weight: 700
+  word-break: keep-all
+    
 .cart--footer
   width: 100%
+
   .cart--footer--coupon
     width: 60%
     padding-left: 15px
-    font-size: 1.2em
+    +fz(1.2)
+
   .cart--footer--coupon--ps
     padding: 0
     padding-left: 15px
     font-size: .9em
+
   .cart-footer-total
-    font-size: 1.2em
-    // padding-bottom: 5px
-    // padding-right: -10px
-    // vertical-align: bottom
+    +fz(1.2)
+    @media all and (max-width: 567.98px)
+      +fz(1)
+
 .cart--next
   width: 25%
   position: relative
   left: 75%
-  font-size: 1.2em
+  +fz(1.2)
+  @media all and (max-width: 768px)
+    width: 35%
+    left: 70%
+  @media all and (max-width: 567.98px)
+    width: 100%
+    position: static
+    +fz(1)
 </style>

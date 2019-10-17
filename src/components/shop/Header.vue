@@ -1,17 +1,24 @@
 <template>
   <div>
     <header class="row header">
-      <div class="col-12 col-sm-9">
+      <!-- <div class="col-12 col-md-8 col-lg-9">
         <h1 data-40="font-size: 3.5em" data-100="font-size: 2.5em">
           <router-link to="/shop" class="font-weight-bold shop--title">花磚商店</router-link>
         </h1>
+      </div>-->
+      <div class="col-12 col-md-8 col-lg-9 text-primary">
+        <p
+          class="m-0"
+          style="top: 50%;position: relative;transform: translateY(-70%);"
+        >「您的收藏會是一道新的力量，讓我們一起守護台灣的花磚文化⋯⋯」</p>
       </div>
-      <div class="col-12 col-sm-3 text-info icon">
+
+      <div class="col-12 col-md-4 col-lg-3 text-info icon">
         <!-- 產品搜尋 -->
         <div class="btn-group">
           <button
             type="button"
-            class="pb-4 btn text-center icon--fas"
+            class="btn text-center icon--fas"
             id="dropdownMenuOffset"
             data-toggle="dropdown"
             data-display="static"
@@ -21,10 +28,13 @@
             title="產品搜尋"
           >
             <span class="fas--num">
-              <i class="fas fa-search"></i>
+              <i class="pb-3 fas fa-search"></i>
             </span>
           </button>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuOffset">
+          <div
+            class="dropdown-menu dropdown-menu-left dropdown-menu-sm-right"
+            aria-labelledby="dropdownMenuOffset"
+          >
             <p class="dropdown-header">產品搜尋</p>
             <div class="dropdown-divider"></div>
             <div class="input-group pl-2 pr-2 mb-2">
@@ -52,13 +62,9 @@
         </div>
 
         <!-- 後台管理 -->
-        <button
-          class="btn text-center icon--fas"
-          :class="{'text-primary': cartsLength}"
-          title="後台管理"
-        >
+        <button class="btn icon--fas" :class="{'text-primary': cartsLength}" title="後台管理">
           <router-link to="/login" class="icon--fas">
-            <i class="fas fa-user-cog"></i>
+            <i class="pb-3 fas fa-user-cog"></i>
           </router-link>
         </button>
 
@@ -87,10 +93,12 @@
 
             <div v-if="favorites">
               <a class="dropdown-item" href="#" v-for="item in favorites" :key="item.id">
-                【{{item.category}}】{{item.title}}
-                <span
-                  class="ml-2"
-                >{{item.price | currency}} /{{item.unit}}</span>
+                <span @click="turntoProduct(item)">
+                  【{{item.category}}】{{item.title}}
+                  <span
+                    class="ml-2"
+                  >{{item.price | currency}} /{{item.unit}}</span>
+                </span>
                 <i class="far fa-trash-alt ml-3" @click="removeFavorite(item)"></i>
               </a>
             </div>
@@ -103,15 +111,28 @@
 
         <!-- 購物車 -->
         <button
-          class="btn text-center icon--fas"
+          class="btn icon--fas"
           :class="{'text-primary': cartsLength}"
           title="購物車"
           @click.prevent="openModal"
         >
           <span class="fas--num">
-            <i class="fas fa-shopping-cart" style="padding-right: 5px"></i>
+            <i class="fas fa-shopping-cart"></i>
             [{{cartsLength}}]
           </span>
+        </button>
+
+        <!-- 產品分類 -->
+        <button
+          class="__hide navbar-expand-sm navbar-toggler icon--fas"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="pb-3 fas fa-bars"></i>
         </button>
       </div>
     </header>
@@ -133,6 +154,9 @@ export default {
     };
   },
   methods: {
+    turntoProduct(item) {
+      this.$router.push(`/shop/product_id=${item.id}`);
+    },
     findProducts(id) {
       // this.$router.push({ name: "item", params: { id: id } });
       this.$bus.$emit("getProduct", id);
@@ -165,11 +189,12 @@ export default {
     this.$bus.$on("get_cart_length", cartsLength => {
       this.cartsLength = cartsLength;
     });
+    this.$bus.$emit;
   },
   updated() {
     this.$bus.$on("getAllProduct", allProducts => {
       this.allProducts = allProducts;
-      console.log(this.allProducts);
+      // console.log(this.allProducts);
     });
   },
   beforeDestroy() {
@@ -182,7 +207,15 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-@import '@/assets/color.sass'
+@import '@/assets/_color.sass'
+
+@mixin fz($p)
+  font-size: 1rem * $p
+
+.__hide
+  display: none
+  @media all and (max-width: 767.98px)
+    display: block
 
 // init
 button
@@ -199,10 +232,12 @@ button
   transition: .5s
   &:hover
     color: $black
+  @media all and (max-width: 575.98px)
+    padding-left: 4vw
 
 .header
   transition: .5s
-  margin-top: 20vh
+  margin-top: 5vh
 
 .dropdown-menu
   min-width: 15rem
@@ -215,10 +250,12 @@ button
   display: flex
   justify-content: space-between
   align-items: center
-  font-size: 1.75em
+  +fz(1.75)
+  @media all and (max-width: 575.98px)
+    justify-content: space-around
+
   .icon--fas
-    padding-bottom: 20px
-    font-size: 1em
+    +fz(1)
     color: $cyan
     line-height: .4em
     &:hover
@@ -226,11 +263,21 @@ button
     &:focus
       color: $teal
       box-shadow: none  
+
+    .fas
+      +fz(1.7)
+      padding-bottom: 10px
+
+    .fa-shopping-cart
+      padding-right: 4px
+
     .fas--num
       display: flex
       flex-direction: column
-      font-size: .4em
-      .fas
-        font-size: 2.5em
-        padding-bottom: 5px
+      +fz(.4)
+
+@media all and (max-width: 575.98px)
+  .dropdown-menu-right
+    width: 100vw
+    right: -42vw
 </style>

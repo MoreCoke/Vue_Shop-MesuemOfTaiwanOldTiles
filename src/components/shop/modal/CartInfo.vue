@@ -1,15 +1,15 @@
 <template>
   <div class="row">
-    <div class="col-10 offset-1">
+    <div class="col-12 col-md-10 offset-md-1">
       <table class="font-weight-bold cart--header">
         <tr>
           <td>
-            <h3 class="font-weight-bold m-0 cart--header--title">購物車</h3>
+            <h3 class="font-weight-bold m-0 pr-md-5 mr-md-5 cart--header--title">購物車</h3>
           </td>
           <td width="140" class="text-center cart--header--type">數量</td>
-          <td width="80" class="text-right cart--header--type">單價</td>
-          <td width="140" class="text-right pr-4 cart--header--type">總價</td>
-          <td width="50"></td>
+          <td width="80" class="text-right pr-md-2 cart--header--type">單價</td>
+          <td width="140" class="text-right pr-4 pr-md-5 cart--header--type">總價</td>
+          <td width="50" class="__hide"></td>
         </tr>
       </table>
       <hr />
@@ -20,7 +20,7 @@
         >挑些喜歡的花磚再回來吧 ^_^</p>
         <table class="cart--contents">
           <tr class="cart--contents_bd" v-for="item in carts.carts" :key="item.id">
-            <td width="190" class="pt-4 pb-4">
+            <td class="cart--content" colspan="2">
               <div class="cart--content--imgs">
                 <img
                   :src="item.product.imageUrl"
@@ -28,9 +28,7 @@
                   class="img-fluid cart--content--img"
                 />
               </div>
-            </td>
-            <td>
-              <p class="m-0">
+              <p class="m-0 cart--content--name">
                 <span>【{{item.product.category}}】</span>
                 {{item.product.title}}
               </p>
@@ -41,7 +39,7 @@
             <td width="80" class="text-right">
               <p class="m-0">{{item.product.price | currency}}</p>
             </td>
-            <td width="140" class="text-right pr-4">
+            <td width="140" class="text-right pr-md-4">
               <p class="m-0">{{item.product.price * item.qty | currency}}</p>
             </td>
             <td width="50" class="text-center">
@@ -57,7 +55,7 @@
     <div class="col-12">
       <hr class="cart--hr" />
     </div>
-    <div class="col-10 offset-1">
+    <div class="col-12 col-md-10 offset-md-1">
       <table class="cart--footer">
         <tr>
           <td>
@@ -72,7 +70,7 @@
               />
               <div class="input-group-append">
                 <button
-                  class="btn btn-outline-secondary input-group-text"
+                  class="btn btn-outline-secondary input-group-text cart--footer--coupon--btn"
                   type="button"
                   id="button-addon2"
                   @click="addCouponCode"
@@ -88,14 +86,14 @@
           </td>
           <td width="140">
             <p
-              class="text-right m-0 pr-4 cart--footer--total"
+              class="text-right m-0 pr-md-4 cart--footer--total"
             >{{carts.total === carts.final_total? carts.total:carts.final_total | currency}}</p>
           </td>
-          <td width="50"></td>
+          <td width="50" class="__hide"></td>
         </tr>
       </table>
     </div>
-    <div class="col-2 offset-9">
+    <div class="col-12 col-md-4 offset-md-7 col-lg-3 offset-lg-8 col-xl-2 offset-xl-9">
       <button
         class="btn btn-outline-light cart--next"
         @click="backToShop"
@@ -170,26 +168,25 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/color.sass'
-@import '@/assets/carts.sass'
+@import '@/assets/_carts.sass'
 
-*
-  // border: 1px solid black
-
-h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
-  &::selection
-    background-color: $white
+@mixin fz($p)
+  font-size: 1rem * $p
 
 .cart--header--type
   letter-spacing: 2px
   vertical-align: bottom
+  @media all and (max-width: 567.98px)
+    font-size: 1rem * .9
 
 .cart__empty
   position: relative
   top: 50%
-  font-size: 1.5em
+  +fz(1.5)
   letter-spacing: 2px
   transform: translateY(-50%)
+  @media all and (max-width: 567.98px)
+    +fz(1.2)
 
 .cart--contents
   width: 100%
@@ -197,37 +194,79 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
     border-bottom: 1px solid rgba($white, .7)
     &:last-child
       border-bottom: 0px
-    .cart--content--imgs
-      width: 162px
-      height: 100px
-      overflow: hidden
-      .cart--content--img
-        width: 190px
+    @media all and (max-width: 567.98px)
+      +fz(.8)
+
+    .cart--content
+      height: 20vh
+      padding: 3vh 5vw 3vh 0
+      display: flex
+      flex-direction: row
+      align-items: center
+      @media all and (max-width: 567.98px)
+        height: 23vh
+        flex-direction: column
+
+      .cart--content--name
+        padding-left: 2vw
+        @media all and (max-width: 567.98px)
+          padding: 0
+          padding-top: 2.5vh
+
+      .cart--content--imgs
+        width: 162px
+        @media all and (max-width: 567.98px)
+          width: 100px
+
     .far
-      font-size: 1.2em
+      +fz(1.2)
       vertical-align: text-top
       opacity: .7
+
     .far,.fas
       cursor: pointer
+
 .cart--footer
   width: 100%
+
   .cart--footer--coupon
     width: 60%
     padding-left: 15px
-    font-size: 1.2em
+    @media all and (max-width: 768px)
+      width: 100%
+
+    .cart--footer--coupon--input
+      +fz(1.1)
+      @media all and (max-width: 567.98px)
+        +fz(.8)
+
+    .cart--footer--coupon--btn
+      +fz(1.1)
+      @media all and (max-width: 567.98px)
+        +fz(.8)
+
   .cart--footer--coupon--ps
     padding: 0
     padding-left: 15px
-    font-size: .9em
+    +fz(.9)
+    @media all and (max-width: 567.98px)
+      +fz(.8)
+
   .cart--footer--total
-    font-size: 1.2em
-    padding-bottom: 5px
+    +fz(1.2)
     padding-right: -10px
+    padding-bottom: 5px
     vertical-align: bottom
-.cart--next
-  width: 110%
-  // position: relative
-  // left: 78%
-  font-size: 1.2em
-  // padding: auto 30px
+    @media all and (max-width: 567.98px)
+      +fz(1)
+      word-break: keep-all
+
+@media all and (max-width: 567.98px)
+  .cart--next
+    +fz(1)
+    word-break: keep-all
+
+@media all and (max-width: 768px)
+  .__hide
+    display: none
 </style>

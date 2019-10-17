@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active.sync="status.isLoading"></loading>
+    <loading :active.sync="status.isLoading" color="#71A2A7"></loading>
     <div
       class="modal fade"
       id="cartModal"
@@ -36,7 +36,7 @@
           </div>
         </div>
         <p class="text-info decoration_text">
-          <span style="vertical-align: text-bottom">_____</span> Museum of Old Taiwan Tiles
+          <span class="decoration_text--"></span> Museum of Old Taiwan Tiles
         </p>
       </div>
     </div>
@@ -92,28 +92,11 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/color.sass'
-
-*
-  // border: 1px solid black
+@import '@/assets/_color.sass'
 
 h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
   &::selection
     background-color: $white
-
-// .cross
-//   &:before,&:after
-//     content: ''
-//     display: block
-//     position: relative
-//     top: -40px
-//     width: 2px
-//     height: 50px
-//     background-color: $white
-//   &:before
-//     transform: rotate(45deg) translateY(70%)
-//   &:after
-//     transform: rotate(-45deg) translateY(-70%)
 
 .close
   position: relative
@@ -131,10 +114,24 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
   height: 100vh
   @media all and (max-width: 1440px)
     padding-top: 5vh
+
 .decoration_text
+  display: inline-block
   position: fixed
-  bottom: 150px
-  right: -40px
+  top: 70vh
+  right: -4vw
   transform: rotate(90deg)
   z-index: 100
+  @media all and (max-width: 1200px)
+    right: -9vw
+  @media all and (max-width: 768px)
+    right: -10vw
+  @media all and (max-width: 567.98px)
+    top: 65vh
+    right: -27vw
+    
+  .decoration_text--
+    width: 3rem
+    display: inline-block
+    border-bottom: 1px solid $white
 </style>

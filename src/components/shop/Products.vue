@@ -1,11 +1,11 @@
 <template>
   <div>
-    <loading :active.sync="status.isLoading"></loading>
-    <div class="row">
+    <loading :active.sync="status.isLoading" color="#71A2A7"></loading>
+    <div class="row __mqpt">
       <div
-        class="col-12 col-md-6 col-lg-4"
+        class="col-12 col-sm-6 col-lg-4"
         v-show="item.is_enabled"
-        v-for="item in products"
+        v-for="item in filteredProducts"
         :key="item.id"
       >
         <i
@@ -39,10 +39,7 @@
                   :class="{'text-danger': item.origin_price}"
                 >
                   {{item.price | currency}}
-                  <span
-                    style="font-size: 0.7em"
-                    v-if="item.unit"
-                  >/{{item.unit}}</span>
+                  <span class="items--unit" v-if="item.unit">/{{item.unit}}</span>
                 </td>
               </tr>
             </table>
@@ -50,7 +47,6 @@
         </div>
       </div>
     </div>
-    <!-- <Pagination :pagination="pagination" @page_change="getProducts"></Pagination> -->
   </div>
 </template>
 
@@ -61,19 +57,13 @@ export default {
   data() {
     return {
       allProducts: [],
-      products: [],
-      product: {},
-      pagination: {},
       favorites: [],
       favoriteLength: 0,
       status: {
-        isLoading: false
-      },
-      path: this.$router.currentRoute.path
+        isLoading: false,
+        isFavortie: false
+      }
     };
-  },
-  components: {
-    Pagination
   },
   methods: {
     getProducts(page = 1, category) {
@@ -82,19 +72,8 @@ export default {
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
       vm.$http.get(api).then(response => {
         vm.allProducts = response.data.products;
-        vm.$bus.$emit('getAllProduct', vm.allProducts);
-        vm.products = Object.assign([], vm.allProducts);
+        vm.$bus.$emit("getAllProduct", vm.allProducts);
         vm.status.isLoading = false;
-      });
-    },
-    getFilteredProducts(page = 1, category) {
-      console.log(this.$route);
-      const vm = this;
-      if (category === "所有商品") {
-        return (vm.products = vm.allProducts);
-      }
-      vm.products = vm.allProducts.filter(el => {
-        return el.category === category;
       });
     },
     getProduct(id) {
@@ -112,7 +91,7 @@ export default {
       localStorage.setItem("favorite", JSON.stringify(this.favorites));
       this.getFavoriteLength();
       this.$bus.$emit("favorite", this.favorites);
-      console.log(localStorage.getItem("favorite"));
+      // console.log(localStorage.getItem("favorite"));
     },
     removeFavorite(item) {
       let i = this.favorites.findIndex(el => {
@@ -121,6 +100,10 @@ export default {
       this.favorites.splice(i, 1);
       localStorage.setItem("favorite", JSON.stringify(this.favorites));
       this.getFavoriteLength();
+      this.$bus.$emit("favorite", this.favorites);
+      this.$bus.$on("test", f => {
+        f = false;
+      });
     },
     getFilteredFavorite(item) {
       return this.favorites.some(el => {
@@ -128,17 +111,49 @@ export default {
       });
     },
     getFavoriteLength() {
+      if (!JSON.parse(localStorage.getItem("favorite"))) {
+        return;
+      }
       this.favoriteLength = JSON.parse(localStorage.getItem("favorite")).length;
       this.$bus.$emit("favoriteLength", this.favoriteLength);
+    }
+  },
+  computed: {
+    filteredProducts() {
+      switch (this.$route.name) {
+        case "shop":
+          return this.allProducts;
+          break;
+        case "all":
+          return this.allProducts;
+          break;
+        case "taiwan_old_tile":
+          return this.allProducts.filter(el => {
+            return el.category === "台灣花磚";
+          });
+          break;
+        case "mirror":
+          return this.allProducts.filter(el => {
+            return el.category === "花磚小鏡子";
+          });
+          break;
+        case "magnet":
+          return this.allProducts.filter(el => {
+            return el.category === "花磚磁鐵";
+          });
+          break;
+        case "coaster":
+          return this.allProducts.filter(el => {
+            return el.category === "花磚竹杯墊";
+          });
+          break;
+      }
     }
   },
   created() {
     this.getProducts(1, "所有商品");
     this.favorites = JSON.parse(localStorage.getItem("favorite")) || [];
     this.getFavoriteLength();
-    this.$bus.$on("getFilteredProducts", (pagenum, category) => {
-      this.getFilteredProducts(pagenum, category);
-    });
     // products to header
     this.$bus.$emit("favorite", this.favorites);
     // header to products
@@ -148,29 +163,27 @@ export default {
     this.$bus.$on("removeFavorite", item => {
       this.removeFavorite(item);
     });
-    this.$bus.$on("getFilteredFavorite", item => {
-      this.getFilteredFavorite(item);
-    });
-    this.$bus.$emit('getAllProduct', this.allProducts);
+    this.$bus.$emit("getAllProduct", this.allProducts);
   },
   beforeDestroy() {
-    this.$bus.$off("getFilteredProducts");
     this.$bus.$off("addFavorite");
     this.$bus.$off("removeFavorite");
-    this.$bus.$off("getFilteredFavorite");
   }
 };
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/color.sass'
+@import '@/assets/_color.sass'
+
+@mixin fz($p)
+  font-size: 1rem * ($p)
 
 .far,.fas
   display: inline-block
   position: absolute
   top: 15px
   right: 2.5rem
-  font-size: 1.2em
+  +fz(1.2)
   transition: .5s
   cursor: pointer
   z-index: 100
@@ -183,42 +196,53 @@ export default {
   transition: .5s
   overflow: hidden
   cursor: pointer
+  @media all and (min-width: 992px) and (max-width: 1200px)
+    margin: 0
+    margin-bottom: 70px
   &:hover
     box-shadow: 0 2px 10px rgba($black,.1)
     transform: translateY(5px)
     .items
       padding: 20px
-    @media all and (min-width: 992px) and (max-width: 1200px)
-      .items
+      @media all and (min-width: 992px) and (max-width: 1200px)
         padding: 20px 5px
+
   .items_img
     transition: .5s
     &:hover
       transform: scale(1.1)
       margin-bottom: 10px
+
   .items
     padding: 10px 5px 0
     transition: .5s
+
     .items--table
-      font-size: 1.2em
+      +fz(1.2)
+
       .items--category
         width: 100%
         position: relative
         left: -5px
-        font-size: .75em
-        opacity: .5
+        +fz(.75)
         word-break: keep-all
+        opacity: .5
+
       .items--name
         width: 70%
+
       .items--price
         display: inline-block
-      .items--origin_price
-        font-size: .9em
-        text-decoration: line-through
-        vertical-align: text-bottom
 
-@media all and (min-width: 992px) and (max-width: 1200px)
-  .card
-    margin: 0
-    margin-bottom: 70px
+      .items--unit
+        +fz(.7)
+
+      .items--origin_price
+        +fz(.9)
+        vertical-align: text-bottom
+        text-decoration: line-through
+    
+@media all and (max-width: 991.98px)
+  .__mqpt
+    padding-top: 5vh
 </style>

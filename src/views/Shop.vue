@@ -1,34 +1,22 @@
 <template>
-  <div class="body">
-    <loading :active.sync="isLoading"></loading>
+  <div>
+    <loading :active.sync="status.isLoading" color="#71A2A7"></loading>
     <Navbar></Navbar>
+    <HeaderTiles :is-shop="status.isShop"></HeaderTiles>
     <div class="container">
-      <!-- <nav class="row">
-        <router-link to="/login" class="text-primary shop--nav">後台管理</router-link>
-        <router-link to="/" class="text-primary shop--nav">博物館故事</router-link>
-        <router-link to="/about" class="text-primary shop--nav">參觀資訊</router-link>
-        <router-link to="/shop" class="text-primary shop--nav">購買花磚</router-link>
-      </nav>-->
       <Header
-        :is-loading="isLoading"
+        :is-loading="status.isLoading"
         :carts-length="cartsLength"
         :favorite-length="favoriteLength"
         @open_cart_modal="openCartModal"
       ></Header>
       <main class="row main">
-        <div class="col-10">
+        <router-view name="sidebar"></router-view>
+        <div class="col-12 col-md-10">
           <keep-alive>
-            <router-view
-              ref="child"
-              :product="product"
-              @test="favoriteLength"
-              @get_product="getProduct"
-            ></router-view>
+            <router-view :product="product" @test="favoriteLength" @get_product="getProduct"></router-view>
           </keep-alive>
         </div>
-        <!-- Sidebar -->
-        <router-view name="sidebar"></router-view>
-        <!-- <Sidebar></Sidebar> -->
       </main>
     </div>
     <Footer></Footer>
@@ -38,11 +26,10 @@
 
 <script>
 import $ from "jquery";
-import Navbar from '@/components/Navbar.vue';
+import Navbar from "@/components/Navbar.vue";
+import HeaderTiles from "@/components/shop/HeaderTiles.vue";
 import Header from "@/components/shop/Header.vue";
-import Sidebar from "@/components/shop/Sidebar.vue";
 import Footer from "@/components/shop/Footer.vue";
-import Background from "@/components/shop/decoration/Background.vue";
 import Cart from "@/components/shop/Cart.vue";
 
 export default {
@@ -52,29 +39,28 @@ export default {
       carts: [],
       cartsLength: 0,
       favoriteLength: 0,
-      isLoading: false
+      status: {
+        isLoading: false,
+        isShop: true
+      }
     };
   },
   components: {
     Navbar,
     Header,
+    HeaderTiles,
     Footer,
-    Background,
-    Cart,
-    Sidebar
+    Cart
   },
   methods: {
     openCartModal() {
       $("#cartModal").modal("show");
     },
-    // getCategoryProducts(category) {
-    //   this.$refs.child.getFilteredProducts(1, category);
-    // },
     getProduct(id) {
       const vm = this;
       vm.$route.params.id = id;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${vm.$route.params.id}`;
-      vm.isLoading = true;
+      vm.status.isLoading = true;
       this.$http.get(api).then(response => {
         vm.product = response.data.product;
         // console.log("get product", vm.product);
@@ -83,7 +69,7 @@ export default {
             .push(`/shop/product_id=${response.data.product.id}`)
             .catch(err => {});
           // console.log(vm);
-          vm.isLoading = false;
+          vm.status.isLoading = false;
         }
       });
     }
@@ -108,19 +94,11 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-@import '@/assets/color.sass'
-
-.body
-  // position: relative
-  // padding-top: 9em
-
-.shop--nav
-  position: relative
-  top: -144px
-  margin: 50px 20px 0
 .main
   margin-top: 60px
   transition: .5s
+  @media all and (max-width: 767.98px)
+    margin: 0
 
 .navbar
   align-items: flex-start

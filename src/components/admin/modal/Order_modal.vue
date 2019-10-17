@@ -180,9 +180,9 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-              <button type="button" class="btn btn-primary" @dblclick="updatedOrder">
+              <button type="button" class="btn btn-primary" @click="updatedOrder">
                 <i class="fas fa-spinner fa-spin" v-if="status.isLoading"></i>
-                雙擊確認修改
+                確認修改
               </button>
             </div>
           </div>
@@ -254,6 +254,7 @@ export default {
   methods: {
     async updatedOrder() {
       // validate before submit
+      console.log(1)
       const isValid = await this.$refs.observer.validate();
       if (!isValid) {
         return;
