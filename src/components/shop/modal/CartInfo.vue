@@ -99,7 +99,8 @@
         @click="backToShop"
         v-if="carts.carts && carts.carts.length === 0"
       >前往挑選</button>
-      <button class="btn btn-outline-light cart--next" @click="changePage(true)" v-else>填寫購物資料</button>
+      <button class="btn btn-outline-light cart--next"
+              @click="changePage(true)" v-else>填寫購物資料</button>
     </div>
   </div>
 </template>
@@ -107,15 +108,15 @@
 <script>
 export default {
   props: {
-    carts: [Object, Array]
+    carts: [Object, Array],
   },
   data() {
     return {
-      couponCode: "OLDTILES",
+      couponCode: 'OLDTILES',
       status: {
-        isMsg: "",
-        isLoading: false
-      }
+        isMsg: '',
+        isLoading: false,
+      },
     };
   },
   methods: {
@@ -123,47 +124,48 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
       const vm = this;
       vm.status.isLoading = true;
-      this.$http.delete(api).then(response => {
-        vm.$emit("get_cart");
+      this.$http.delete(api).then(() => {
+        vm.$emit('get_cart');
         vm.status.isLoading = false;
       });
     },
     addCouponCode() {
       if (this.carts.carts && this.carts.carts.length === 0) {
-        return (this.status.isMsg = "＊請選購商品再使用優惠券");
+        this.status.isMsg = '＊請選購商品再使用優惠券';
+        return;
       }
 
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
       const vm = this;
       const coupon = {
-        code: vm.couponCode
+        code: vm.couponCode,
       };
       // console.log(coupon);
-      this.$http.post(api, { data: coupon }).then(response => {
+      this.$http.post(api, { data: coupon }).then((response) => {
         // console.log(response.data);
-        this.$emit("get_cart");
+        this.$emit('get_cart');
 
         if (!response.data.success) {
           vm.status.isMsg = `＊${response.data.message}`;
         } else {
-          vm.status.isMsg = "";
+          vm.status.isMsg = '';
         }
       });
     },
     changePage() {
-      this.$emit("change_page", true);
+      this.$emit('change_page', true);
     },
     backToShop() {
-      this.$emit("close_modal");
-      console.log(this.$route);
-      if (this.$route.path !== "/shop") {
-        this.$router.push("/shop");
+      this.$emit('close_modal');
+      // console.log(this.$route);
+      if (this.$route.path !== '/shop') {
+        this.$router.push('/shop');
       }
-    }
+    },
   },
   created() {
-    this.$emit("get_cart");
-  }
+    this.$emit('get_cart');
+  },
 };
 </script>
 

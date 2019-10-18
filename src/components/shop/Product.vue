@@ -11,8 +11,8 @@
         <router-link to="/shop">花磚商店</router-link> >
         <router-link to="/shop/all">所有商品</router-link> >
         <span class="__hover" @click="turntoCategory">{{product.category}}</span>
-         > 
-        {{product.title}}
+         >
+         {{product.title}}
       </p>
     </div>
     <div class="col-12 col-lg-5 item">
@@ -75,30 +75,32 @@
 <script>
 export default {
   props: {
-    product: Object
+    product: Object,
   },
   data() {
     return {
       qty: 1,
       status: {
-        isFavorite: false
-      }
+        isFavorite: false,
+      },
     };
   },
   methods: {
     turntoCategory() {
       switch (this.product.category) {
-        case "台灣花磚":
-          this.$router.push({ name: "taiwan_old_tile" });
+        case '台灣花磚':
+          this.$router.push({ name: 'taiwan_old_tile' });
           break;
-        case "花磚小鏡子":
-          this.$router.push({ name: "mirror" });
+        case '花磚小鏡子':
+          this.$router.push({ name: 'mirror' });
           break;
-        case "花磚磁鐵":
-          this.$router.push({ name: "magnet" });
+        case '花磚磁鐵':
+          this.$router.push({ name: 'magnet' });
           break;
-        case "花磚竹杯墊":
-          this.$router.push({ name: "coaster" });
+        case '花磚竹杯墊':
+          this.$router.push({ name: 'coaster' });
+          break;
+        default:
           break;
       }
     },
@@ -112,18 +114,19 @@ export default {
       }
     },
     addFavorite() {
-      this.$bus.$emit("addFavorite", this.product);
+      this.$bus.$emit('addFavorite', this.product);
       this.getFilteredFavorite();
     },
     removeFavorite() {
-      this.$bus.$emit("removeFavorite", this.product);
+      this.$bus.$emit('removeFavorite', this.product);
       this.status.isFavorite = false;
     },
     getFilteredFavorite() {
-      const el = JSON.parse(localStorage.getItem("favorite"));
+      const i = JSON.parse(localStorage.getItem('favorite'));
       this.status.isFavorite = false;
-      return el.some(el => {
-        return (this.status.isFavorite = this.product.id === el.id);
+      this.status.isFavorite = i.some((el) => {
+        const result = this.product.id === el.id;
+        return result;
       });
     },
     addToCart() {
@@ -131,21 +134,21 @@ export default {
       const vm = this;
       const cart = {
         product_id: vm.product.id,
-        qty: vm.qty
+        qty: vm.qty,
       };
-      this.$http.post(api, { data: cart }).then(response => {
-        vm.$bus.$emit("getCart");
+      this.$http.post(api, { data: cart }).then(() => {
+        vm.$bus.$emit('getCart');
       });
-    }
+    },
   },
   beforeUpdate() {
     this.getFilteredFavorite();
-    this.$bus.$emit("test", this.status.favorite);
+    this.$bus.$emit('test', this.status.favorite);
   },
   created() {
-    this.$emit("get_product", this.$route.params.id);
-    this.favorites = JSON.parse(localStorage.getItem("favorite")) || [];
-  }
+    this.$emit('get_product', this.$route.params.id);
+    this.favorites = JSON.parse(localStorage.getItem('favorite')) || [];
+  },
 };
 </script>
 

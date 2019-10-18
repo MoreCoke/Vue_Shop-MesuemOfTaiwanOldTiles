@@ -51,8 +51,6 @@
 </template>
 
 <script>
-import Pagination from "@/components/Pagination.vue";
-
 export default {
   data() {
     return {
@@ -61,114 +59,119 @@ export default {
       favoriteLength: 0,
       status: {
         isLoading: false,
-        isFavortie: false
-      }
+        isFavortie: false,
+      },
     };
   },
   methods: {
-    getProducts(page = 1, category) {
+    getProducts() {
       const vm = this;
       vm.status.isLoading = true;
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
-      vm.$http.get(api).then(response => {
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
+      vm.$http.get(api).then((response) => {
         vm.allProducts = response.data.products;
-        vm.$bus.$emit("getAllProduct", vm.allProducts);
+        vm.$bus.$emit('getAllProduct', vm.allProducts);
         vm.status.isLoading = false;
       });
     },
     getProduct(id) {
-      this.$emit("get_product", id);
+      this.$emit('get_product', id);
     },
     addFavorite(item) {
-      let obj = {
+      const obj = {
         id: item.id,
         category: item.category,
         title: item.title,
         price: item.price,
-        unit: item.unit
+        unit: item.unit,
       };
       this.favorites.push(obj);
-      localStorage.setItem("favorite", JSON.stringify(this.favorites));
+      localStorage.setItem('favorite', JSON.stringify(this.favorites));
       this.getFavoriteLength();
-      this.$bus.$emit("favorite", this.favorites);
-      // console.log(localStorage.getItem("favorite"));
+      this.$bus.$emit('favorite', this.favorites);
+      // console.log(localStorage.getItem('favorite'));
     },
     removeFavorite(item) {
-      let i = this.favorites.findIndex(el => {
-        return el.id === item.id;
+      const i = this.favorites.findIndex((el) => {
+        const result = el.id === item.id;
+        return result;
       });
       this.favorites.splice(i, 1);
-      localStorage.setItem("favorite", JSON.stringify(this.favorites));
+      localStorage.setItem('favorite', JSON.stringify(this.favorites));
       this.getFavoriteLength();
-      this.$bus.$emit("favorite", this.favorites);
-      this.$bus.$on("test", f => {
-        f = false;
-      });
+      this.$bus.$emit('favorite', this.favorites);
     },
     getFilteredFavorite(item) {
-      return this.favorites.some(el => {
-        return item.id === el.id;
+      return this.favorites.some((el) => {
+        const result = item.id === el.id;
+        return result;
       });
     },
     getFavoriteLength() {
-      if (!JSON.parse(localStorage.getItem("favorite"))) {
+      if (!JSON.parse(localStorage.getItem('favorite'))) {
         return;
       }
-      this.favoriteLength = JSON.parse(localStorage.getItem("favorite")).length;
-      this.$bus.$emit("favoriteLength", this.favoriteLength);
-    }
+      this.favoriteLength = JSON.parse(localStorage.getItem('favorite')).length;
+      this.$bus.$emit('favoriteLength', this.favoriteLength);
+    },
   },
   computed: {
     filteredProducts() {
+      const product = this.allProducts;
+      let filtered = '';
       switch (this.$route.name) {
-        case "shop":
-          return this.allProducts;
-          break;
-        case "all":
-          return this.allProducts;
-          break;
-        case "taiwan_old_tile":
-          return this.allProducts.filter(el => {
-            return el.category === "台灣花磚";
+        case 'shop':
+          return product;
+        case 'all':
+          return product;
+        case 'taiwan_old_tile':
+          filtered = this.allProducts.filter((el) => {
+            const result = el.category === '台灣花磚';
+            return result;
           });
-          break;
-        case "mirror":
-          return this.allProducts.filter(el => {
-            return el.category === "花磚小鏡子";
+          return filtered;
+        case 'mirror':
+          filtered = this.allProducts.filter((el) => {
+            const result = el.category === '花磚小鏡子';
+            return result;
           });
-          break;
-        case "magnet":
-          return this.allProducts.filter(el => {
-            return el.category === "花磚磁鐵";
+          return filtered;
+        case 'magnet':
+          filtered = this.allProducts.filter((el) => {
+            const result = el.category === '花磚磁鐵';
+            return result;
           });
-          break;
-        case "coaster":
-          return this.allProducts.filter(el => {
-            return el.category === "花磚竹杯墊";
+          return filtered;
+        case 'coaster':
+          filtered = this.allProducts.filter((el) => {
+            const result = el.category === '花磚竹杯墊';
+            return result;
           });
-          break;
+          return filtered;
+        default:
+          return product;
       }
-    }
+    },
   },
   created() {
-    this.getProducts(1, "所有商品");
-    this.favorites = JSON.parse(localStorage.getItem("favorite")) || [];
+    this.getProducts();
+    this.favorites = JSON.parse(localStorage.getItem('favorite')) || [];
     this.getFavoriteLength();
     // products to header
-    this.$bus.$emit("favorite", this.favorites);
+    this.$bus.$emit('favorite', this.favorites);
     // header to products
-    this.$bus.$on("addFavorite", item => {
+    this.$bus.$on('addFavorite', (item) => {
       this.addFavorite(item);
     });
-    this.$bus.$on("removeFavorite", item => {
+    this.$bus.$on('removeFavorite', (item) => {
       this.removeFavorite(item);
     });
-    this.$bus.$emit("getAllProduct", this.allProducts);
+    this.$bus.$emit('getAllProduct', this.allProducts);
   },
   beforeDestroy() {
-    this.$bus.$off("addFavorite");
-    this.$bus.$off("removeFavorite");
-  }
+    this.$bus.$off('addFavorite');
+    this.$bus.$off('removeFavorite');
+  },
 };
 </script>
 
@@ -241,7 +244,7 @@ export default {
         +fz(.9)
         vertical-align: text-bottom
         text-decoration: line-through
-    
+
 @media all and (max-width: 991.98px)
   .__mqpt
     padding-top: 5vh

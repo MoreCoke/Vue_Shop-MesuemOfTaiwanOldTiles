@@ -3,7 +3,11 @@
     <nav aria-label="pages">
       <ul class="pagination justify-content-center">
         <li class="page-item" :class="{'disabled': pagination.current_page === 1}">
-          <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="pageChange(pagination.current_page - 1)">Previous</a>
+          <a class="page-link"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              @click.prevent="pageChange(pagination.current_page - 1)">Previous</a>
         </li>
         <li
           class="page-item"
@@ -14,8 +18,11 @@
         >
           <a class="page-link" href="#" @click.prevent="pageChange(page)">{{page}}</a>
         </li>
-        <li class="page-item" :class="{disabled: pagination.current_page === pagination.total_pages}">
-            <a class="page-link" href="#" @click.prevent="pageChange(pagination.current_page + 1)">Next</a>
+        <li class="page-item"
+            :class="{disabled: pagination.current_page === pagination.total_pages}">
+            <a class="page-link"
+            href="#"
+            @click.prevent="pageChange(pagination.current_page + 1)">Next</a>
         </li>
       </ul>
     </nav>
@@ -25,11 +32,11 @@
 <script>
 export default {
   props: {
-    pagination: Object
+    pagination: Object,
   },
   methods: {
     pageChange(page) {
-      this.$emit("page_change", page);
+      this.$emit('page_change', page);
     },
   },
 };

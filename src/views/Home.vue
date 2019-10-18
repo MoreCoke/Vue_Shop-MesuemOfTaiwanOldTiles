@@ -121,6 +121,7 @@
                 alt="百事合意"
                 @mouseenter="mouseenter('百事合意')"
                 @mouseleave="mouseleave('百事合意')"
+                @click="toProduct('-Lo48olnrBWv4Ln9ZaMH')"
               />
               <img
                 class="秋菊高潔"
@@ -128,6 +129,7 @@
                 alt="秋菊高潔"
                 @mouseenter="mouseenter('秋菊高潔')"
                 @mouseleave="mouseleave('秋菊高潔')"
+                @click="toProduct('-Lmx7M5onozib4GioUJd')"
               />
               <img
                 class="黃金萬兩"
@@ -135,12 +137,14 @@
                 alt="黃金萬兩"
                 @mouseenter="mouseenter('黃金萬兩')"
                 @mouseleave="mouseleave('黃金萬兩')"
+                @click="toProduct('-LpReL5sQovLFraGfv9P')"
               />
             </div>
           </div>
           <div class="col-12 col-md-7">
             <p class="__justify __r_mt info">
-              當時顯赫一時的富貴人家屋宅上，就會看到這些從日本進口而來的「馬約利卡磁磚」(Majolica Tiles)，匠師手工製作相當精緻費工，每片花磚圖騰代表著一種祝福，如蘋果代表平安、石榴代表多子多孫、蝙蝠代表福氣、桃子代表長壽。
+              當時顯赫一時的富貴人家屋宅上，就會看到這些從日本進口而來的「馬約利卡磁磚」(Majolica Tiles)，
+              匠師手工製作相當精緻費工，每片花磚圖騰代表著一種祝福，如蘋果代表平安、石榴代表多子多孫、蝙蝠代表福氣、桃子代表長壽。
               <br />
               <br />一片花磚比相同土地面積的售價還高，隨著二次世界大戰爆發後停產，從此這些美麗花磚便凝結在老厝屋脊上，漸漸地蒙塵，被世人遺忘。
             </p>
@@ -186,6 +190,7 @@
                 alt="幸運"
                 @mouseenter="mouseenter('幸運')"
                 @mouseleave="mouseleave('幸運')"
+                @click="toProduct('-Lp2sxn0zCjwdjQL9kqZ')"
               />
               <img
                 class="健康"
@@ -193,6 +198,7 @@
                 alt="健康"
                 @mouseenter="mouseenter('健康')"
                 @mouseleave="mouseleave('健康')"
+                @click="toProduct('-LpReG7jiZEnOcdtRDRW')"
               />
               <img
                 class="黃槿謙德"
@@ -200,6 +206,7 @@
                 alt="黃槿謙德"
                 @mouseenter="mouseenter('黃槿謙德')"
                 @mouseleave="mouseleave('黃槿謙德')"
+                @click="toProduct('-Lo49KBAvSnjh6_JLI2I')"
               />
               <img
                 class="海棠春好"
@@ -207,6 +214,7 @@
                 alt="海棠春好"
                 @mouseenter="mouseenter('海棠春好')"
                 @mouseleave="mouseleave('海棠春好')"
+                @click="toProduct('-LoKDeNjloemDKDjdOCc')"
               />
             </div>
             <div class="--img">
@@ -257,7 +265,8 @@
         </section>
         <section class="row __mt">
           <p class="text-center info">
-            2016年透過法國艾克斯‧馬賽大學 (Aix Marseille University) 將台灣花磚文化與世界多國花磚併同，向聯合國教科文組織申請「世界非物質文化遺產」後美、英、法、日等國也陸續有學者專家前來交流，並表達合作意願。
+            2016年透過法國艾克斯‧馬賽大學 (Aix Marseille University) 將台灣花磚文化與世界多國花磚併同，
+            向聯合國教科文組織申請「世界非物質文化遺產」後美、英、法、日等國也陸續有學者專家前來交流，並表達合作意願。
             <br />隔年受邀到日本最大的百年INAX生活博物館 (INAX Museum) 展出，也遠赴美國華盛頓哥倫比亞特區的國立建築博物館展覽花磚工藝。
             <br />此外，台灣花磚博物館也受邀到台北故事館、台南林百貨展示，述說台灣老花磚的故事。
             <br />
@@ -265,7 +274,8 @@
             <br />2018年，台灣花磚博物館與博客來書店共同打造3款花磚紅包袋，2019年再與天仁茗茶合作推出花磚茶禮盒，並設計10套精美花磚卡套。
             <br />
             <br />
-            <span class="font-weight-bold text-primary">「我們真正想做的是，讓花磚在台灣重生，重新走入民眾生活中。」</span>徐嘉彬語氣堅定地述說成立博物館的理念，
+            <span class="font-weight-bold text-primary">「我們真正想做的是，讓花磚在台灣重生，重新走入民眾生活中。」</span>
+            徐嘉彬語氣堅定地述說成立博物館的理念，
             <br />也期待花磚能打入建材市場，有朝一日重回真正屬於它的地方。
           </p>
         </section>
@@ -288,6 +298,7 @@
                 alt="堅持"
                 @mouseenter="mouseenter('堅持', '', 'cyan')"
                 @mouseleave="mouseleave('堅持', '', 'cyan')"
+                @click="toProduct('-Lo4ZRdyocMqRIwBE0Vp')"
               />
               <img
                 class="財富"
@@ -295,6 +306,7 @@
                 alt="財富"
                 @mouseenter="mouseenter('財富', '', 'cyan')"
                 @mouseleave="mouseleave('財富', '', 'cyan')"
+                @click="toProduct('-Lp2sPeRIS0cLFumpFzi')"
               />
             </div>
             <div class="--img">
@@ -310,112 +322,195 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
-import Footer from "@/components/shop/Footer.vue";
+import $ from 'jquery';
+import Navbar from '@/components/Navbar.vue';
+import Footer from '@/components/shop/Footer.vue';
 
 // tilesBk
-import 百事合意_bk from "@/assets/img/black_1x/百事合意_四方連續_線稿_black.png";
-import 秋菊高潔_bk from "@/assets/img/black_1x/秋菊高潔_四方連續_線稿_black.png";
-import 黃金萬兩_bk from "@/assets/img/black_1x/黃金萬兩_四方連續_線稿_black.png";
-import 財富_bk from "@/assets/img/black_1x/財富_四方連續_線稿_black.png";
-import 黃槿謙德_bk from "@/assets/img/black_1x/黃槿謙德_四方連續_線稿_black.png";
-import 健康_bk from "@/assets/img/black_1x/健康_四方連續_線稿_black.png";
-import 堅持_bk from "@/assets/img/black_1x/堅持_四方連續_線稿_black.png";
-import 幸運_bk from "@/assets/img/black_1x/幸運_四方連續_線稿_black.png";
-import 海棠春好_bk from "@/assets/img/black_1x/海棠春好_四方連續_線稿_black.png";
-import 玉蘭貞潔_bk from "@/assets/img/black_1x/玉蘭貞潔_四方連續_線稿_black.png";
+import 百事合意Bk from '@/assets/img/black_1x/百事合意_四方連續_線稿_black.png';
+import 秋菊高潔Bk from '@/assets/img/black_1x/秋菊高潔_四方連續_線稿_black.png';
+import 黃金萬兩Bk from '@/assets/img/black_1x/黃金萬兩_四方連續_線稿_black.png';
+import 財富Bk from '@/assets/img/black_1x/財富_四方連續_線稿_black.png';
+import 黃槿謙德Bk from '@/assets/img/black_1x/黃槿謙德_四方連續_線稿_black.png';
+import 健康Bk from '@/assets/img/black_1x/健康_四方連續_線稿_black.png';
+import 堅持Bk from '@/assets/img/black_1x/堅持_四方連續_線稿_black.png';
+import 幸運Bk from '@/assets/img/black_1x/幸運_四方連續_線稿_black.png';
+import 海棠春好Bk from '@/assets/img/black_1x/海棠春好_四方連續_線稿_black.png';
+import 玉蘭貞潔Bk from '@/assets/img/black_1x/玉蘭貞潔_四方連續_線稿_black.png';
 
-//tilesCyan
-import 堅持_cyan from "@/assets/img/cyan_1x/堅持_四方連續_線稿_cyan.png";
-import 財富_cyan from "@/assets/img/cyan_1x/財富_四方連續_線稿_cyan.png";
+// tilesCyan
+import 堅持Cyan from '@/assets/img/cyan_1x/堅持_四方連續_線稿_cyan.png';
+import 財富Cyan from '@/assets/img/cyan_1x/財富_四方連續_線稿_cyan.png';
 
-//tilesColor
-import 百事合意_color from "@/assets/img/colorful_1x/百事合意_四方連續_彩稿.png";
-import 秋菊高潔_color from "@/assets/img/colorful_1x/秋菊高潔_四方連續_彩稿.png";
-import 黃金萬兩_color from "@/assets/img/colorful_1x/黃金萬兩_四方連續_彩稿.png";
-import 財富_color from "@/assets/img/colorful_1x/財富_四方連續_彩稿.png";
-import 黃槿謙德_color from "@/assets/img/colorful_1x/黃槿謙德_四方連續_彩稿.png";
-import 健康_color from "@/assets/img/colorful_1x/健康_四方連續_彩稿.png";
-import 堅持_color from "@/assets/img/colorful_1x/堅持_四方連續_彩稿.png";
-import 幸運_color from "@/assets/img/colorful_1x/幸運_四方連續_彩稿.png";
-import 海棠春好_color from "@/assets/img/colorful_1x/海棠春好_四方連續_彩稿.png";
-import 玉蘭貞潔_color from "@/assets/img/colorful_1x/玉蘭貞潔_四方連續_彩稿.png";
+// tilesColor
+import 百事合意Color from '@/assets/img/colorful_1x/百事合意_四方連續_彩稿.png';
+import 秋菊高潔Color from '@/assets/img/colorful_1x/秋菊高潔_四方連續_彩稿.png';
+import 黃金萬兩Color from '@/assets/img/colorful_1x/黃金萬兩_四方連續_彩稿.png';
+import 財富Color from '@/assets/img/colorful_1x/財富_四方連續_彩稿.png';
+import 黃槿謙德Color from '@/assets/img/colorful_1x/黃槿謙德_四方連續_彩稿.png';
+import 健康Color from '@/assets/img/colorful_1x/健康_四方連續_彩稿.png';
+import 堅持Color from '@/assets/img/colorful_1x/堅持_四方連續_彩稿.png';
+import 幸運Color from '@/assets/img/colorful_1x/幸運_四方連續_彩稿.png';
+import 海棠春好Color from '@/assets/img/colorful_1x/海棠春好_四方連續_彩稿.png';
+import 玉蘭貞潔Color from '@/assets/img/colorful_1x/玉蘭貞潔_四方連續_彩稿.png';
 
 export default {
   data() {
     return {
       tilesBk: {
-        百事合意: 百事合意_bk,
-        秋菊高潔: 秋菊高潔_bk,
-        黃金萬兩: 黃金萬兩_bk,
-        財富: 財富_bk,
-        黃槿謙德: 黃槿謙德_bk,
-        健康: 健康_bk,
-        堅持: 堅持_bk,
-        幸運: 幸運_bk,
-        海棠春好: 海棠春好_bk,
-        玉蘭貞潔: 玉蘭貞潔_bk
+        百事合意: 百事合意Bk,
+        秋菊高潔: 秋菊高潔Bk,
+        黃金萬兩: 黃金萬兩Bk,
+        財富: 財富Bk,
+        黃槿謙德: 黃槿謙德Bk,
+        健康: 健康Bk,
+        堅持: 堅持Bk,
+        幸運: 幸運Bk,
+        海棠春好: 海棠春好Bk,
+        玉蘭貞潔: 玉蘭貞潔Bk,
       },
       tilesCyan: {
-        堅持: 堅持_cyan,
-        財富: 財富_cyan
+        堅持: 堅持Cyan,
+        財富: 財富Cyan,
       },
       tilesColor: {
-        百事合意: 百事合意_color,
-        秋菊高潔: 秋菊高潔_color,
-        黃金萬兩: 黃金萬兩_color,
-        財富: 財富_color,
-        黃槿謙德: 黃槿謙德_color,
-        健康: 健康_color,
-        堅持: 堅持_color,
-        幸運: 幸運_color,
-        海棠春好: 海棠春好_color,
-        玉蘭貞潔: 玉蘭貞潔_color
-      }
+        百事合意: 百事合意Color,
+        秋菊高潔: 秋菊高潔Color,
+        黃金萬兩: 黃金萬兩Color,
+        財富: 財富Color,
+        黃槿謙德: 黃槿謙德Color,
+        健康: 健康Color,
+        堅持: 堅持Color,
+        幸運: 幸運Color,
+        海棠春好: 海棠春好Color,
+        玉蘭貞潔: 玉蘭貞潔Color,
+      },
     };
   },
   components: {
     Navbar,
-    Footer
+    Footer,
   },
   methods: {
     mouseenter(tile, selecte) {
-      let selector = ".";
-      if (selecte === "id") {
-        selector = "#";
+      let selector = '.';
+      if (selecte === 'id') {
+        selector = '#';
       }
       const el = document.querySelector(`${selector}${tile}`);
-      el.classList.remove("fadeout");
-      el.setAttribute("src", this.tilesColor[tile]);
-      el.classList.add("fadein");
-      console.log(1);
+      el.classList.remove('fadeout');
+      el.setAttribute('src', this.tilesColor[tile]);
+      el.classList.add('fadein');
     },
     mouseleave(tile, selecte, color) {
-      let selector = ".";
-      if (selecte === "id") {
-        selector = "#";
+      let selector = '.';
+      if (selecte === 'id') {
+        selector = '#';
       }
       const el = document.querySelector(`${selector}${tile}`);
-      el.classList.add("fadeout");
-      if (color === "cyan") {
+      el.classList.add('fadeout');
+      if (color === 'cyan') {
         document
           .querySelector(`${selector}${tile}`)
-          .setAttribute("src", this.tilesCyan[tile]);
+          .setAttribute('src', this.tilesCyan[tile]);
       } else {
         document
           .querySelector(`${selector}${tile}`)
-          .setAttribute("src", this.tilesBk[tile]);
+          .setAttribute('src', this.tilesBk[tile]);
       }
-      el.classList.remove("fadein");
-    }
-  }
+      el.classList.remove('fadein');
+    },
+    toProduct(product) {
+      this.$router.push(`/shop/product_id=${product}`);
+    },
+  },
+  mounted() {
+    $(window).scroll(() => {
+      if ($(window).scrollTop() > 180) {
+        $('#history .intro').removeClass('ttx5 opacity');
+        $('#history .time').removeClass('ttx-10 opacity');
+      } else {
+        $('#history .time').addClass('ttx-10 opacity');
+        $('#history .intro').addClass('ttx5 opacity');
+      }
+      if ($(window).scrollTop() > 940) {
+        $('#info .intro').removeClass('ttx-5 opacity');
+        $('#info .time').removeClass('ttx10 opacity');
+      } else {
+        $('#info .intro').addClass('ttx-5 opacity');
+        $('#info .time').addClass('ttx10 opacity');
+      }
+      if ($(window).scrollTop() > 2000) {
+        $('#protect .line').removeClass('tty-5 opacity');
+        $('#protect .intro').removeClass('opacity');
+      } else {
+        $('#protect .line').addClass('tty-5 opacity');
+        $('#protect .intro').addClass('opacity');
+      }
+      if ($(window).scrollTop() > 3350) {
+        $('#further .line').removeClass('tty-5 opacity');
+        $('#further .time').removeClass('tty5 opacity');
+        $('#further .intro').removeClass('opacity');
+      } else {
+        $('#further .line').addClass('tty-5 opacity');
+        $('#further .time').addClass('tty5 opacity');
+        $('#further .intro').addClass('opacity');
+      }
+      if ($(window).scrollTop() > 4725) {
+        $('#future .line').removeClass('tty-5 opacity');
+        $('#future .time').removeClass('tty5 opacity');
+        $('#future .intro').removeClass('opacity');
+      } else {
+        $('#future .line').addClass('tty-5 opacity');
+        $('#future .time').addClass('tty5 opacity');
+        $('#future .intro').addClass('opacity');
+      }
+      if ($(window).scrollTop() > 4825) {
+        $('#future .--tiles').removeClass('opacity');
+      } else {
+        $('#future .--tiles').addClass('opacity');
+      }
+      if ($(window).scrollTop() > 5000) {
+        $('#future .--img').removeClass('opacity');
+      } else {
+        $('#future .--img').addClass('opacity');
+      }
+    });
+  },
 };
 </script>
 
 <style scoped lang="sass">
-@import "@/assets/color.sass"
+@import "@/assets/_color.sass"
 
 // animation
+.ttx-10
+  transform: translateX(-10vw)
+
+.ttx-5
+  transform: translateX(-5vw)
+
+.ttx10
+  transform: translateX(10vw)
+
+.ttx5
+  transform: translateX(5vw)
+
+.tty-10
+  transform: translateY(-10vw)
+
+.tty-5
+  transform: translateY(-5vw)
+
+.tty10
+  transform: translateY(10vw)
+
+.tty5
+  transform: translateY(5vw)
+
+.opacity
+  opacity: 0
+
 .fadein
   animation: fadein .7s both
 
@@ -441,7 +536,7 @@ export default {
     opacity: .7
     transform: translateY(0)
     box-shadow: 0 1px 1px rgba($black, .1)
-  
+
 
 // init
 p,h5
@@ -460,6 +555,9 @@ article
 
 .__mt
   margin-top: 60px
+
+%__transition
+  transition: 1s
 
 
 // mixin
@@ -533,7 +631,7 @@ article
   @media all and (max-width: 576px)
     width: 50vw
     right: 8vw
-  
+
   img
     width: (100% / 5)
     opacity: .7
@@ -542,7 +640,7 @@ article
       width: (100% / 4)
     @media all and (max-width: 575.98px)
       width: (100% / 2)
-  
+
   .line
     width: 100%
     height: 1px
@@ -572,6 +670,7 @@ article
     padding-right: 1rem
 
 .time
+  @extend %__transition
   +fz(1.3)
 
   .years
@@ -579,6 +678,13 @@ article
     +fz(5)
     font-weight: 400
     +lh(1, 5.5)
+
+.__flex
+  .--tiles
+    cursor: pointer
+
+.intro
+  @extend %__transition
 
 .info
   +lh(1, 2.5)
@@ -600,7 +706,7 @@ article
 
   .--img
     overflow: hidden
-    
+
     img
       height: 100%
 
@@ -646,6 +752,7 @@ article
     +line
     +h_center
     margin-bottom: .5rem
+    @extend %__transition
 
   .intro
     +intro
@@ -660,12 +767,13 @@ article
     +h_center
     transform: translateX(-50%)
     width: 100%
-      
+
 #further
   .line
     +line
     +h_center
     margin-bottom: 1.5rem
+    @extend %__transition
 
   .intro
     +intro
@@ -681,19 +789,23 @@ article
     +line
     +h_center
     margin-bottom: 1.5rem
+    @extend %__transition
 
   .--tiles
     padding-top: 2rem
+    @extend %__transition
 
     img
       height: (300px / 2)
       transition: 1s
+      cursor: pointer
 
   .--img
     +h_center
     transform: translate(-50%)
     width: 300px
     overflow: hidden
+    @extend %__transition
 
     img
       width: 100%

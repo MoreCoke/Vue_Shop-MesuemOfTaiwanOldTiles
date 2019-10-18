@@ -83,14 +83,14 @@ export default {
   data() {
     return {
       order: {},
-      orderId: ""
+      orderId: '',
     };
   },
   methods: {
     getOrder() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${this.orderId}`;
       const vm = this;
-      this.$http.get(api).then(response => {
+      this.$http.get(api).then((response) => {
         vm.order = response.data.order;
         // console.log('getorder',response.data);
       });
@@ -98,10 +98,10 @@ export default {
     payOrder(id) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${id}`;
       const vm = this;
-      this.$http.post(api).then(response => {
+      this.$http.post(api).then(() => {
         vm.getOrder();
       });
-    }
+    },
   },
   created() {
     this.orderId = this.$route.params.id;
@@ -142,7 +142,7 @@ export default {
 .carts--subtitle
   font-weight: 700
   word-break: keep-all
-    
+
 .cart--footer
   width: 100%
 

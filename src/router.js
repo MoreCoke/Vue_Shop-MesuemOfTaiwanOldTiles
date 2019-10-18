@@ -13,10 +13,10 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
-    // {
-    //   path: '*',
-    //   redirect: '/'
-    // },
+    {
+      path: '*',
+      redirect: '/',
+    },
     {
       path: '/',
       name: 'home',
@@ -35,25 +35,25 @@ export default new Router({
           path: '',
           name: 'admin',
           component: () => import('@/components/admin/Product.vue'),
-          meta: { requiresAuth: true }
+          meta: { requiresAuth: true },
         },
         {
           path: 'product',
           name: 'adminProduct',
           component: () => import('@/components/admin/Product.vue'),
-          meta: { requiresAuth: true }
+          meta: { requiresAuth: true },
         },
         {
           path: 'order',
           name: 'adminOrder',
           component: () => import('@/components/admin/Order.vue'),
-          meta: { requiresAuth: true }
+          meta: { requiresAuth: true },
         },
         {
           path: 'offer',
           name: 'adminOffer',
           component: () => import('@/components/admin/Offer.vue'),
-          meta: { requiresAuth: true }
+          meta: { requiresAuth: true },
         },
       ],
     },
@@ -66,7 +66,7 @@ export default new Router({
           name: 'shop',
           components: {
             default: Products,
-            sidebar: Sidebar
+            sidebar: Sidebar,
           },
         },
         {
@@ -74,7 +74,7 @@ export default new Router({
           name: 'item',
           components: {
             default: Product,
-            sidebar: Sidebar
+            sidebar: Sidebar,
           },
           meta: { scroll: true },
         },
@@ -83,7 +83,7 @@ export default new Router({
           name: 'all',
           components: {
             default: Products,
-            sidebar: Sidebar
+            sidebar: Sidebar,
           },
           meta: { scroll: true },
         },
@@ -92,7 +92,7 @@ export default new Router({
           name: 'taiwan_old_tile',
           components: {
             default: Products,
-            sidebar: Sidebar
+            sidebar: Sidebar,
           },
           meta: { scroll: true },
         },
@@ -101,7 +101,7 @@ export default new Router({
           name: 'mirror',
           components: {
             default: Products,
-            sidebar: Sidebar
+            sidebar: Sidebar,
           },
           meta: { scroll: true },
         },
@@ -110,7 +110,7 @@ export default new Router({
           name: 'magnet',
           components: {
             default: Products,
-            sidebar: Sidebar
+            sidebar: Sidebar,
           },
           meta: { scroll: true },
         },
@@ -119,7 +119,7 @@ export default new Router({
           name: 'coaster',
           components: {
             default: Products,
-            sidebar: Sidebar
+            sidebar: Sidebar,
           },
           meta: { scroll: true },
         },
@@ -128,7 +128,7 @@ export default new Router({
           name: 'order',
           components: {
             default: Order,
-            sidebar: Sidebar
+            sidebar: Sidebar,
           },
           meta: { scroll: true },
         },
@@ -146,10 +146,10 @@ export default new Router({
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition;
-    } else if (to.matched.some(record => record.meta.scroll)) {
-      return { x: 0, y: 510 };
-    } else {
-      return { x: 0, y: 0 };
     }
-  }
+    if (to.matched.some(record => record.meta.scroll)) {
+      return { x: 0, y: 510 };
+    }
+    return { x: 0, y: 0 };
+  },
 });

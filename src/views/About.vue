@@ -60,28 +60,28 @@
 
 
 <script>
-import Navbar from "@/components/Navbar.vue";
-import HeaderTiles from "@/components/shop/HeaderTiles.vue";
-import Footer from "@/components/shop/Footer.vue";
+import Navbar from '@/components/Navbar.vue';
+import HeaderTiles from '@/components/shop/HeaderTiles.vue';
+import Footer from '@/components/shop/Footer.vue';
 
 export default {
   data() {
     return {
       status: {
-        isShop: false
-      }
+        isShop: false,
+      },
     };
   },
   components: {
     Navbar,
     HeaderTiles,
-    Footer
-  }
+    Footer,
+  },
 };
 </script>
 
 <style scoped lang="sass">
-@import "@/assets/color.sass"
+@import "@/assets/_color.sass"
 
 @mixin fz($p)
   font-size: 1rem * $p

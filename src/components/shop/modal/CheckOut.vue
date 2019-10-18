@@ -14,7 +14,8 @@
         <div class="cart--content">
           <form class="cart--contents">
             <div class="form-group row">
-              <label for="username" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">姓名：</label>
+              <label for="username"
+                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">姓名：</label>
               <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="姓名"
@@ -35,7 +36,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="usertel" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">電話：</label>
+              <label for="usertel"
+                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">電話：</label>
               <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="電話"
@@ -57,7 +59,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="useremail" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">Email：</label>
+              <label for="useremail"
+                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">Email：</label>
               <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="Email"
@@ -78,7 +81,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="useradd" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">地址：</label>
+              <label for="useradd"
+                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">地址：</label>
               <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="地址"
@@ -99,7 +103,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputPs" class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">備註：</label>
+              <label for="inputPs"
+                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">備註：</label>
               <div class="col-12 col-sm-11 col-md-10 pl-md-3">
                 <textarea
                   name
@@ -125,35 +130,35 @@
           </tr>
         </table>
       </div>
-      <div class="col-12 col-md-4 offset-md-3 col-lg-3 col-xl-2 offset-xl-2">
+      <div class="col-12 col-md-4 offset-md-3 col-lg-3 col-xl-2 offset-xl-7">
         <button class="btn btn-outline-light cart--next" @click="changePage(false)">回到購物車</button>
       </div>
       <div class="col-12 col-md-4 col-lg-3 col-xl-2">
-        <button type="submit" class="btn btn-outline-light cart--next" @click="createOrder">送出訂單</button>
+        <button type="submit"
+                class="btn btn-outline-light cart--next"
+                @click="createOrder">送出訂單</button>
       </div>
     </div>
   </ValidationObserver>
 </template>
 
 <script>
-import $ from "jquery";
-
-import { extend } from "vee-validate";
-import * as rules from "vee-validate/dist/rules";
-import zhtw from "vee-validate/dist/locale/zh_TW";
+import { extend } from 'vee-validate';
+import * as rules from 'vee-validate/dist/rules';
+import zhtw from 'vee-validate/dist/locale/zh_TW.json';
 
 // loop over all rules
-for (let rule in rules) {
+Object.keys(rules).forEach((rule) => {
   extend(rule, {
     ...rules[rule], // add the rule
-    message: zhtw.messages[rule] // add its message
+    message: zhtw.messages[rule], // add its message
   });
-}
+});
 
 export default {
   data() {
     return {
-      customerInfo: {}
+      customerInfo: {},
     };
   },
   methods: {
@@ -163,7 +168,6 @@ export default {
       if (!isValid) {
         return;
       }
-      console.log(1);
 
       // Api path
       const vm = this;
@@ -174,14 +178,14 @@ export default {
           name: this.customerInfo.name,
           tel: this.customerInfo.tel,
           email: this.customerInfo.email,
-          address: this.customerInfo.address
+          address: this.customerInfo.address,
         },
-        message: this.customerInfo.message
+        message: this.customerInfo.message,
       };
 
       // Ajax method
-      this.$http.post(api, { data: customer }).then(response => {
-        console.log("createorder", response);
+      this.$http.post(api, { data: customer }).then((response) => {
+        // console.log('createorder', response);
         vm.customerInfo = {};
 
         // Modal close
@@ -191,22 +195,22 @@ export default {
         vm.$router.push(`/shop/order_id=${response.data.orderId}`);
 
         // reset ValidateObserver (vee-validate)
-        vm.customerInfo.name = "";
-        vm.customerInfo.tel = "";
-        vm.customerInfo.email = "";
-        vm.customerInfo.address = "";
+        vm.customerInfo.name = '';
+        vm.customerInfo.tel = '';
+        vm.customerInfo.email = '';
+        vm.customerInfo.address = '';
         requestAnimationFrame(() => {
           vm.$refs.observer.reset();
         });
       });
     },
     changePage() {
-      this.$emit("change_page", false);
+      this.$emit('change_page', false);
     },
     closeModal() {
-      this.$emit("close_modal");
-    }
-  }
+      this.$emit('close_modal');
+    },
+  },
 };
 </script>
 

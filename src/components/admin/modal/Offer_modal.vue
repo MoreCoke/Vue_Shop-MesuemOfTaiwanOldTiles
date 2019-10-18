@@ -106,7 +106,9 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+              <button type="button"
+                      class="btn btn-outline-secondary"
+                      data-dismiss="modal">取消</button>
               <button type="button" class="btn btn-primary" @click="updatedCoupons">
                 <i class="fas fa-spinner fa-spin" v-if="status.isLoading"></i>
                 確認
@@ -153,38 +155,38 @@
 </template>
 
 <script>
-import $ from "jquery";
+import $ from 'jquery';
 
-import { extend } from "vee-validate";
-import * as rules from "vee-validate/dist/rules";
-import zhtw from "vee-validate/dist/locale/zh_TW";
+import { extend } from 'vee-validate';
+import * as rules from 'vee-validate/dist/rules';
+import zhtw from 'vee-validate/dist/locale/zh_TW.json';
 
 // loop over all rules
-for (let rule in rules) {
+Object.keys(rules).forEach((rule) => {
   extend(rule, {
     ...rules[rule], // add the rule
-    message: zhtw.messages[rule] // add its message
+    message: zhtw.messages[rule], // add its message
   });
-}
+});
 
 export default {
   props: {
     tempCoupon: Object,
-    isNew: Boolean
+    isNew: Boolean,
   },
   data() {
     return {
       isLoading: false,
       status: {
-        isLoading: false
+        isLoading: false,
       },
-      date: ""
+      date: '',
     };
   },
   methods: {
     test2() {
       if (!this.isNew) {
-        let timestamp = new Date(this.tempCoupon.due_date * 1000);
+        const timestamp = new Date(this.tempCoupon.due_date * 1000);
         let dd = new Date(timestamp).getDate();
         if (dd < 10) {
           dd = `0${dd}`;
@@ -193,8 +195,8 @@ export default {
         if (MM < 10) {
           MM = `0${MM}`;
         }
-        let yyyy = new Date(timestamp).getFullYear();
-        let time = `${yyyy}-${MM}-${dd}`;
+        const yyyy = new Date(timestamp).getFullYear();
+        const time = `${yyyy}-${MM}-${dd}`;
         this.date = time;
         // console.log(this.date)
       }
@@ -211,39 +213,39 @@ export default {
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
 
       // timestamp
-      const date = Math.floor(new Date(vm.date) / 1000);      
+      const date = Math.floor(new Date(vm.date) / 1000);
       vm.tempCoupon.due_date = date;
 
       // add Loading animation
       vm.status.isLoading = true;
 
       // Ajax method
-      let httpMethod = "post";
+      let httpMethod = 'post';
       if (!vm.isNew) {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
-        httpMethod = "put";
+        httpMethod = 'put';
       }
 
       // Ajax (vue axios)
-      this.$http[httpMethod](api, { data: vm.tempCoupon }).then(response => {
+      this.$http[httpMethod](api, { data: vm.tempCoupon }).then(() => {
         // console.log(response);
 
         // reset timestamp
-        vm.date = "";
-        
+        vm.date = '';
+
         // remove Loading animation
         vm.status.isLoading = false;
-        
+
         // Modal close
-        $("#offerModal").modal("hide");
+        $('#offerModal').modal('hide');
 
         // update Coupons list
-        vm.$emit("get_coupons");
+        vm.$emit('get_coupons');
 
         // reset ValidateObserver (vee-validate)
-        vm.tempCoupon.title = "";
-        vm.tempCoupon.percent = "";
-        vm.tempCoupon.code = "";
+        vm.tempCoupon.title = '';
+        vm.tempCoupon.percent = '';
+        vm.tempCoupon.code = '';
         requestAnimationFrame(() => {
           vm.$refs.observer.reset();
         });
@@ -258,20 +260,20 @@ export default {
       vm.status.isLoading = true;
 
       // Ajax (vue axios)
-      this.$http.delete(api).then(response => {
+      this.$http.delete(api).then(() => {
         // console.log(response.data);
 
         // remove Loading animation
         vm.status.isLoading = false;
 
         // Modal close
-        $("#delOfferModal").modal("hide");
+        $('#delOfferModal').modal('hide');
 
         // update Coupons list
-        vm.$emit("get_coupons");
+        vm.$emit('get_coupons');
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

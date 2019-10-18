@@ -35,7 +35,6 @@
                       v-model="tempProduct.imageUrl"
                     />
                   </div>
-                  <!-- 改好看一點 -->
                   <div class="form-group custom-file">
                     <label for="customFile">
                       或 上傳圖片
@@ -48,16 +47,6 @@
                       ref="files"
                       @change="uploadFile"
                     />
-                    <!-- <div class="custom-file">
-                    <input
-                      type="file"
-                      class="custom-file-input"
-                      id="customFile"
-                      ref="files"
-                      aria-describedby="inputGroupFileAddon01"
-                    />
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>-->
                   </div>
                   <img img class="img-fluid" alt :src="tempProduct.imageUrl" />
                 </div>
@@ -102,7 +91,9 @@
                         >
                           <!-- 預設選項無法渲染出 -->
                           <option value disabled selected>--請選擇--</option>
-                          <option :value="item" v-for="(item,key) in category" :key="key">{{item}}</option>
+                          <option :value="item"
+                                  v-for="(item,key) in category"
+                                  :key="key">{{item}}</option>
                         </select>
                         <span class="text-danger">{{ errors[0] }}</span>
                       </ValidationProvider>
@@ -189,7 +180,9 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+              <button type="button"
+                      class="btn btn-outline-secondary"
+                      data-dismiss="modal">取消</button>
               <button type="button" class="btn btn-primary" @click="updatedProduct">
                 <i class="fas fa-spinner fa-spin" v-if="status.isLoading"></i>
                 確認
@@ -236,37 +229,37 @@
 </template>
 
 <script>
-import $ from "jquery";
+import $ from 'jquery';
 
-import { extend } from "vee-validate";
-import * as rules from "vee-validate/dist/rules";
-import zhtw from "vee-validate/dist/locale/zh_TW";
+import { extend } from 'vee-validate';
+import * as rules from 'vee-validate/dist/rules';
+import zhtw from 'vee-validate/dist/locale/zh_TW.json';
 
 // loop over all rules
-for (let rule in rules) {
+Object.keys(rules).forEach((rule) => {
   extend(rule, {
     ...rules[rule], // add the rule
-    message: zhtw.messages[rule] // add its message
+    message: zhtw.messages[rule], // add its message
   });
-}
+});
 
 export default {
   props: {
     tempProduct: Object,
-    isNew: Boolean
+    isNew: Boolean,
   },
   data() {
     return {
       category: {
-        I: "台灣花磚",
-        II: "花磚小鏡子",
-        III: "花磚磁鐵",
-        IV: "花磚竹杯墊"
+        I: '台灣花磚',
+        II: '花磚小鏡子',
+        III: '花磚磁鐵',
+        IV: '花磚竹杯墊',
       },
       status: {
         fileUploading: false,
-        isLoading: false
-      }
+        isLoading: false,
+      },
     };
   },
   methods: {
@@ -280,33 +273,32 @@ export default {
       // Api path
       const vm = this;
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
-      
+
       // add Loading animation
       vm.status.isLoading = true;
 
       // Ajax method
-      let httpMethod = "post";
+      let httpMethod = 'post';
       if (!vm.isNew) {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-        httpMethod = "put";
+        httpMethod = 'put';
       }
 
       // Ajax (vue axios)
-      this.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
-
+      this.$http[httpMethod](api, { data: vm.tempProduct }).then(() => {
         // remove Loading animation
         vm.status.isLoading = false;
 
         // Modal close
-        $("#productModal").modal("hide");
+        $('#productModal').modal('hide');
 
         // update Products list
-        vm.$emit("get_products");
+        vm.$emit('get_products');
 
         // reset ValidateObserver (vee-validate)
-        vm.tempProduct.title = "";
-        vm.tempProduct.category = "";
-        vm.tempProduct.price = "";
+        vm.tempProduct.title = '';
+        vm.tempProduct.category = '';
+        vm.tempProduct.price = '';
         requestAnimationFrame(() => {
           vm.$refs.observer.reset();
         });
@@ -321,16 +313,15 @@ export default {
       vm.status.isLoading = true;
 
       // Ajax (vue axios)
-      this.$http.delete(api).then(response => {
-
+      this.$http.delete(api).then(() => {
         // remove Loading animation
         vm.status.isLoading = false;
 
         // Modal close
-        $("#delProductModal").modal("hide");
-        
+        $('#delProductModal').modal('hide');
+
         // update Products list
-        vm.$emit("get_products");
+        vm.$emit('get_products');
       });
     },
     uploadFile() {
@@ -340,27 +331,27 @@ export default {
 
       const uploadFile = this.$refs.files.files[0];
       const formData = new FormData();
-      formData.append("file-to-upload", uploadFile);
+      formData.append('file-to-upload', uploadFile);
       vm.status.fileUploading = true;
       this.$http
         .post(api, formData, {
           header: {
-            "Content-Type": "multipart/form-data"
-          }
+            'Content-Type': 'multipart/form-data',
+          },
         })
-        .then(response => {
+        .then((response) => {
           // console.log(response);
           if (response.data.success) {
             // vm.tempProduct.imageUrl = response.data.imageUrl;
-            vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
+            vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
             vm.status.fileUploading = false;
             vm.tempProduct.image = vm.tempProduct.title;
           } else {
-            vm.$bus.$emit("message:push", response.data.message, "danger");
+            vm.$bus.$emit('message:push', response.data.message, 'danger');
             vm.status.fileUploading = false;
           }
         });
-    }
+    },
   },
 };
 </script>

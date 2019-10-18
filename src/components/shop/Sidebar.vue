@@ -1,7 +1,6 @@
 <template>
   <div class="col-12 col-md-2 order-md-last">
     <nav class="navbar navbar-expand-md shop--sidebar">
-      <!-- data-50="padding-top: 0" data-200="padding-top: 25vh" -->
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav flex-column">
           <li class="nav-item shop--sidebar--li">

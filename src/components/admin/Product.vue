@@ -19,16 +19,18 @@
         </thead>
         <tbody>
           <tr v-for="item in products" :key="item.id">
-            <!-- 外面也可以修改啟用狀態 -->
             <!-- 是否啟用 -->
             <td class="text-center align-middle">
-              <label
+              <!-- 外面也可以修改啟用狀態 -->
+              <!-- <label
                 class="pl-1 mb-0 align-middle"
                 :class="item.is_enabled === 1? 'text-primary':''"
               >
                 <input type="checkbox" v-model="item.is_enabled" :true-value="1" :false-value="0" />
                 {{item.is_enabled? '啟用':'未啟用'}}
-              </label>
+              </label> -->
+              <span v-if="item.is_enabled === 1" class="text-primary">啟用</span>
+              <span v-else class="text-danger">未啟用</span>
             </td>
             <!-- 分類 -->
             <td class="pl-3 align-middle">{{item.category}}</td>
@@ -40,7 +42,8 @@
             <td class="text-right align-middle">{{item.price | currency}}</td>
             <!-- 編輯 -->
             <td class="pl-5">
-              <button class="btn btn-outline-primary mr-2" @click="openModal(false, item)">編輯</button>
+              <button class="btn btn-outline-primary mr-2"
+                      @click="openModal(false, item)">編輯</button>
               <button class="btn btn-outline-danger" @click="openDelModal(item)">刪除</button>
             </td>
           </tr>
@@ -51,17 +54,15 @@
       :temp-product="tempProduct"
       :is-new="status.isNew"
       @get_products="getProducts"
-      @updated-product="updatedProduct"
-      ref="child"
     ></Modal>
     <Pagination :pagination="pagination" @page_change="getProducts"></Pagination>
   </div>
 </template>
 
 <script>
-import $ from "jquery";
-import Modal from "./modal/Product_modal.vue";
-import Pagination from "@/components/Pagination.vue";
+import $ from 'jquery';
+import Modal from './modal/Product_modal.vue';
+import Pagination from '@/components/Pagination.vue';
 
 export default {
   data() {
@@ -71,33 +72,24 @@ export default {
       pagination: {},
       status: {
         isLoading: false,
-        isNew: false
-      }
+        isNew: false,
+      },
     };
   },
   components: {
     Modal,
-    Pagination
+    Pagination,
   },
   methods: {
-    updatedProduct(item) {
-      // console.log(this);
-      // 一直都是發送更動前的資料
-      this.tempProduct = Object.assign({}, item);
-      this.tempProduct.is_enabled = item.is_enabled;
-      // console.log(this.tempProduct);
-      this.$refs.child.updatedProduct();
-    },
     getProducts(page = 1) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
       const vm = this;
       vm.status.isLoading = true;
-      this.$http.get(api).then(response => {
+      this.$http.get(api).then((response) => {
         // console.log(response);
         vm.status.isLoading = false;
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
-        // vm.$router.push(`/admin/product/${page}`);
       });
     },
     openModal(isNew, item) {
@@ -110,19 +102,19 @@ export default {
         this.tempProduct = Object.assign({}, item);
         this.status.isNew = false;
       }
-      $("#productModal").modal("show");
+      $('#productModal').modal('show');
     },
     openDelModal(item) {
       this.tempProduct = item;
-      $("#delProductModal").modal("show");
-    }
+      $('#delProductModal').modal('show');
+    },
   },
   created() {
     this.getProducts();
-  }
+  },
 };
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/admin.sass'
+@import '@/assets/_admin.sass'
 </style>

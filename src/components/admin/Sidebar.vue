@@ -5,7 +5,15 @@
         <div class id="sidebarNav">
           <ul class="nav mb-2 flex-column">
             <h6
-              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted nav-item"
+              class="sidebar-heading
+                      d-flex
+                      justify-content-between
+                      align-items-center
+                      px-3
+                      mt-4
+                      mb-1
+                      text-muted
+                      nav-item"
             >
               <span>管理</span>
             </h6>
@@ -28,7 +36,15 @@
               </router-link>
             </li>
             <h6
-              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted nav-item"
+              class="sidebar-heading
+                      d-flex
+                      justify-content-between
+                      align-items-center
+                      px-3
+                      mt-4
+                      mb-1
+                      text-muted
+                      nav-item"
             >
               <span>返回</span>
             </h6>
@@ -62,7 +78,6 @@
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1)
   @media all and (max-width: 768px)
     position: relative !important
-    
 
 .sidebar-sticky
   position: -webkit-sticky

@@ -15,12 +15,12 @@ import router from './router';
 import currencyFilter from './filters/currency';
 import timestampFilter from './filters/timestamp';
 // event bus
-import '@/components/bus.js';
+import '@/components/bus';
 
 // validate
 extend('secret', {
   validate: value => value === 'example',
-  message: 'This is not the magic word'
+  message: 'This is not the magic word',
 });
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
@@ -38,20 +38,18 @@ Vue.config.productionTip = false;
 // 前端要把 cookie 的開關打開
 axios.defaults.withCredentials = true;
 
-
-
 router.beforeEach((to, from, next) => {
-  console.log('to:', to, 'from:', from, 'next:', next);
+  // console.log('to:', to, 'from:', from, 'next:', next);
   if (to.meta.requiresAuth) {
     const api = `${process.env.VUE_APP_APIPATH}/api/user/check`;
-    axios.post(api).then(response => {
+    axios.post(api).then((response) => {
       // console.log(response)
-      if(response.data.success) {
+      if (response.data.success) {
         next();
       } else {
-        next({path: '/login'});
+        next({ path: '/login' });
       }
-    })
+    });
   } else {
     next();
   }

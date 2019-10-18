@@ -16,13 +16,13 @@
 <script>
 import Sidebar from '@/components/admin/Sidebar.vue';
 import Navbar from '@/components/admin/Navbar.vue';
-import Alert from '@/components/AlertMsg.vue';
+import Alert from '@/components/admin/AlertMsg.vue';
 
 export default {
   components: {
     Sidebar,
     Navbar,
-    Alert
+    Alert,
   },
 };
 </script>

@@ -20,10 +20,13 @@
         <tbody>
           <tr v-for="item in coupons" :key="item.id">
             <td class="text-center align-middle">
-              <label class="pl-1 mb-0 align-middle">
+              <!-- 直接修改啟用狀態 -->
+              <!-- <label class="pl-1 mb-0 align-middle">
                 <input type="checkbox" v-model="item.is_enabled" :true-value="1" :false-value="0">
                 啟用
-              </label>
+              </label> -->
+              <span v-if="item.is_enabled === 1" class="text-primary">啟用</span>
+              <span v-else class="text-danger">未啟用</span>
             </td>
             <td class="pl-3 align-middle">{{item.title}}</td>
             <td class="align-middle">{{item.code}}</td>
@@ -41,7 +44,7 @@
         </tbody>
       </table>
     </div>
-    <Modal :temp-coupon="tempCoupon" :is-new="isNew" ref="child" @get_coupons="getCoupons"></Modal>
+    <Modal :temp-coupon="tempCoupon" :is-new="isNew" @get_coupons="getCoupons"></Modal>
     <Pagination :pagination="pagination" @page_change="getCoupons"></Pagination>
   </div>
 </template>
@@ -86,7 +89,6 @@ export default {
         $('#offerModal').modal('show');
       } else {
         this.tempCoupon = item;
-        this.$refs.child.test2();
         this.isNew = false;
         $('#offerModal').modal('show');
       }
@@ -104,5 +106,5 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/admin.sass'
+@import '@/assets/_admin.sass'
 </style>

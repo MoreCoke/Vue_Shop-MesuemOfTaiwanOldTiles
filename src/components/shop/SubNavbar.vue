@@ -7,10 +7,13 @@
         </h1>
       </div>-->
       <div class="col-12 col-md-8 col-lg-9 text-primary">
-        <p
-          class="m-0"
-          style="top: 50%;position: relative;transform: translateY(-70%);"
-        >「您的收藏會是一道新的力量，讓我們一起守護台灣的花磚文化⋯⋯」</p>
+        <p class="m-0 pl-2 news">
+          <span class="font-weight-bold">NEWS：</span>
+          結帳時輸入優惠券代碼「
+          <span class="font-weight-bold">OLDTILES</span>
+          」，即可享
+          <span class="font-weight-bold">7折優惠</span>！
+        </p>
       </div>
 
       <div class="col-12 col-md-4 col-lg-3 text-info icon">
@@ -142,15 +145,15 @@
 <script>
 export default {
   props: {
-    isLoading: Boolean
+    isLoading: Boolean,
   },
   data() {
     return {
-      keyWords: "",
+      keyWords: '',
       allProducts: [],
       cartsLength: 0,
       favorites: [],
-      favoriteLength: 0
+      favoriteLength: 0,
     };
   },
   methods: {
@@ -158,51 +161,54 @@ export default {
       this.$router.push(`/shop/product_id=${item.id}`);
     },
     findProducts(id) {
-      // this.$router.push({ name: "item", params: { id: id } });
-      this.$bus.$emit("getProduct", id);
-      console.log(this.$router);
+      // this.$router.push({ name: 'item', params: { id: id } });
+      this.$bus.$emit('getProduct', id);
+      // console.log(this.$router);
     },
     openModal() {
-      this.$emit("open_cart_modal");
+      this.$emit('open_cart_modal');
     },
     removeFavorite(item) {
-      this.$bus.$emit("removeFavorite", item);
-    }
+      this.$bus.$emit('removeFavorite', item);
+    },
   },
   computed: {
     filteredProducts() {
-      if (this.keyWords.trim() !== "") {
-        let t = this.allProducts.filter(el => {
-          return el.title.indexOf(this.keyWords) > -1;
+      if (this.keyWords.trim() !== '') {
+        const t = this.allProducts.filter((el) => {
+          const result = el.title.indexOf(this.keyWords) > -1;
+          return result;
         });
-        return t.length > 0 ? t : false;
+        if (t.length > 0) {
+          return t;
+        }
       }
-    }
+      return false;
+    },
   },
   created() {
-    this.$bus.$on("favoriteLength", favoriteLength => {
+    this.$bus.$on('favoriteLength', (favoriteLength) => {
       this.favoriteLength = favoriteLength;
     });
-    this.$bus.$on("favorite", favorites => {
+    this.$bus.$on('favorite', (favorites) => {
       this.favorites = favorites;
     });
-    this.$bus.$on("get_cart_length", cartsLength => {
+    this.$bus.$on('get_cart_length', (cartsLength) => {
       this.cartsLength = cartsLength;
     });
-    this.$bus.$emit;
   },
   updated() {
-    this.$bus.$on("getAllProduct", allProducts => {
+    this.$bus.$on('getAllProduct', (allProducts) => {
       this.allProducts = allProducts;
       // console.log(this.allProducts);
     });
   },
   beforeDestroy() {
-    this.$bus.$off("favoriteLength");
-    this.$bus.$off("favorites");
-    this.$bus.$off("get_cart_length");
-    this.$bus.$off("getAllProduct");
-  }
+    this.$bus.$off('favoriteLength');
+    this.$bus.$off('favorites');
+    this.$bus.$off('get_cart_length');
+    this.$bus.$off('getAllProduct');
+  },
 };
 </script>
 
@@ -239,6 +245,12 @@ button
   transition: .5s
   margin-top: 5vh
 
+.news
+  top: 50%
+  position: relative
+  transform: translateY(-70%)
+  letter-spacing: 2px
+
 .dropdown-menu
   min-width: 15rem
   .far
@@ -262,7 +274,7 @@ button
       color: $teal
     &:focus
       color: $teal
-      box-shadow: none  
+      box-shadow: none
 
     .fas
       +fz(1.7)

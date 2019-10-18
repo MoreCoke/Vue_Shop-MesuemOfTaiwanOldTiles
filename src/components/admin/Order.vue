@@ -31,7 +31,9 @@
                 <!-- tel filter -->
                 <li>TEL： {{item.user? item.user.tel : '-'}}</li>
                 <li>Email：
-                  <a :href="`mailto:${item.user? item.user.email:''}`">{{item.user? item.user.email : '-'}}</a>
+                  <a :href="`mailto:${item.user? item.user.email:''}`">
+                    {{item.user? item.user.email : '-'}}
+                  </a>
                 </li>
                 <li>ADD： {{item.user? item.user.address : '-'}}</li>
               </ul>
@@ -51,7 +53,6 @@
             <!-- 編輯 -->
             <td class="align-middle pl-5">
               <button class="btn btn-outline-primary mr-2" @click="openModal(item)">修改</button>
-              <button class="btn btn-outline-danger">刪除</button>
             </td>
           </tr>
         </tbody>
@@ -105,5 +106,5 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/admin.sass'
+@import '@/assets/_admin.sass'
 </style>

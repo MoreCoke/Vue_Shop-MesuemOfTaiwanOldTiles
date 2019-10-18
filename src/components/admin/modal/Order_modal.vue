@@ -139,47 +139,15 @@
                     ></textarea>
                   </div>
                 </div>
-                <!-- <div class="col-sm-7">
-                  <h5 class="font-weight-bold text-black">訂單資訊</h5>
-                  <hr />
-
-                  <div class="form-row">
-                    <div class="form-group col-md-9">
-                      <label for="title">產品名稱</label>
-                      <input
-                        type="text"
-                        class="form-control mb-1"
-                        id="title"
-                        v-for="item in tempOrder.products"
-                        :key="item.id"
-                        v-model="item.product.title"
-                      />
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label for="num">數量</label>
-                      <input
-                        type="number"
-                        class="form-control mb-1"
-                        id="num"
-                        v-for="item in tempOrder.products"
-                        :key="item.id"
-                        v-model="item.qty"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label>應付金額</label>
-                    <input type="number" class="form-control" id="num" v-model="tempOrder.total" />
-                  </div>
-                  
-                </div>-->
               </div>
             </div>
             <div class="modal-body ml-2 mr-2" v-else>
               <p class="mt-3">此用戶未填寫購買資訊。</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+              <button type="button"
+                      class="btn btn-outline-secondary"
+                      data-dismiss="modal">取消</button>
               <button type="button" class="btn btn-primary" @click="updatedOrder">
                 <i class="fas fa-spinner fa-spin" v-if="status.isLoading"></i>
                 確認修改
@@ -189,72 +157,38 @@
         </div>
       </ValidationObserver>
     </div>
-    <!-- del Modal -->
-    <div
-      class="modal fade"
-      id="delOrderModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content border-0">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
-              <span>刪除產品</span>
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            是否刪除
-            <strong class="text-danger"></strong> 商品(刪除後將無法恢復)。
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-danger">
-              <i class="fas fa-spinner fa-spin" v-if="status.isLoading"></i>
-              確認刪除
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import $ from "jquery";
+import $ from 'jquery';
 
-import { extend } from "vee-validate";
-import * as rules from "vee-validate/dist/rules";
-import zhtw from "vee-validate/dist/locale/zh_TW";
+import { extend } from 'vee-validate';
+import * as rules from 'vee-validate/dist/rules';
+import zhtw from 'vee-validate/dist/locale/zh_TW.json';
 
 // loop over all rules
-for (let rule in rules) {
+Object.keys(rules).forEach((rule) => {
   extend(rule, {
     ...rules[rule], // add the rule
-    message: zhtw.messages[rule] // add its message
+    message: zhtw.messages[rule], // add its message
   });
-}
+});
 
 export default {
   props: {
-    tempOrder: Object
+    tempOrder: Object,
   },
   data() {
     return {
       status: {
-        isLoading: false
-      }
+        isLoading: false,
+      },
     };
   },
   methods: {
     async updatedOrder() {
       // validate before submit
-      console.log(1)
       const isValid = await this.$refs.observer.validate();
       if (!isValid) {
         return;
@@ -268,29 +202,29 @@ export default {
       vm.status.isLoading = true;
 
       // Ajax (vue axios)
-      this.$http.put(api, { data: vm.tempOrder }).then(response => {
+      this.$http.put(api, { data: vm.tempOrder }).then(() => {
         // console.log(response);
 
         // remove Loading animation
         vm.status.isLoading = false;
 
         // Modal close
-        $("#orderModal").modal("hide");
+        $('#orderModal').modal('hide');
 
         // update Orders list
-        vm.$emit("get_orders");
+        vm.$emit('get_orders');
 
         // reset ValidateObserver (vee-validate)
-        vm.tempOrder.user.name = "";
-        vm.tempOrder.user.tel = "";
-        vm.tempOrder.user.email = "";
-        vm.tempOrder.user.address = "";
+        vm.tempOrder.user.name = '';
+        vm.tempOrder.user.tel = '';
+        vm.tempOrder.user.email = '';
+        vm.tempOrder.user.address = '';
         requestAnimationFrame(() => {
           vm.$refs.observer.reset();
         });
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

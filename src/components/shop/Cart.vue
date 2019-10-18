@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import $ from "jquery";
-import CartInfo from "@/components/shop/modal/CartInfo.vue";
-import CheckOut from "@/components/shop/modal/CheckOut.vue";
+import $ from 'jquery';
+import CartInfo from '@/components/shop/modal/CartInfo.vue';
+import CheckOut from '@/components/shop/modal/CheckOut.vue';
 
 export default {
   data() {
@@ -55,43 +55,43 @@ export default {
       cartsLength: 0,
       status: {
         isLoading: false,
-        isCheckOut: false
-      }
+        isCheckOut: false,
+      },
     };
   },
   components: {
     CartInfo,
-    CheckOut
+    CheckOut,
   },
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
       const vm = this;
-      this.$http.get(api).then(response => {
+      this.$http.get(api).then((response) => {
         vm.carts = response.data.data;
         vm.cartsLength = response.data.data.carts.length;
-        // console.log("getcart", response);
-        this.$bus.$emit("get_cart_length", this.cartsLength);
+        // console.log('getcart', response);
+        this.$bus.$emit('get_cart_length', this.cartsLength);
       });
     },
     closeModal() {
-      $("#cartModal").modal("hide");
+      $('#cartModal').modal('hide');
     },
     changePage(status) {
       this.status.isCheckOut = status;
-    }
+    },
   },
   created() {
     this.getCart();
-    this.$bus.$on("getCart", this.getCart);
+    this.$bus.$on('getCart', this.getCart);
   },
   beforeDestroy() {
-    this.$bus.$off("getCart");
-  }
+    this.$bus.$off('getCart');
+  },
 };
 </script>
 
-<style scoped lang="sass">
+<style scoped lang='sass'>
 @import '@/assets/_color.sass'
 
 h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
@@ -129,7 +129,7 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
   @media all and (max-width: 567.98px)
     top: 65vh
     right: -27vw
-    
+
   .decoration_text--
     width: 3rem
     display: inline-block
