@@ -8,11 +8,11 @@
         :alt="'【' + product.category + '】' + product.title"
       />
       <p class="text-primary item_path">
-        <router-link to="/shop">花磚商店</router-link> >
-        <router-link to="/shop/all">所有商品</router-link> >
+        <router-link to="/shop">花磚商店</router-link>>
+        <router-link to="/shop/all">所有商品</router-link>>
         <span class="__hover" @click="turntoCategory">{{product.category}}</span>
-         >
-         {{product.title}}
+        >
+        {{product.title}}
       </p>
     </div>
     <div class="col-12 col-lg-5 item">
@@ -63,12 +63,13 @@
         </div>
       </div>
     </div>
-      <div class="col-12 col-lg-5 offset-lg-7">
-        <p class="text item--info">
-          <span class="font-weight-bold">產品說明：</span>
-          <br />{{product.content}}
-        </p>
-      </div>
+    <div class="col-12 col-lg-5 offset-lg-7">
+      <p class="text item--info">
+        <span class="font-weight-bold">產品說明：</span>
+        <br />
+        {{product.content}}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -122,8 +123,8 @@ export default {
       this.status.isFavorite = false;
     },
     getFilteredFavorite() {
-      const i = JSON.parse(localStorage.getItem('favorite'));
       this.status.isFavorite = false;
+      const i = JSON.parse(localStorage.getItem('favorite')) || [];
       this.status.isFavorite = i.some((el) => {
         const result = this.product.id === el.id;
         return result;

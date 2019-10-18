@@ -2,7 +2,12 @@
   <footer class="container-fluid bg-primary text-light footer">
     <div class="container">
       <div class="row">
-        <h3 class="col-10 offset-1 offset-md-0 col-md-12 font-weight-bold footer--title">台灣花磚博物館</h3>
+        <h3 class="col-10
+        offset-1
+        offset-md-0
+        col-md-12
+        font-weight-bold
+        footer--title">台灣花磚博物館</h3>
       </div>
       <div class="row">
         <div class="col-10 offset-1 offset-md-0 col-md-7">
@@ -24,7 +29,7 @@
       <div class="row">
         <div class="col-12">
           <p class="text-center footer--icon">
-            <a href="https://github.com/a-howw/Vue-shop_TW-Old-Tiles" target="_blank">
+            <a href="https://github.com/a-howw" target="_blank">
               <svg
                 class="mb-1 mr-3 text-white"
                 height="28"

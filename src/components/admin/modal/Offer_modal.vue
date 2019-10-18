@@ -184,23 +184,6 @@ export default {
     };
   },
   methods: {
-    test2() {
-      if (!this.isNew) {
-        const timestamp = new Date(this.tempCoupon.due_date * 1000);
-        let dd = new Date(timestamp).getDate();
-        if (dd < 10) {
-          dd = `0${dd}`;
-        }
-        let MM = new Date(timestamp).getMonth() + 1;
-        if (MM < 10) {
-          MM = `0${MM}`;
-        }
-        const yyyy = new Date(timestamp).getFullYear();
-        const time = `${yyyy}-${MM}-${dd}`;
-        this.date = time;
-        // console.log(this.date)
-      }
-    },
     async updatedCoupons() {
       // validate before submit
       const isValid = await this.$refs.observer.validate();
@@ -272,6 +255,25 @@ export default {
         // update Coupons list
         vm.$emit('get_coupons');
       });
+    },
+  },
+  watch: {
+    day() {
+      if (!this.isNew) {
+        const timestamp = new Date(this.tempCoupon.due_date * 1000);
+        let dd = new Date(timestamp).getDate();
+        if (dd < 10) {
+          dd = `0${dd}`;
+        }
+        let MM = new Date(timestamp).getMonth() + 1;
+        if (MM < 10) {
+          MM = `0${MM}`;
+        }
+        const yyyy = new Date(timestamp).getFullYear();
+        const time = `${yyyy}-${MM}-${dd}`;
+        this.date = time;
+      }
+      return this.date;
     },
   },
 };

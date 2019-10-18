@@ -16,7 +16,7 @@ Vue.prototype.$bus = new Vue();
 // Product
 // this.$bus.$emit("addFavorite", item);
 // item(Object): 加入我的最愛的產品
-// this.$bus.$emit("removeFavorite", item); 
+// this.$bus.$emit("removeFavorite", item)
 // item(Object): 移除我的最愛的產品
 // this.$bus.$emit("getFilteredFavorite", item);
 // item(Object): 篩選我的最愛的產品
