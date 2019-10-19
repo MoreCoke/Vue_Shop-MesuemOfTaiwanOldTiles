@@ -58,7 +58,6 @@
           />
           <img
             id="堅持"
-            class="fadein"
             :src="tilesBk.堅持"
             alt="堅持"
             @mouseenter="mouseenter('堅持')"
@@ -196,11 +195,17 @@ export default {
       ];
       const el = document.querySelector(`#${arr[this.randomNum]}`);
       el.setAttribute('src', this.tilesColor[arr[this.randomNum]]);
+      el.setAttribute('class', 'fadein');
+    },
+    enter() {
+      const el = document.querySelector('.container-fluid');
+      el.setAttribute('class', 'fadeinII');
     },
   },
   mounted() {
     this.randomNum = Math.floor(Math.random() * 9);
     this.randomColor();
+    this.enter();
   },
 };
 </script>
@@ -209,6 +214,9 @@ export default {
 @import "@/assets/_color.sass"
 
 // animation
+.fadeinII
+  animation: fadeinII .7s both
+
 .fadein
   animation: fadein .7s both
 
@@ -224,6 +232,12 @@ export default {
     opacity: 1
     transform: translateY(-1px)
     box-shadow: 0 2px 1px rgba($black, .3)
+
+@keyframes fadeinII
+  0%
+    opacity: .3
+  100%
+    opacity: 1
 
 @keyframes fadeout
   0%
@@ -289,6 +303,7 @@ export default {
     width: 40%
     padding-right: 1rem
   @media all and (max-width: 575.98px)
+    width: 100%
     padding: 0
 
 .about--imgs

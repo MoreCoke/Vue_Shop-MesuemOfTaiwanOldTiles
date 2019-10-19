@@ -66,8 +66,7 @@
     <div class="col-12 col-lg-5 offset-lg-7">
       <p class="text item--info">
         <span class="font-weight-bold">產品說明：</span>
-        <br />
-        {{product.content}}
+        <br />{{product.content}}
       </p>
     </div>
   </div>

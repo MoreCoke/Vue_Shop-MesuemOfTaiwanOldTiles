@@ -93,7 +93,7 @@
         </tr>
       </table>
     </div>
-    <div class="col-12 col-md-4 offset-md-7 col-lg-3 offset-lg-8 col-xl-2 offset-xl-9">
+    <div class="col-11 col-md-4 offset-md-7 col-lg-3 offset-lg-8 col-xl-2 offset-xl-9">
       <button
         class="btn btn-outline-light cart--next"
         @click="backToShop"
@@ -205,6 +205,7 @@ export default {
       display: flex
       flex-direction: row
       align-items: center
+      over-flow: hidden
       @media all and (max-width: 567.98px)
         height: 23vh
         flex-direction: column

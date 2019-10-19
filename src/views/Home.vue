@@ -4,14 +4,14 @@
     <header class="container-fluid">
       <div class="row header">
         <div class="col-12 text-primary home">
-          <h1 class="font-weight-bold home--title">
+          <h1 class="font-weight-bold home--title fadeinII">
             台灣
             <br />花磚
             <br />博物館
           </h1>
         </div>
 
-        <div class="home--imgs">
+        <div class="home--imgs fadeinIII">
           <div class="__r_flex">
             <img
               id="百事合意"
@@ -514,6 +514,12 @@ export default {
 .fadein
   animation: fadein .7s both
 
+.fadeinII
+  animation: fadeinII .7s both
+
+.fadeinIII
+  animation: fadeinII 1.5s both
+
 .fadeout
   animation: fadeout .3s
 
@@ -526,6 +532,12 @@ export default {
     opacity: 1
     transform: translateY(-1px)
     box-shadow: 0 2px 1px rgba($black, .3)
+
+@keyframes fadeinII
+  0%
+    opacity: .5
+  100%
+    opacity: 1
 
 @keyframes fadeout
   0%
@@ -605,6 +617,7 @@ article
   letter-spacing: 10px
   text-shadow: -3px -3px 0 $white, 3px -3px 0 $white, -4px 4px 0 $white, 4px 4px 0 $white
   @media all and (min-width: 1441px)
+    padding-left: 18vw
     +fz(9)
     +lh(9, 1.7)
   @media all and (max-width: 575.98px)
@@ -621,6 +634,7 @@ article
   right: 0
   margin-top: -7vh
   @media all and (min-width: 1441px)
+    width: 90%
     margin-top: -2vh
   @media all and (min-width: 992px) and (max-width: 1199.98px)
     width: 90%
@@ -708,6 +722,7 @@ article
     overflow: hidden
 
     img
+      width: auto
       height: 100%
 
   .__flex

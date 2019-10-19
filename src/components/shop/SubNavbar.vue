@@ -244,12 +244,18 @@ button
 .header
   transition: .5s
   margin-top: 5vh
+  @media all and (max-width: 7688px)
+    padding-top: 5vh
+  @media all and (max-width: 575.98px)
+    padding-top: 20vh
 
 .news
   top: 50%
   position: relative
   transform: translateY(-70%)
   letter-spacing: 2px
+  @media all and (max-width: 575.98px)
+    padding-bottom: 5vh
 
 .dropdown-menu
   min-width: 15rem
@@ -287,6 +293,8 @@ button
       display: flex
       flex-direction: column
       +fz(.4)
+      @media all and (max-width: 575.98px)
+        +fz(.6)
 
 @media all and (max-width: 575.98px)
   .dropdown-menu-right
