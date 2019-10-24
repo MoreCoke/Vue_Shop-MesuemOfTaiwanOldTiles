@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver ref="observer">
-    <div class="row">
-      <div class="col-12 col-md-10 offset-md-1">
+    <div class="row wrap __m0">
+      <div class="col-md-10 offset-md-1">
         <table class="font-weight-bold cart--header">
           <tr>
             <td>
@@ -15,8 +15,8 @@
           <form class="cart--contents">
             <div class="form-group row">
               <label for="username"
-                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">姓名：</label>
-              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
+                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">姓名：</label>
+              <div class="col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="姓名"
                   rules="required|min:2"
@@ -37,8 +37,8 @@
             </div>
             <div class="form-group row">
               <label for="usertel"
-                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">電話：</label>
-              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
+                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">電話：</label>
+              <div class="col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="電話"
                   rules="required|numeric|min:8|max:10"
@@ -60,8 +60,8 @@
             </div>
             <div class="form-group row">
               <label for="useremail"
-                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">Email：</label>
-              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
+                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">Email：</label>
+              <div class="col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="Email"
                   rules="required|email"
@@ -82,8 +82,8 @@
             </div>
             <div class="form-group row">
               <label for="useradd"
-                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">地址：</label>
-              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
+                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">地址：</label>
+              <div class="col-sm-11 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="地址"
                   rules="required"
@@ -104,8 +104,8 @@
             </div>
             <div class="form-group row">
               <label for="inputPs"
-                      class="col-12 col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">備註：</label>
-              <div class="col-12 col-sm-11 col-md-10 pl-md-3">
+                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">備註：</label>
+              <div class="col-sm-11 col-md-10 pl-md-3">
                 <textarea
                   name
                   id="inputPs"
@@ -123,17 +123,17 @@
       <div class="col-12">
         <hr class="cart--hr" />
       </div>
-      <div class="col-10 offset-1">
-        <table class="text-right font-weight-boldZ cart--footer">
+      <div class="col-md-10 offset-md-1">
+        <table class="font-weight-bold cart--footer">
           <tr>
             <td>小提醒：請確認收件資訊無誤再送出 ＾＾</td>
           </tr>
         </table>
       </div>
-      <div class="col-12 col-md-4 offset-md-3 col-lg-3 col-xl-2 offset-xl-7">
+      <div class="col-11 col-md-4 offset-md-3 col-lg-3 col-xl-2 offset-xl-7">
         <button class="btn btn-outline-light cart--next" @click="changePage(false)">回到購物車</button>
       </div>
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2">
+      <div class="col-11 col-md-4 col-lg-3 col-xl-2">
         <button type="submit"
                 class="btn btn-outline-light cart--next"
                 @click="createOrder">送出訂單</button>
@@ -162,6 +162,7 @@ export default {
     };
   },
   methods: {
+    // 創建訂單
     async createOrder() {
       // validate before submit
       const isValid = await this.$refs.observer.validate();
@@ -185,7 +186,6 @@ export default {
 
       // Ajax method
       this.$http.post(api, { data: customer }).then((response) => {
-        // console.log('createorder', response);
         vm.customerInfo = {};
 
         // Modal close
@@ -204,9 +204,11 @@ export default {
         });
       });
     },
+    // 控制結帳頁面
     changePage() {
       this.$emit('change_page', false);
     },
+    // 關閉頁面
     closeModal() {
       this.$emit('close_modal');
     },
@@ -219,12 +221,19 @@ export default {
 
 .cart--contents
   width: 90%
+  padding: 1% 0
+  @media all and (max-width: 567.98px)
+    width: 100%
 
 .cart--footer
   width: 100%
   margin: 20px 0 40px
+  text-align: right
+  @media all and (max-width: 567.98px)
+    text-align: center
 
-@media all and (max-width: 567.98px)
-  .cart--next
+.cart--next
+  margin-bottom: 20px
+  @media all and (max-width: 567.98px)
     font-size: 1rem
 </style>

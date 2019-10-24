@@ -340,7 +340,6 @@ export default {
           },
         })
         .then((response) => {
-          // console.log(response);
           if (response.data.success) {
             // vm.tempProduct.imageUrl = response.data.imageUrl;
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);

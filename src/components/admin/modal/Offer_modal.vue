@@ -211,8 +211,6 @@ export default {
 
       // Ajax (vue axios)
       this.$http[httpMethod](api, { data: vm.tempCoupon }).then(() => {
-        // console.log(response);
-
         // reset timestamp
         vm.date = '';
 
@@ -244,8 +242,6 @@ export default {
 
       // Ajax (vue axios)
       this.$http.delete(api).then(() => {
-        // console.log(response.data);
-
         // remove Loading animation
         vm.status.isLoading = false;
 

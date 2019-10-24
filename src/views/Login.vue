@@ -52,17 +52,15 @@ export default {
     };
   },
   methods: {
+    // 登入
     sign_in() {
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
       const vm = this;
       this.$http.post(api, vm.user).then((response) => {
-        console.log(response);
         if (response.data.success) {
-          console.log('success');
           vm.signStatus.status = true;
           vm.$router.push('/admin');
         } else {
-          console.log('fail');
           vm.signStatus.status = false;
         }
       });

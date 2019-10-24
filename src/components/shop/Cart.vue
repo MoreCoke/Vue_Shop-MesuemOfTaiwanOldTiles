@@ -2,7 +2,7 @@
   <div>
     <loading :active.sync="status.isLoading" color="#71A2A7"></loading>
     <div
-      class="modal fade"
+      class="modal bg-primary fade"
       id="cartModal"
       tabindex="-1"
       role="dialog"
@@ -11,7 +11,7 @@
     >
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content border-0 bg-primary text-white">
-          <div class="modal-body ml-2 mr-2">
+          <div class="modal-body ml-md-2 mr-md-2">
             <button
               type="button"
               class="close text-white"
@@ -35,8 +35,8 @@
             ></CheckOut>
           </div>
         </div>
-        <p class="text-info decoration_text">
-          <span class="decoration_text--"></span> Museum of Old Taiwan Tiles
+        <p class="text-info decoration_text __hide">
+          <span></span> Museum of Old Taiwan Tiles
         </p>
       </div>
     </div>
@@ -64,19 +64,21 @@ export default {
     CheckOut,
   },
   methods: {
+    // 取得購物車列表
     getCart() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
       const vm = this;
       this.$http.get(api).then((response) => {
         vm.carts = response.data.data;
         vm.cartsLength = response.data.data.carts.length;
-        // console.log('getcart', response);
         this.$bus.$emit('get_cart_length', this.cartsLength);
       });
     },
+    // 關閉購物車頁面
     closeModal() {
       $('#cartModal').modal('hide');
     },
+    // 換頁
     changePage(status) {
       this.status.isCheckOut = status;
     },
@@ -100,20 +102,19 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
 
 .close
   position: relative
-  top: -15px
+  top: 10px
   right: 10px
+  @media all and (min-width: 1441px)
+    top: 35px
+    right: 40px
+    font-size: 2rem
+  @media all and (max-width: 567.98px)
+    top: 10px
 
 .modal
   width: auto
   left: unset
   right: 0
-
-.modal-content
-  padding-top: 10vh
-  padding-bottom: 10vh
-  height: 100vh
-  @media all and (max-width: 1440px)
-    padding-top: 5vh
 
 .decoration_text
   display: inline-block
@@ -130,8 +131,12 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
     top: 65vh
     right: -27vw
 
-  .decoration_text--
+  > span
     width: 3rem
     display: inline-block
     border-bottom: 1px solid $white
+
+@media all and (max-width: 567.98px)
+  .__hide
+    display: none
 </style>

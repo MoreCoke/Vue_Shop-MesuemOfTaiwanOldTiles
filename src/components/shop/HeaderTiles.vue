@@ -1,6 +1,6 @@
 <template>
   <header class="container-fluid">
-    <div class="row header">
+    <div class="row header container-fluid">
       <div class="col-12 text-primary about">
         <h1 class="font-weight-bold about--title" v-if="!isShop">
           參觀
@@ -128,8 +128,6 @@ import 玉蘭貞潔Color from '@/assets/img/colorful_1x/玉蘭貞潔_四方連�
 
 export default {
   props: {
-    title: String,
-    entitle: String,
     isShop: Boolean,
   },
   data() {
@@ -166,12 +164,14 @@ export default {
     };
   },
   methods: {
+    // 滑鼠進入
     mouseenter(tile) {
       const el = document.querySelector(`#${tile}`);
       el.classList.remove('fadeout');
       el.setAttribute('src', this.tilesColor[tile]);
       el.classList.add('fadein');
     },
+    // 滑鼠移出
     mouseleave(tile) {
       const el = document.querySelector(`#${tile}`);
       el.classList.add('fadeout');
@@ -180,6 +180,7 @@ export default {
         .setAttribute('src', this.tilesBk[tile]);
       el.classList.remove('fadein');
     },
+    // 隨機花磚色彩
     randomColor() {
       const arr = [
         '百事合意',
@@ -197,7 +198,8 @@ export default {
       el.setAttribute('src', this.tilesColor[arr[this.randomNum]]);
       el.setAttribute('class', 'fadein');
     },
-    enter() {
+    // 隨機花磚色彩套動畫
+    initEnter() {
       const el = document.querySelector('.container-fluid');
       el.setAttribute('class', 'fadeinII');
     },
@@ -205,7 +207,7 @@ export default {
   mounted() {
     this.randomNum = Math.floor(Math.random() * 9);
     this.randomColor();
-    this.enter();
+    this.initEnter();
   },
 };
 </script>
@@ -258,7 +260,6 @@ export default {
 
 .header
   margin-top: 12vh
-  padding: 0 3vw
   @media all and (min-width: 992px) and (max-width: 1199.98px)
     margin-bottom: 24vh
   @media all and (max-width: 768px)
@@ -273,7 +274,7 @@ export default {
 
 .about--title
   text-shadow: -3px -3px 0 $white, 3px -3px 0 $white, -4px 4px 0 $white, 4px 4px 0 $white
-  padding-left: 9vw
+  padding-left: 12vw
   +fz(7.5)
   letter-spacing: 10px
   +lh(7.5, 1.5)
@@ -285,7 +286,9 @@ export default {
     +fz(5.8)
     +lh(5.8, 1.5)
     padding-left: 0
-  @media all and (max-width: 320.98px)
+    position: relative
+    left: 3vw
+@media all and (max-width: 320.98px)
     +fz(5)
     +lh(5, 1.5)
 

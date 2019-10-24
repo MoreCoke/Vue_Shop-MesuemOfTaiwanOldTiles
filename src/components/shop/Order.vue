@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-12 col-md-10 offset-md-1 p-0 __bd">
+    <div class="col-md-10 offset-md-1 p-0 __bd">
       <div class="__bd __gap" v-if="this.order">
         <h3
           class="font-weight-bold mb-3 m-0 cart--header--title"
@@ -87,14 +87,15 @@ export default {
     };
   },
   methods: {
+    // 取得該筆訂單
     getOrder() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${this.orderId}`;
       const vm = this;
       this.$http.get(api).then((response) => {
         vm.order = response.data.order;
-        // console.log('getorder',response.data);
       });
     },
+    // 訂單付款
     payOrder(id) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${id}`;
       const vm = this;

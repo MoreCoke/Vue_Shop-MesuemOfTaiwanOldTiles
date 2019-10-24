@@ -31,11 +31,11 @@
 <script>
 export default {
   methods: {
+    // 登出
     signOut() {
       const api = `${process.env.VUE_APP_APIPATH}/logout`;
       const vm = this;
       this.$http.post(api).then((response) => {
-        // console.log(response);
         if (response.data.success) {
           vm.$router.push('/login');
         }

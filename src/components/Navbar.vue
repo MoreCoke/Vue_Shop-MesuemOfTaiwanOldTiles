@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <nav class="row mt-5">
-      <div class="col-12 font-weight-bold text-primary">
-        <router-link to="/" class="home--nav">台灣花磚博物館</router-link>
+      <div class="col-12">
+        <router-link to="/" class="home--nav" exact>台灣花磚博物館</router-link>
         <router-link to="/about" class="home--nav">參觀資訊</router-link>
         <router-link to="/shop" class="home--nav">花磚商店</router-link>
       </div>
@@ -11,8 +11,20 @@
 </template>
 
 <style scoped lang="sass">
+@import 'src/assets/_color.sass'
+
 .home--nav
-  margin: 50px 20px 0
+  display: inline-block
+  margin: 0 20px
+  color: $tealAA
+  transition: .5s
+  &:hover
+    color: $tealAAA
+    transform: translateY(-2px)
+
+.router-link-active, .router-link-exact-active
+  font-weight: 700
+  text-decoration: underline
 
 @media all and (max-width: 575.98px)
   .col-12

@@ -69,18 +69,18 @@ export default {
     Pagination,
   },
   methods: {
+    // 取得多筆優惠券列表
     getCoupons(page = 1) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
-        // console.log(response);
         vm.isLoading = false;
         vm.coupons = response.data.coupons;
         vm.pagination = response.data.pagination;
       });
     },
-    // 又晚半拍⋯⋯
+    // 打開編輯視窗
     openModal(isNew, item) {
       this.tempCoupon = {};
       this.date = '';
@@ -93,6 +93,7 @@ export default {
         $('#offerModal').modal('show');
       }
     },
+    // 打開刪除視窗
     openDelModal(item) {
       this.tempCoupon = {};
       this.tempCoupon = item;

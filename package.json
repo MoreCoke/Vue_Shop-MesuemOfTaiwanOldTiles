@@ -13,7 +13,6 @@
     "core-js": "^2.6.5",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
-    "skrollr": "github:Prinzhorn/skrollr",
     "vee-validate": "^3.0.8",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
@@ -43,7 +42,16 @@
       "plugin:vue/essential",
       "@vue/airbnb"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off",
+      "no-restricted-syntax": [
+        "error",
+        {
+          "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+          "message": "Unexpected property on console object was called"
+        }
+      ]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

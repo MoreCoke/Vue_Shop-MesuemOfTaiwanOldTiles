@@ -35,9 +35,13 @@ export default {
     pagination: Object,
   },
   methods: {
+    // 換頁
     pageChange(page) {
       this.$emit('page_change', page);
     },
+  },
+  created() {
+    console.log(this.pagination);
   },
 };
 </script>

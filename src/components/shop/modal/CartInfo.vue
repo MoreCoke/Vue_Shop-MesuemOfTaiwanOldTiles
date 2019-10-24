@@ -1,25 +1,26 @@
 <template>
-  <div class="row">
-    <div class="col-12 col-md-10 offset-md-1">
+  <div class="row wrap __m0">
+    <div class="col-md-10 offset-md-1">
       <table class="font-weight-bold cart--header">
         <tr>
           <td>
             <h3 class="font-weight-bold m-0 pr-md-5 mr-md-5 cart--header--title">購物車</h3>
           </td>
-          <td width="140" class="text-center cart--header--type">數量</td>
+          <td width="100" class="text-center cart--header--type">數量</td>
           <td width="80" class="text-right pr-md-2 cart--header--type">單價</td>
-          <td width="140" class="text-right pr-4 pr-md-5 cart--header--type">總價</td>
+          <td width="140" class="text-right pr-4 pr-md-4 cart--header--type">總價</td>
           <td width="50" class="__hide"></td>
         </tr>
       </table>
       <hr />
-      <div class="cart--content">
-        <p
-          class="text-center cart__empty"
-          v-show="carts.carts && carts.carts.length === 0"
-        >挑些喜歡的花磚再回來吧 ^_^</p>
+      <div>
+        <div class="__h" v-show="carts.carts && carts.carts.length === 0">
+          <p
+            class="text-center cart__empty"
+          >挑些喜歡的花磚再回來吧 ^_^</p>
+        </div>
         <table class="cart--contents">
-          <tr class="cart--contents_bd" v-for="item in carts.carts" :key="item.id">
+          <tr v-for="item in carts.carts" :key="item.id">
             <td class="cart--content" colspan="2">
               <div class="cart--content--imgs">
                 <img
@@ -33,7 +34,7 @@
                 {{item.product.title}}
               </p>
             </td>
-            <td width="140" class="text-center">
+            <td width="100" class="text-center">
               <p class="m-0">{{item.qty}}</p>
             </td>
             <td width="80" class="text-right">
@@ -55,7 +56,7 @@
     <div class="col-12">
       <hr class="cart--hr" />
     </div>
-    <div class="col-12 col-md-10 offset-md-1">
+    <div class="col-md-10 offset-md-1">
       <table class="cart--footer">
         <tr>
           <td>
@@ -120,6 +121,7 @@ export default {
     };
   },
   methods: {
+    // 刪除購物車產品
     delCartItem(id) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
       const vm = this;
@@ -129,6 +131,7 @@ export default {
         vm.status.isLoading = false;
       });
     },
+    // 套用優惠券
     addCouponCode() {
       if (this.carts.carts && this.carts.carts.length === 0) {
         this.status.isMsg = '＊請選購商品再使用優惠券';
@@ -140,9 +143,7 @@ export default {
       const coupon = {
         code: vm.couponCode,
       };
-      // console.log(coupon);
       this.$http.post(api, { data: coupon }).then((response) => {
-        // console.log(response.data);
         this.$emit('get_cart');
 
         if (!response.data.success) {
@@ -152,12 +153,13 @@ export default {
         }
       });
     },
+    // 控制結帳頁面
     changePage() {
       this.$emit('change_page', true);
     },
+    // 返回商店
     backToShop() {
       this.$emit('close_modal');
-      // console.log(this.$route);
       if (this.$route.path !== '/shop') {
         this.$router.push('/shop');
       }
@@ -174,6 +176,13 @@ export default {
 
 @mixin fz($p)
   font-size: 1rem * $p
+
+.__h
+  height: 350px
+  @media all and (min-width: 1441px)
+    height: 600px
+  @media all and (max-width: 1025px)
+    height: 650px
 
 .cart--header--type
   letter-spacing: 2px
@@ -192,7 +201,8 @@ export default {
 
 .cart--contents
   width: 100%
-  .cart--contents_bd
+
+  > tr
     border-bottom: 1px solid rgba($white, .7)
     &:last-child
       border-bottom: 0px
@@ -200,21 +210,22 @@ export default {
       +fz(.8)
 
     .cart--content
-      height: 20vh
-      padding: 3vh 5vw 3vh 0
+      height: 10%
+      padding: 5% 5% 5% 0
       display: flex
       flex-direction: row
       align-items: center
-      over-flow: hidden
       @media all and (max-width: 567.98px)
-        height: 23vh
+        height: 23%
+        margin: 10% 0
         flex-direction: column
 
       .cart--content--name
-        padding-left: 2vw
+        width: 100%
+        padding-left: 5%
         @media all and (max-width: 567.98px)
           padding: 0
-          padding-top: 2.5vh
+          padding-top: 15%
 
       .cart--content--imgs
         width: 162px
@@ -235,7 +246,7 @@ export default {
   .cart--footer--coupon
     width: 60%
     padding-left: 15px
-    @media all and (max-width: 768px)
+    @media all and (max-width: 1024px)
       width: 100%
 
     .cart--footer--coupon--input

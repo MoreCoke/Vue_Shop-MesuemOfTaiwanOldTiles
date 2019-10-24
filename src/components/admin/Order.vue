@@ -82,17 +82,18 @@ export default {
     Pagination,
   },
   methods: {
+    // 取得多筆訂單列表
     getOrders(page = 1) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`;
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
-        // console.log(response);
         vm.isLoading = false;
         vm.orders = response.data.orders;
         vm.pagination = response.data.pagination;
       });
     },
+    // 打開編輯視窗
     openModal(item) {
       // 避免因為傳參考同步修改到畫面上的資料
       this.tempOrder = Object.assign({}, item);

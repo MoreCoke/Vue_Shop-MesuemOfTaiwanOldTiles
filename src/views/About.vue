@@ -15,7 +15,7 @@
         </h5>
       </section>
       <section class="row __margin_top">
-        <div class="col-12 col-md-4 mb-5">
+        <div class="col-md-4 mb-5">
           <i class="fas fa-parking text-primary"></i>
           <h5 class="font-weight-bold about--subtitle">停車資訊</h5>
           <p class="about--content">
@@ -23,20 +23,20 @@
             <br />※本館前方為重點拖吊區，請注意違停
           </p>
         </div>
-        <div class="col-12 col-md-4 mb-5">
+        <div class="col-md-4 order-first order-md-0 mb-5">
           <i class="fas fa-money-bill text-primary"></i>
           <h5 class="font-weight-bold about--subtitle">門票50元</h5>
           <p class="about--content">
             可全額折抵館內商品消費，
             <br />參觀當日於博物館櫃檯現場購票
             <br />
-            <span class="text-primary">
+            <span class="text-visible">
               ※持「花磚博物館磚友卡」之會員，
               <br />可免最低消費限制
             </span>
           </p>
         </div>
-        <div class="col-12 col-md-4 mb-5">
+        <div class="col-md-4 mb-5">
           <i class="fas fa-exclamation-triangle text-primary"></i>
           <h5 class="font-weight-bold about--subtitle">注意事項</h5>
           <p class="about--content">除導盲犬外，寵物禁止入內，請見諒。</p>

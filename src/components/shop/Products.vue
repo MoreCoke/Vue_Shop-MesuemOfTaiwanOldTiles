@@ -3,7 +3,7 @@
     <loading :active.sync="status.isLoading" color="#71A2A7"></loading>
     <div class="row __mqpt">
       <div
-        class="col-12 col-sm-6 col-lg-4"
+        class="col-sm-6 col-lg-4"
         v-show="item.is_enabled"
         v-for="item in filteredProducts"
         :key="item.id"
@@ -14,7 +14,7 @@
           @click="removeFavorite(item)"
         ></i>
         <i class="far fa-heart text-primary" v-else @click="addFavorite(item)"></i>
-        <div class="card" @click="getProduct(item.id)">
+        <div class="card text" @click="getProduct(item.id)">
           <img
             :src="item.imageUrl"
             class="card-img-top items_img"
@@ -64,6 +64,7 @@ export default {
     };
   },
   methods: {
+    // 取得所有產品列表
     getProducts() {
       const vm = this;
       vm.status.isLoading = true;
@@ -74,9 +75,11 @@ export default {
         vm.status.isLoading = false;
       });
     },
+    // 取得單一產品
     getProduct(id) {
       this.$emit('get_product', id);
     },
+    // 加入我的最愛
     addFavorite(item) {
       const obj = {
         id: item.id,
@@ -89,8 +92,8 @@ export default {
       localStorage.setItem('favorite', JSON.stringify(this.favorites));
       this.getFavoriteLength();
       this.$bus.$emit('favorite', this.favorites);
-      // console.log(localStorage.getItem('favorite'));
     },
+    // 移除我的最愛
     removeFavorite(item) {
       const i = this.favorites.findIndex((el) => {
         const result = el.id === item.id;
@@ -101,12 +104,14 @@ export default {
       this.getFavoriteLength();
       this.$bus.$emit('favorite', this.favorites);
     },
+    // 有商品於我的最愛時，icon更換
     getFilteredFavorite(item) {
       return this.favorites.some((el) => {
         const result = item.id === el.id;
         return result;
       });
     },
+    // 取得我的最愛產品數量
     getFavoriteLength() {
       if (!JSON.parse(localStorage.getItem('favorite'))) {
         return;
@@ -181,6 +186,12 @@ export default {
 @mixin fz($p)
   font-size: 1rem * ($p)
 
+@keyframes fadein
+  0%
+    opacity: .5
+  100%
+    opacity: 1
+
 .far,.fas
   display: inline-block
   position: absolute
@@ -199,6 +210,7 @@ export default {
   transition: .5s
   overflow: hidden
   cursor: pointer
+  animation: fadein 1s both
   @media all and (min-width: 992px) and (max-width: 1200px)
     margin: 0
     margin-bottom: 70px

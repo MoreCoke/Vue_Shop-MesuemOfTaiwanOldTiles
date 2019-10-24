@@ -21,14 +21,6 @@
           <tr v-for="item in products" :key="item.id">
             <!-- 是否啟用 -->
             <td class="text-center align-middle">
-              <!-- 外面也可以修改啟用狀態 -->
-              <!-- <label
-                class="pl-1 mb-0 align-middle"
-                :class="item.is_enabled === 1? 'text-primary':''"
-              >
-                <input type="checkbox" v-model="item.is_enabled" :true-value="1" :false-value="0" />
-                {{item.is_enabled? '啟用':'未啟用'}}
-              </label> -->
               <span v-if="item.is_enabled === 1" class="text-primary">啟用</span>
               <span v-else class="text-danger">未啟用</span>
             </td>
@@ -81,19 +73,21 @@ export default {
     Pagination,
   },
   methods: {
+    // 取得多筆產品列表
     getProducts(page = 1) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
       const vm = this;
       vm.status.isLoading = true;
       this.$http.get(api).then((response) => {
-        // console.log(response);
         vm.status.isLoading = false;
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
+        console.log(vm.products);
+        console.log(vm.pagination);
       });
     },
+    // 打開編輯視窗
     openModal(isNew, item) {
-      // console.log(item);
       this.tempProduct = {};
       if (isNew) {
         this.status.isNew = true;
@@ -104,6 +98,7 @@ export default {
       }
       $('#productModal').modal('show');
     },
+    // 打開刪除視窗
     openDelModal(item) {
       this.tempProduct = item;
       $('#delProductModal').modal('show');

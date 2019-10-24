@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-md-2 order-md-last">
+  <div class="col-md-2 order-md-last">
     <nav class="navbar navbar-expand-md shop--sidebar">
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav flex-column">
@@ -32,6 +32,10 @@
 
 @mixin fz($p)
   font-size: 1rem * $p
+
+.router-link-active, .router-link-exact-active
+  transition: .5s
+  text-decoration: underline
 
 .shop--sidebar
   padding: 0
@@ -67,13 +71,15 @@
 
       .shop--sidebar--a
         text-align: right
-        color: $teal
+        color: $tealAA
         padding: 1vh 0
         transition: .5s
         &:hover
-          color: $black
+          color: $tealAAA
+          transform: translateY(-2px)
         &:active
-          color: $black
+          font-weight: 700
+          color: black
 
         // 超帥動畫
         // &:hover

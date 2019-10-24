@@ -1,21 +1,20 @@
 <template>
   <div class="row __mqpt">
-    <div class="col-12 col-lg-7">
+    <div class="col-lg-7" v-if="product.title">
       <img
-        v-if="product.imageUrl"
         class="item_img"
         :src="product.imageUrl"
         :alt="'【' + product.category + '】' + product.title"
       />
-      <p class="text-primary item_path">
-        <router-link to="/shop">花磚商店</router-link>>
-        <router-link to="/shop/all">所有商品</router-link>>
+      <p class="text-visible item_path">
+        <router-link to="/shop" class="text-visible">花磚商店 </router-link>>
+        <router-link to="/shop/all" class="text-visible">所有商品 </router-link>>
         <span class="__hover" @click="turntoCategory">{{product.category}}</span>
         >
         {{product.title}}
       </p>
     </div>
-    <div class="col-12 col-lg-5 item">
+    <div class="col-lg-5 item" v-if="product.title">
       <h3 class="item--title">
         <i class="fas fa-heart text-primary" v-if="status.isFavorite" @click="removeFavorite"></i>
         <i class="far fa-heart text-primary" v-else @click="addFavorite"></i>
@@ -63,7 +62,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-lg-5 offset-lg-7">
+    <div class="col-lg-5 offset-lg-7" v-if="product.title">
       <p class="text item--info">
         <span class="font-weight-bold">產品說明：</span>
         <br />{{product.content}}
@@ -86,6 +85,7 @@ export default {
     };
   },
   methods: {
+    // 麵包屑路徑切換
     turntoCategory() {
       switch (this.product.category) {
         case '台灣花磚':
@@ -104,6 +104,7 @@ export default {
           break;
       }
     },
+    // 選購數量禁止<=0
     num(calc) {
       const qty = Number(this.qty);
       if (calc === 1 && this.qty >= 1) {
@@ -113,14 +114,17 @@ export default {
         this.qty = qty - 1;
       }
     },
+    // 加入我的最愛
     addFavorite() {
       this.$bus.$emit('addFavorite', this.product);
       this.getFilteredFavorite();
     },
+    // 移除我的最愛
     removeFavorite() {
       this.$bus.$emit('removeFavorite', this.product);
       this.status.isFavorite = false;
     },
+    // 我的最愛篩選
     getFilteredFavorite() {
       this.status.isFavorite = false;
       const i = JSON.parse(localStorage.getItem('favorite')) || [];
@@ -129,6 +133,7 @@ export default {
         return result;
       });
     },
+    // 加入購物車
     addToCart() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
       const vm = this;
@@ -161,7 +166,7 @@ export default {
 .__hover
   cursor: pointer
   &:hover
-    color: #4e797e
+    color: $tealAAA
 
 .item_img
   width: 100%
@@ -195,7 +200,7 @@ export default {
       +fz(.7)
 
     .item--origin_price
-      +fz(.7)
+      +fz(1)
       text-decoration: line-through
 
   .item--intro

@@ -3,7 +3,7 @@
     <Navbar></Navbar>
     <header class="container-fluid">
       <div class="row header">
-        <div class="col-12 text-primary home">
+        <div class="text-primary home">
           <h1 class="font-weight-bold home--title fadeinII">
             台灣
             <br />花磚
@@ -97,7 +97,7 @@
     <main class="container">
       <article class="container-fluid" id="history">
         <section class="row">
-          <div class="col-12 col-md-3">
+          <div class="col-md-3">
             <p class="font-weight-bold time">
               <i class="years">1915</i>問世
             </p>
@@ -105,12 +105,12 @@
               <i class="years">1935</i>停產。
             </p>
           </div>
-          <div class="col-12 col-md-9">
+          <div class="col-md-9">
             <h5 class="text-right intro">「台灣花磚，僅在這塊土地出現二十年。」</h5>
           </div>
         </section>
         <section class="row __mt">
-          <div class="col-12 col-md-5 imgs __flex">
+          <div class="col-md-5 imgs __flex">
             <div class="--img">
               <img src="@/assets/img/home-history.jpg" alt="花磚的歷史" />
             </div>
@@ -141,7 +141,7 @@
               />
             </div>
           </div>
-          <div class="col-12 col-md-7">
+          <div class="col-md-7">
             <p class="__justify __r_mt info">
               當時顯赫一時的富貴人家屋宅上，就會看到這些從日本進口而來的「馬約利卡磁磚」(Majolica Tiles)，
               匠師手工製作相當精緻費工，每片花磚圖騰代表著一種祝福，如蘋果代表平安、石榴代表多子多孫、蝙蝠代表福氣、桃子代表長壽。
@@ -153,15 +153,15 @@
       </article>
       <article class="container-fluid" id="info">
         <section class="row">
-          <h5 class="col-12 col-md-10 text-sm-right intro">「夢很美，現實卻有點困難，熱情一定會有熄的時候，但信念不會。」</h5>
-          <div class="col-12 order-first order-md-last col-md-2">
+          <h5 class="col-md-10 text-sm-right intro">「夢很美，現實卻有點困難，熱情一定會有熄的時候，但信念不會。」</h5>
+          <div class="order-first order-md-last col-md-2">
             <p class="text-right font-weight-bold time">
               <i class="years">20</i>年前
             </p>
           </div>
         </section>
         <section class="row __mt">
-          <div class="col-12 col-md-6">
+          <div class="col-md-6">
             <p class="text-md-right __justify info">
               約莫20年前，有一群人因緣際會認識了花磚，
               <br class="__hide" />默默開始投入搶救、保存與修復，
@@ -172,7 +172,7 @@
               <br class="__hide" />研發修復花磚的除黴藥劑，讓老花磚宛若新生。
               <br />
               <br />
-              <span class="font-weight-bold text-primary">
+              <span class="font-weight-bold text-visible">
                 他認為台灣花磚的復興之路上，只努力搶救、蒐藏、保存還不夠，
                 <br class="__hide" />必須老幹新生。
               </span>
@@ -182,7 +182,7 @@
               <br class="__hide" />二十年來蒐藏4000片，走進古厝，現場展示部分1500片被救回的台灣百年老花磚，蒐藏數量已是全球相關館藏量中數一數二。
             </p>
           </div>
-          <div class="col-12 col-md-6 imgs __r_mt __flex">
+          <div class="col-md-6 imgs __r_mt __flex">
             <div class="m-0 --tiles __flex">
               <img
                 class="幸運"
@@ -240,7 +240,7 @@
               <br />
               <br />
               <span
-                class="font-weight-bold text-primary"
+                class="font-weight-bold text-visible"
               >「總要為台灣花磚文化留下它美麗的身影，拆掉一片就少一片，我們在與拆屋更新的速度賽跑，能救一片是一片。」</span>
               <br />徐嘉彬道出支持他繼續走下去的信念。
               <br />
@@ -274,7 +274,7 @@
             <br />2018年，台灣花磚博物館與博客來書店共同打造3款花磚紅包袋，2019年再與天仁茗茶合作推出花磚茶禮盒，並設計10套精美花磚卡套。
             <br />
             <br />
-            <span class="font-weight-bold text-primary">「我們真正想做的是，讓花磚在台灣重生，重新走入民眾生活中。」</span>
+            <span class="font-weight-bold text-visible">「我們真正想做的是，讓花磚在台灣重生，重新走入民眾生活中。」</span>
             徐嘉彬語氣堅定地述說成立博物館的理念，
             <br />也期待花磚能打入建材市場，有朝一日重回真正屬於它的地方。
           </p>
@@ -483,95 +483,6 @@ export default {
 <style scoped lang="sass">
 @import "@/assets/_color.sass"
 
-// animation
-.ttx-10
-  transform: translateX(-10vw)
-
-.ttx-5
-  transform: translateX(-5vw)
-
-.ttx10
-  transform: translateX(10vw)
-
-.ttx5
-  transform: translateX(5vw)
-
-.tty-10
-  transform: translateY(-10vw)
-
-.tty-5
-  transform: translateY(-5vw)
-
-.tty10
-  transform: translateY(10vw)
-
-.tty5
-  transform: translateY(5vw)
-
-.opacity
-  opacity: 0
-
-.fadein
-  animation: fadein .7s both
-
-.fadeinII
-  animation: fadeinII .7s both
-
-.fadeinIII
-  animation: fadeinII 1.5s both
-
-.fadeout
-  animation: fadeout .3s
-
-@keyframes fadein
-  0%
-    opacity: .5
-    transform: translateY(0)
-    box-shadow: 0 1px 1px rgba($black, .1)
-  100%
-    opacity: 1
-    transform: translateY(-1px)
-    box-shadow: 0 2px 1px rgba($black, .3)
-
-@keyframes fadeinII
-  0%
-    opacity: .5
-  100%
-    opacity: 1
-
-@keyframes fadeout
-  0%
-    opacity: 1
-    transform: translateY(-1px)
-    box-shadow: 0 2px 1px rgba($black, .3)
-  100%
-    opacity: .7
-    transform: translateY(0)
-    box-shadow: 0 1px 1px rgba($black, .1)
-
-
-// init
-p,h5
-  margin: 0
-
-article
-  margin-top: 15vh
-
-
-// status
-.__vertical
-  writing-mode: vertical-rl
-
-.__flex
-  display: flex
-
-.__mt
-  margin-top: 60px
-
-%__transition
-  transition: 1s
-
-
 // mixin
 @mixin fz($p)
   font-size: 1rem * $p
@@ -593,8 +504,95 @@ article
   font-weight: 700
   letter-spacing: 1px
 
+@mixin transf($x, $y)
+  transform: translate($x, $y)
 
-// common
+// init
+p,h5
+  margin: 0
+
+article
+  margin-top: 15vh
+
+// status
+.__vertical
+  writing-mode: vertical-rl
+
+.__flex
+  display: flex
+
+.__mt
+  margin-top: 60px
+
+%__transition
+  transition: 1s
+
+// animation
+.ttx-10
+  +transf(-10vw, 0)
+
+.ttx-5
+  +transf(-5vw, 0)
+
+.ttx10
+  +transf(10vw, 0)
+
+.ttx5
+  +transf(5vw, 0)
+
+.tty-10
+  +transf(0, -10vw)
+
+.tty-5
+  +transf(0, -5vw)
+
+.tty10
+  +transf(0, 10vw)
+
+.tty5
+  +transf(0, 5vw)
+
+.opacity
+  opacity: 0
+
+.fadein
+  animation: fadein .7s both
+
+.fadeinII
+  animation: fadeinII .7s both
+
+.fadeinIII
+  animation: fadeinII 1.5s both
+
+.fadeout
+  animation: fadeout .3s
+
+@keyframes fadein
+  0%
+    opacity: .5
+    +transf(0, 0)
+    box-shadow: 0 1px 1px rgba($black, .1)
+  100%
+    opacity: 1
+    +transf(0, -1px)
+    box-shadow: 0 2px 1px rgba($black, .3)
+
+@keyframes fadeinII
+  0%
+    opacity: .5
+  100%
+    opacity: 1
+
+@keyframes fadeout
+  0%
+    opacity: 1
+    +transf(0, -1px)
+    box-shadow: 0 2px 1px rgba($black, .3)
+  100%
+    opacity: .7
+    +transf(0, 0)
+    box-shadow: 0 1px 1px rgba($black, .1)
+
 .body
   position: relative
   padding-top: 9rem
@@ -624,6 +622,8 @@ article
     padding-left: 0
     +fz(5.8)
     +lh(5.8, 1.5)
+    position: relative
+    left: 3vw
   @media all and (max-width: 320.98px)
     +fz(5)
     +lh(5, 1.5)
@@ -709,7 +709,7 @@ article
 
   .intro
     +intro
-    margin-top: 2rem
+    margin-top: 2.5rem
     padding-bottom: 4px
     border-bottom: 1px solid rgba($black, .5)
     @media all and (max-width: 575.98px)
@@ -722,8 +722,7 @@ article
     overflow: hidden
 
     img
-      width: auto
-      height: 100%
+      max-width: 341.55px
 
   .__flex
     .__flex
@@ -737,8 +736,7 @@ article
 #info
   .intro
     +intro
-    margin-top: 2rem
-    margin-bottom: 1rem
+    margin: 2rem 0 1rem
     padding-bottom: 4px
     border-bottom: 1px solid rgba($black, .5)
     @media all and (max-width: 575.98px)
@@ -751,7 +749,7 @@ article
     overflow: hidden
 
     img
-      height: 100%
+      max-width: 338.67px
 
   .__flex
     .__flex
@@ -772,7 +770,7 @@ article
   .intro
     +intro
     +h_center
-    transform: translateX(-4px)
+    +transf(-4px, 0)
     margin-bottom: 1rem
     +fz(1.5)
     letter-spacing: 3px
@@ -780,7 +778,7 @@ article
 
   .img
     +h_center
-    transform: translateX(-50%)
+    +transf(-50%, 0)
     width: 100%
 
 #further
@@ -793,7 +791,7 @@ article
   .intro
     +intro
     +h_center
-    transform: translateX(-50%)
+    +transf(-50%, 0)
     margin-top: 1rem
     +fz(1.5)
     letter-spacing: 3px
@@ -817,7 +815,7 @@ article
 
   .--img
     +h_center
-    transform: translate(-50%)
+    +transf(-50%, 0)
     width: 300px
     overflow: hidden
     @extend %__transition

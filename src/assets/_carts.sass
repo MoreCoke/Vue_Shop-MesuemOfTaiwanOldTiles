@@ -3,6 +3,9 @@
 @mixin fz($p)
   font-size: 1rem * $p
 
+.__m0
+  margin: 0
+
 .btn,.form-control,.form-control::placeholder,.input-group-text
   color: $white
   border-color: rgba($white, .7)
@@ -29,10 +32,6 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
   @media all and (max-width: 567.98px)
     +fz(2)
 
-.cart--content
-  height: 50vh
-  overflow: scroll
-
 .cart--contents
   margin: 0 auto
 
@@ -49,3 +48,11 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
 .cart__bd
   border-bottom: 1px solid rgba($white, .7)
 
+.wrap
+  padding:
+    top: 5%
+    bottom: 5%
+  @media all and (max-width: 567.98px)
+    padding:
+      top: 15%
+      bottom: 15%

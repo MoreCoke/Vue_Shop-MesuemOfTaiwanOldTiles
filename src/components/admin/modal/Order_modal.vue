@@ -203,8 +203,6 @@ export default {
 
       // Ajax (vue axios)
       this.$http.put(api, { data: vm.tempOrder }).then(() => {
-        // console.log(response);
-
         // remove Loading animation
         vm.status.isLoading = false;
 

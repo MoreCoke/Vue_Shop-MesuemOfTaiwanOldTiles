@@ -1,12 +1,12 @@
 <template>
   <div>
     <header class="row header">
-      <!-- <div class="col-12 col-md-8 col-lg-9">
+      <!-- <div class="col-md-8 col-lg-9">
         <h1 data-40="font-size: 3.5em" data-100="font-size: 2.5em">
           <router-link to="/shop" class="font-weight-bold shop--title">花磚商店</router-link>
         </h1>
       </div>-->
-      <div class="col-12 col-md-8 col-lg-9 text-primary">
+      <div class="col-md-8 col-lg-9 text-visible">
         <p class="m-0 pl-2 news">
           <span class="font-weight-bold">NEWS：</span>
           結帳時輸入優惠券代碼「
@@ -16,7 +16,7 @@
         </p>
       </div>
 
-      <div class="col-12 col-md-4 col-lg-3 text-info icon">
+      <div class="col-md-4 col-lg-3 text-info icon">
         <!-- 產品搜尋 -->
         <div class="btn-group">
           <button
@@ -54,7 +54,7 @@
                 href="#"
                 v-for="item in filteredProducts"
                 :key="item.id"
-                @click="findProducts(item.id)"
+                @click="turntoProduct(item.id)"
               >【{{item.category}}】{{item.title}}</a>
               <p
                 class="dropdown-item text-center m-0"
@@ -65,7 +65,7 @@
         </div>
 
         <!-- 後台管理 -->
-        <button class="btn icon--fas" :class="{'text-primary': cartsLength}" title="後台管理">
+        <button class="btn" :class="{'text-primary': cartsLength}" title="後台管理">
           <router-link to="/login" class="icon--fas">
             <i class="pb-3 fas fa-user-cog"></i>
           </router-link>
@@ -96,7 +96,7 @@
 
             <div v-if="favorites">
               <a class="dropdown-item" href="#" v-for="item in favorites" :key="item.id">
-                <span @click="turntoProduct(item)">
+                <span @click="turntoProduct(item.id)">
                   【{{item.category}}】{{item.title}}
                   <span
                     class="ml-2"
@@ -157,22 +157,21 @@ export default {
     };
   },
   methods: {
-    turntoProduct(item) {
-      this.$router.push(`/shop/product_id=${item.id}`);
+    // 移至該產品頁面
+    turntoProduct(id) {
+      this.$router.push(`/shop/product_id=${id}`);
     },
-    findProducts(id) {
-      // this.$router.push({ name: 'item', params: { id: id } });
-      this.$bus.$emit('getProduct', id);
-      // console.log(this.$router);
-    },
+    // 打開購物車頁面
     openModal() {
       this.$emit('open_cart_modal');
     },
+    // 移除我的最愛
     removeFavorite(item) {
       this.$bus.$emit('removeFavorite', item);
     },
   },
   computed: {
+    // 產品分類
     filteredProducts() {
       if (this.keyWords.trim() !== '') {
         const t = this.allProducts.filter((el) => {
@@ -200,7 +199,6 @@ export default {
   updated() {
     this.$bus.$on('getAllProduct', (allProducts) => {
       this.allProducts = allProducts;
-      // console.log(this.allProducts);
     });
   },
   beforeDestroy() {
@@ -235,14 +233,12 @@ button
 .shop--title
   color: $teal
   letter-spacing: 5px
-  transition: .5s
   &:hover
     color: $black
   @media all and (max-width: 575.98px)
     padding-left: 4vw
 
 .header
-  transition: .5s
   margin-top: 5vh
   @media all and (max-width: 7688px)
     padding-top: 5vh
@@ -276,6 +272,7 @@ button
     +fz(1)
     color: $cyan
     line-height: .4em
+    transition: .5s
     &:hover
       color: $teal
     &:focus

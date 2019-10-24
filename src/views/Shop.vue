@@ -6,17 +6,14 @@
     <div class="container">
       <SubNavbar
         :is-loading="status.isLoading"
-        :carts-length="cartsLength"
-        :favorite-length="favoriteLength"
         @open_cart_modal="openCartModal"
       ></SubNavbar>
       <main class="row main">
         <router-view name="sidebar"></router-view>
-        <div class="col-12 col-md-10">
+        <div class="col-md-10">
           <keep-alive>
             <router-view
               :product="product"
-              @test="favoriteLength"
               @get_product="getProduct">
             </router-view>
           </keep-alive>
@@ -24,7 +21,7 @@
       </main>
     </div>
     <Footer></Footer>
-    <Cart :carts="carts"></Cart>
+    <Cart></Cart>
   </div>
 </template>
 
@@ -40,9 +37,6 @@ export default {
   data() {
     return {
       product: {},
-      carts: [],
-      cartsLength: 0,
-      favoriteLength: 0,
       status: {
         isLoading: false,
         isShop: true,
@@ -57,9 +51,11 @@ export default {
     Cart,
   },
   methods: {
+    // 打開購物車頁面
     openCartModal() {
       $('#cartModal').modal('show');
     },
+    // 取得單一產品
     getProduct(id) {
       const vm = this;
       vm.$route.params.id = id;
@@ -67,12 +63,10 @@ export default {
       vm.status.isLoading = true;
       this.$http.get(api).then((response) => {
         vm.product = response.data.product;
-        // console.log('get product', vm.product);
         if (response.data.success) {
           vm.$router
             .push(`/shop/product_id=${response.data.product.id}`)
             .catch(() => {});
-          // console.log(vm);
           vm.status.isLoading = false;
         }
       });
@@ -91,9 +85,6 @@ export default {
       this.getProduct(item);
     });
   },
-  // mounted() {
-  //   const s = skrollr.init();
-  // }
 };
 </script>
 
