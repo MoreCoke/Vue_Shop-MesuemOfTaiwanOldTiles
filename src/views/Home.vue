@@ -481,15 +481,6 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import "@/assets/_color.sass"
-
-// mixin
-@mixin fz($p)
-  font-size: 1rem * $p
-
-@mixin lh($f, $p)
-  line-height: 1rem * $f * $p
-
 @mixin line
   width: 1px
   height: 6rem
@@ -503,9 +494,6 @@ export default {
   +fz(1.3)
   font-weight: 700
   letter-spacing: 1px
-
-@mixin transf($x, $y)
-  transform: translate($x, $y)
 
 // init
 p,h5
@@ -649,7 +637,6 @@ article
   img
     width: (100% / 5)
     opacity: .7
-    transition: .5s
     @media all and (max-width: 1199.98px)
       width: (100% / 4)
     @media all and (max-width: 575.98px)
@@ -830,12 +817,14 @@ article
     display: flex
     flex-wrap: wrap
     justify-content: flex-end
+    align-items: center
 
 @media all and (min-width: 575.98px) and (max-width: 768px)
   .__r_flex
     display: flex
     flex-wrap: wrap-reverse
     justify-content: flex-end
+    align-items: center
 
 @media all and (max-width: 575.98px)
   .__hide

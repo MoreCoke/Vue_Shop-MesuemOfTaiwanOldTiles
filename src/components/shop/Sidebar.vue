@@ -28,11 +28,6 @@
 </template>
 
 <style scoped lang="sass">
-@import '@/assets/_color.sass'
-
-@mixin fz($p)
-  font-size: 1rem * $p
-
 .router-link-active, .router-link-exact-active
   transition: .5s
   text-decoration: underline
@@ -76,45 +71,10 @@
         transition: .5s
         &:hover
           color: $tealAAA
-          transform: translateY(-2px)
+          +transf(0, -2px)
         &:active
           font-weight: 700
           color: black
-
-        // 超帥動畫
-        // &:hover
-        //   color: $black
-        //   font-size: 2em
-        // &:before
-        //   content: 'Tiles'
-        //   visibility: hidden
-        //   color: $cyan
-        //   position: relative
-        //   right: -85px
-        //   border-right: .5px $teal solid
-        //   transition: .5s
-        // &:hover:before
-        //   content: ''
-        //   visibility: visible
-        //   font-size: 3em
-        //   color: $teal
-        // &:after
-        //   content: ''
-        //   visibility: hidden
-        //   color: $cyan
-        //   position: relative
-        //   right: -85px
-        //   border-right: .5px $teal solid
-        //   transition: .5s
-        // &:hover:after
-        //   content: ''
-        //   visibility: visible
-        //   color: $teal
-        //   font-size: 3em
-        // &:last-child:after
-        //   border: none
-        // &:first-child:before
-        //   border: none
 
 @media all and (max-width: 767.98px)
   .shop--sidebar

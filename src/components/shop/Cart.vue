@@ -94,8 +94,6 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-@import '@/assets/_color.sass'
-
 h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
   &::selection
     background-color: $white
@@ -108,7 +106,7 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
     top: 35px
     right: 40px
     font-size: 2rem
-  @media all and (max-width: 567.98px)
+  @media all and (max-width: 575.98px)
     top: 10px
 
 .modal
@@ -127,7 +125,7 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
     right: -9vw
   @media all and (max-width: 768px)
     right: -10vw
-  @media all and (max-width: 567.98px)
+  @media all and (max-width: 575.98px)
     top: 65vh
     right: -27vw
 
@@ -136,7 +134,7 @@ h1,h2,h3,h4,h5,h6,p,span,a,li,td,input,router-link
     display: inline-block
     border-bottom: 1px solid $white
 
-@media all and (max-width: 567.98px)
+@media all and (max-width: 575.98px)
   .__hide
     display: none
 </style>

@@ -211,11 +211,6 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-@import '@/assets/_color.sass'
-
-@mixin fz($p)
-  font-size: 1rem * $p
-
 .__hide
   display: none
   @media all and (max-width: 767.98px)
@@ -248,7 +243,7 @@ button
 .news
   top: 50%
   position: relative
-  transform: translateY(-70%)
+  +transf(0, -70%)
   letter-spacing: 2px
   @media all and (max-width: 575.98px)
     padding-bottom: 5vh

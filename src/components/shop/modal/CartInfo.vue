@@ -1,19 +1,21 @@
 <template>
   <div class="row wrap __m0">
     <div class="col-md-10 offset-md-1">
+      <div class="row"></div>
       <table class="font-weight-bold cart--header">
         <tr>
           <td>
-            <h3 class="font-weight-bold m-0 pr-md-5 mr-md-5 cart--header--title">購物車</h3>
+            <h3 class="font-weight-bold m-0 pr-md-5 mr-sm-4 cart--header--title">購物車</h3>
           </td>
           <td width="100" class="text-center cart--header--type">數量</td>
-          <td width="80" class="text-right pr-md-2 cart--header--type">單價</td>
-          <td width="140" class="text-right pr-4 pr-md-4 cart--header--type">總價</td>
+          <td width="80" class="text-right cart--header--type">單價</td>
+          <td width="130" class="text-right pr-4 pr-md-4 cart--header--type">總價</td>
           <td width="50" class="__hide"></td>
         </tr>
       </table>
       <hr />
       <div>
+
         <div class="__h" v-show="carts.carts && carts.carts.length === 0">
           <p
             class="text-center cart__empty"
@@ -22,14 +24,15 @@
         <table class="cart--contents">
           <tr v-for="item in carts.carts" :key="item.id">
             <td class="cart--content" colspan="2">
-              <div class="cart--content--imgs">
+              <div class="cart--content--img" @click="turntoProduct(item.product.id)">
                 <img
                   :src="item.product.imageUrl"
                   :alt="`【${item.product.category}】${item.product.title}`"
-                  class="img-fluid cart--content--img"
+                  class="img-fluid"
+                  :title="'【' + item.product.category + '】' + item.product.title"
                 />
               </div>
-              <p class="m-0 cart--content--name">
+              <p class="m-0 cart--content--name" @click="turntoProduct(item.product.id)">
                 <span>【{{item.product.category}}】</span>
                 {{item.product.title}}
               </p>
@@ -37,10 +40,10 @@
             <td width="100" class="text-center">
               <p class="m-0">{{item.qty}}</p>
             </td>
-            <td width="80" class="text-right">
+            <td width="80" class="text-right pl-md-4">
               <p class="m-0">{{item.product.price | currency}}</p>
             </td>
-            <td width="140" class="text-right pr-md-4">
+            <td width="130" class="text-right pr-lg-4">
               <p class="m-0">{{item.product.price * item.qty | currency}}</p>
             </td>
             <td width="50" class="text-center">
@@ -56,7 +59,7 @@
     <div class="col-12">
       <hr class="cart--hr" />
     </div>
-    <div class="col-md-10 offset-md-1">
+    <div class="col-12 col-md-10 offset-md-1">
       <table class="cart--footer">
         <tr>
           <td>
@@ -65,7 +68,7 @@
                 type="text"
                 class="form-control cart--footer--coupon--input"
                 placeholder="請輸入八位英數字"
-                value="TESTCODE"
+                value="OLDTILES"
                 maxlength="8"
                 v-model="couponCode"
               />
@@ -85,9 +88,9 @@
               class="text-right m-0 font-weight-bold cart--footer--total"
             >{{carts.total === carts.final_total? "總計：":"優惠價："}}</p>
           </td>
-          <td width="140">
+          <td width="130">
             <p
-              class="text-right m-0 pr-md-4 cart--footer--total"
+              class="text-right m-0 pr-4 cart--footer--total"
             >{{carts.total === carts.final_total? carts.total:carts.final_total | currency}}</p>
           </td>
           <td width="50" class="__hide"></td>
@@ -107,6 +110,8 @@
 </template>
 
 <script>
+import $ from 'jquery';
+
 export default {
   props: {
     carts: [Object, Array],
@@ -121,6 +126,10 @@ export default {
     };
   },
   methods: {
+    turntoProduct(id) {
+      this.$router.push(`/shop/product_id=${id}`);
+      $('#cartModal').modal('hide');
+    },
     // 刪除購物車產品
     delCartItem(id) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
@@ -174,9 +183,6 @@ export default {
 <style scoped lang="sass">
 @import '@/assets/_carts.sass'
 
-@mixin fz($p)
-  font-size: 1rem * $p
-
 .__h
   height: 350px
   @media all and (min-width: 1441px)
@@ -187,7 +193,7 @@ export default {
 .cart--header--type
   letter-spacing: 2px
   vertical-align: bottom
-  @media all and (max-width: 567.98px)
+  @media all and (max-width: 575.98px)
     font-size: 1rem * .9
 
 .cart__empty
@@ -195,8 +201,8 @@ export default {
   top: 50%
   +fz(1.5)
   letter-spacing: 2px
-  transform: translateY(-50%)
-  @media all and (max-width: 567.98px)
+  +transf(0, -50%)
+  @media all and (max-width: 575.98px)
     +fz(1.2)
 
 .cart--contents
@@ -206,16 +212,18 @@ export default {
     border-bottom: 1px solid rgba($white, .7)
     &:last-child
       border-bottom: 0px
-    @media all and (max-width: 567.98px)
+    @media all and (max-width: 575.98px)
       +fz(.8)
 
     .cart--content
       height: 10%
-      padding: 5% 5% 5% 0
+      padding: 10px 10px 10px 0
       display: flex
       flex-direction: row
       align-items: center
-      @media all and (max-width: 567.98px)
+      @media all and (max-width: 767.98px)
+        padding-right: 25px
+      @media all and (max-width: 575.98px)
         height: 23%
         margin: 10% 0
         flex-direction: column
@@ -223,13 +231,21 @@ export default {
       .cart--content--name
         width: 100%
         padding-left: 5%
-        @media all and (max-width: 567.98px)
+        cursor: pointer
+        transition: .5s
+        &:hover
+          color: $cyan
+        @media all and (max-width: 575.98px)
           padding: 0
           padding-top: 15%
 
-      .cart--content--imgs
+      .cart--content--img
         width: 162px
-        @media all and (max-width: 567.98px)
+        cursor: pointer
+        transition: .5s
+        &:hover
+          filter: brightness(0.8)
+        @media all and (max-width: 575.98px)
           width: 100px
 
     .far
@@ -248,34 +264,37 @@ export default {
     padding-left: 15px
     @media all and (max-width: 1024px)
       width: 100%
+      padding-left: 0
+    @media all and (max-width: 575.98px)
+      padding-right: 65px
 
     .cart--footer--coupon--input
       +fz(1.1)
-      @media all and (max-width: 567.98px)
+      @media all and (max-width: 575.98px)
         +fz(.8)
 
     .cart--footer--coupon--btn
       +fz(1.1)
-      @media all and (max-width: 567.98px)
+      @media all and (max-width: 575.98px)
+        width: 120%
         +fz(.8)
 
   .cart--footer--coupon--ps
     padding: 0
     padding-left: 15px
     +fz(.9)
-    @media all and (max-width: 567.98px)
+    @media all and (max-width: 575.98px)
       +fz(.8)
 
   .cart--footer--total
     +fz(1.2)
-    padding-right: -10px
     padding-bottom: 5px
     vertical-align: bottom
-    @media all and (max-width: 567.98px)
+    @media all and (max-width: 575.98px)
       +fz(1)
       word-break: keep-all
 
-@media all and (max-width: 567.98px)
+@media all and (max-width: 575.98px)
   .cart--next
     +fz(1)
     word-break: keep-all

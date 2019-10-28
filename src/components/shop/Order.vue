@@ -112,15 +112,10 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/_color.sass'
-
-@mixin fz($p)
-  font-size: 1rem * $p
-
 .__gap
   margin: 10px
   padding: 5vw
-  @media all and (max-width: 567.98px)
+  @media all and (max-width: 575.98px)
     padding: 10vw
 
 .__bd
@@ -137,7 +132,7 @@ export default {
 
 .cart--contents
   width: 100%
-  @media all and (max-width: 567.98px)
+  @media all and (max-width: 575.98px)
     font-size: calc(1rem * .9)
 
 .carts--subtitle
@@ -159,7 +154,7 @@ export default {
 
   .cart-footer-total
     +fz(1.2)
-    @media all and (max-width: 567.98px)
+    @media all and (max-width: 575.98px)
       +fz(1)
 
 .cart--next
@@ -170,7 +165,7 @@ export default {
   @media all and (max-width: 768px)
     width: 35%
     left: 70%
-  @media all and (max-width: 567.98px)
+  @media all and (max-width: 575.98px)
     width: 100%
     position: static
     +fz(1)

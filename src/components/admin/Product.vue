@@ -18,6 +18,11 @@
           </tr>
         </thead>
         <tbody>
+          <tr v-show="!products">
+            <td colspan="5">
+              <p class="text-danger">無法取得產品資料</p>
+            </td>
+          </tr>
           <tr v-for="item in products" :key="item.id">
             <!-- 是否啟用 -->
             <td class="text-center align-middle">
@@ -47,7 +52,9 @@
       :is-new="status.isNew"
       @get_products="getProducts"
     ></Modal>
-    <Pagination :pagination="pagination" @page_change="getProducts"></Pagination>
+    <Pagination v-show="pagination"
+                :pagination="pagination"
+                @page_change="getProducts"></Pagination>
   </div>
 </template>
 
@@ -82,8 +89,6 @@ export default {
         vm.status.isLoading = false;
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
-        console.log(vm.products);
-        console.log(vm.pagination);
       });
     },
     // 打開編輯視窗
@@ -111,5 +116,14 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/_admin.sass'
+.admin--title
+  display: inline
+  font-size: 2.5em
+  letter-spacing: 1px
+
+.admin--btn
+  float: right
+
+.table-responsive
+  clear: both
 </style>

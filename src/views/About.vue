@@ -81,11 +81,6 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import "@/assets/_color.sass"
-
-@mixin fz($p)
-  font-size: 1rem * $p
-
 p,h5
   margin: 0
 

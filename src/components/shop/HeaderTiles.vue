@@ -213,8 +213,6 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import "@/assets/_color.sass"
-
 // animation
 .fadeinII
   animation: fadeinII .7s both
@@ -228,11 +226,11 @@ export default {
 @keyframes fadein
   0%
     opacity: .5
-    transform: translateY(0)
+    +transf(0, 0)
     box-shadow: 0 1px 1px rgba($black, .1)
   100%
     opacity: 1
-    transform: translateY(-1px)
+    +transf(0, -1px)
     box-shadow: 0 2px 1px rgba($black, .3)
 
 @keyframes fadeinII
@@ -243,17 +241,11 @@ export default {
 
 @keyframes fadeout
   0%
-    transform: translateY(-1px)
+    +transf(0, -1px)
     box-shadow: 0 2px 1px rgba($black, .3)
   100%
-    transform: translateY(0)
+    +transf(0, 0)
     box-shadow: 0 1px 1px rgba($black, .1)
-
-@mixin fz($p)
-  font-size: 1rem * $p
-
-@mixin lh($f, $p)
-  line-height: 1rem * $f * $p
 
 .__flex
   display: flex
@@ -361,12 +353,14 @@ export default {
     display: flex
     flex-wrap: wrap
     justify-content: flex-end
+    align-items: center
 
 @media all and (min-width: 575.98px) and (max-width: 768px)
   .__r_flex
     display: flex
     flex-wrap: wrap-reverse
     justify-content: flex-end
+    align-items: center
 
 @media all and (max-width: 575.98px)
   .__hide

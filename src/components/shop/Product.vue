@@ -58,7 +58,15 @@
           </div>
         </div>
         <div class="col-5">
-          <button class="btn btn-outline-primary item--btn" @click="addToCart">加入購物車</button>
+          <button class="btn btn-outline-primary item--btn"
+                  v-if="!status.isLoading"
+                  @click="addToCart">
+            加入購物車
+          </button>
+          <button class="btn btn-outline-primary item--btn" v-else disabled>
+            <i class="fas fa-spinner fa-spin"></i>
+            加入中
+          </button>
         </div>
       </div>
     </div>
@@ -80,6 +88,7 @@ export default {
     return {
       qty: 1,
       status: {
+        isLoading: false,
         isFavorite: false,
       },
     };
@@ -141,14 +150,15 @@ export default {
         product_id: vm.product.id,
         qty: vm.qty,
       };
+      vm.status.isLoading = true;
       this.$http.post(api, { data: cart }).then(() => {
+        vm.status.isLoading = false;
         vm.$bus.$emit('getCart');
       });
     },
   },
   beforeUpdate() {
     this.getFilteredFavorite();
-    this.$bus.$emit('test', this.status.favorite);
   },
   created() {
     this.$emit('get_product', this.$route.params.id);
@@ -158,11 +168,6 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-@import '@/assets/_color.sass'
-
-@mixin fz($p)
-  font-size: 1rem * $p
-
 .__hover
   cursor: pointer
   &:hover

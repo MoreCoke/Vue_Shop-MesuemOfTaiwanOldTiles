@@ -19,7 +19,7 @@
           <a class="page-link" href="#" @click.prevent="pageChange(page)">{{page}}</a>
         </li>
         <li class="page-item"
-            :class="{disabled: pagination.current_page === pagination.total_pages}">
+            :class="{'disabled': pagination.current_page === pagination.total_pages}">
             <a class="page-link"
             href="#"
             @click.prevent="pageChange(pagination.current_page + 1)">Next</a>
@@ -39,9 +39,6 @@ export default {
     pageChange(page) {
       this.$emit('page_change', page);
     },
-  },
-  created() {
-    console.log(this.pagination);
   },
 };
 </script>

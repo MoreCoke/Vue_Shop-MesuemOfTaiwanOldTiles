@@ -11,8 +11,6 @@
 </template>
 
 <style scoped lang="sass">
-@import 'src/assets/_color.sass'
-
 .home--nav
   display: inline-block
   margin: 0 20px
@@ -20,7 +18,7 @@
   transition: .5s
   &:hover
     color: $tealAAA
-    transform: translateY(-2px)
+    +transf(0, -2px)
 
 .router-link-active, .router-link-exact-active
   font-weight: 700

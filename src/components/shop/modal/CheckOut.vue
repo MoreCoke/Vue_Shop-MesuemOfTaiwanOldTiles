@@ -15,8 +15,8 @@
           <form class="cart--contents">
             <div class="form-group row">
               <label for="username"
-                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">姓名：</label>
-              <div class="col-sm-11 col-md-10 pl-md-3">
+                      class="col-3 col-md-2 pl-md-0 pr-md-0 col-form-label">姓名：</label>
+              <div class="col-9 col-md-10">
                 <ValidationProvider
                   name="姓名"
                   rules="required|min:2"
@@ -37,8 +37,8 @@
             </div>
             <div class="form-group row">
               <label for="usertel"
-                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">電話：</label>
-              <div class="col-sm-11 col-md-10 pl-md-3">
+                      class="col-3 col-md-2 pl-md-0 pr-md-0 col-form-label">電話：</label>
+              <div class="col-9 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="電話"
                   rules="required|numeric|min:8|max:10"
@@ -60,8 +60,8 @@
             </div>
             <div class="form-group row">
               <label for="useremail"
-                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">Email：</label>
-              <div class="col-sm-11 col-md-10 pl-md-3">
+                      class="col-3 col-md-2 pl-md-0 pr-md-0 col-form-label">Email：</label>
+              <div class="col-9 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="Email"
                   rules="required|email"
@@ -82,8 +82,8 @@
             </div>
             <div class="form-group row">
               <label for="useradd"
-                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">地址：</label>
-              <div class="col-sm-11 col-md-10 pl-md-3">
+                      class="col-3 col-md-2 pl-md-0 pr-md-0 col-form-label">地址：</label>
+              <div class="col-9 col-md-10 pl-md-3">
                 <ValidationProvider
                   name="地址"
                   rules="required"
@@ -104,8 +104,8 @@
             </div>
             <div class="form-group row">
               <label for="inputPs"
-                      class="col-sm-1 col-md-2 pl-md-0 pr-md-0 col-form-label">備註：</label>
-              <div class="col-sm-11 col-md-10 pl-md-3">
+                      class="col-3 col-md-2 pl-md-0 pr-md-0 col-form-label">備註：</label>
+              <div class="col-9 col-md-10 pl-md-3">
                 <textarea
                   name
                   id="inputPs"
@@ -222,18 +222,18 @@ export default {
 .cart--contents
   width: 90%
   padding: 1% 0
-  @media all and (max-width: 567.98px)
+  @media all and (max-width: 575.98px)
     width: 100%
 
 .cart--footer
   width: 100%
   margin: 20px 0 40px
   text-align: right
-  @media all and (max-width: 567.98px)
+  @media all and (max-width: 575.98px)
     text-align: center
 
 .cart--next
   margin-bottom: 20px
-  @media all and (max-width: 567.98px)
+  @media all and (max-width: 575.98px)
     font-size: 1rem
 </style>

@@ -28,7 +28,10 @@
           </div>
           <button class="btn btn-lg btn-primary btn-block"
                   type="submit"
-                  @click.prevent="sign_in">Sign in</button>
+                  @click.prevent="sign_in"
+                  @keyup.enter="sign_in">
+                  <i class="fas fa-spinner fa-spin" v-if="signStatus.isLoading"></i>
+                  Sign in</button>
           <p class="mt-5 mb-3 text-muted">&copy; 2019 <router-link to="/">台灣花磚博物館</router-link></p>
         </form>
       </div>
@@ -48,6 +51,7 @@ export default {
       },
       signStatus: {
         status: true,
+        isLoading: false,
       },
     };
   },
@@ -56,12 +60,15 @@ export default {
     sign_in() {
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
       const vm = this;
+      vm.signStatus.isLoading = true;
       this.$http.post(api, vm.user).then((response) => {
         if (response.data.success) {
           vm.signStatus.status = true;
+          vm.signStatus.isLoading = false;
           vm.$router.push('/admin');
         } else {
           vm.signStatus.status = false;
+          vm.signStatus.isLoading = false;
         }
       });
     },
@@ -77,7 +84,7 @@ export default {
   margin: auto
   position: relative
   top: 50vh
-  transform: translateY(-50%)
+  +transf(0, -50%)
 
   .checkbox
     font-weight: 400

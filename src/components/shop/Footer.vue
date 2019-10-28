@@ -47,14 +47,6 @@
 </template>
 
 <style scoped lang='sass'>
-@import '@/assets/_color.sass'
-
-@mixin fz($p)
-  font-size: 1rem * $p
-
-@mixin lh($f, $p)
-  line-height: 1rem * $f * $p
-
 h3,p,li
   &::selection
     background-color: white

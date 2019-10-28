@@ -181,11 +181,6 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/_color.sass'
-
-@mixin fz($p)
-  font-size: 1rem * ($p)
-
 @keyframes fadein
   0%
     opacity: .5
@@ -216,7 +211,7 @@ export default {
     margin-bottom: 70px
   &:hover
     box-shadow: 0 2px 10px rgba($black,.1)
-    transform: translateY(5px)
+    +transf(0, 5px)
     .items
       padding: 20px
       @media all and (min-width: 992px) and (max-width: 1200px)

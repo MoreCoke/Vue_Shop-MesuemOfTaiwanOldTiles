@@ -1,4 +1,26 @@
-@import '@/assets/_color.sass'
+$blue:    #007bff
+$indigo:  #6610f2
+$purple:  #6f42c1
+$pink:    #e83e8c
+$red:     #BB544C
+$orange:  #fd7e14
+$yellow:  #F6DA85
+$green:   #4e797e
+$teal:    #71A2A7
+$tealAA:  #357880
+$tealAAA: #1f454a
+$cyan:    #CFE3E6
+$black:   #202430
+$white:   #fff
+
+@mixin fz($p)
+  font-size: 1rem * $p
+
+@mixin lh($f, $p)
+  line-height: 1rem * $f * $p
+
+@mixin transf($x, $y)
+  transform: translate($x, $y)
 
 p,span,a,td,button,router-link,input[type="text"],input::placeholder,textarea,textarea::placeholder
   letter-spacing: 1px

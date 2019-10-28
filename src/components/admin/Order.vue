@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <loading :active.sync="isLoading"></loading>
+    <loading :active.sync="isLoading" color="#71A2A7"></loading>
     <div class="mb-3">
       <h2 class="font-weight-bold admin--title">訂單列表</h2>
     </div>
@@ -18,6 +18,11 @@
           </tr>
         </thead>
         <tbody>
+          <tr v-show="!orders">
+            <td colspan="5">
+              <p class="text-danger">無法取得訂單資料</p>
+            </td>
+          </tr>
           <tr v-for="item in orders" :key="item.id">
             <!-- 是否付款 -->
             <td class="text-center align-middle">
@@ -59,7 +64,9 @@
       </table>
     </div>
     <Modal :temp-order="tempOrder" @get_orders="getOrders"></Modal>
-    <Pagination :pagination="pagination" @page_change="getOrders"></Pagination>
+    <Pagination v-show="pagination"
+                :pagination="pagination"
+                @page_change="getOrders"></Pagination>
   </div>
 </template>
 
@@ -107,5 +114,14 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/_admin.sass'
+.admin--title
+  display: inline
+  font-size: 2.5em
+  letter-spacing: 1px
+
+.admin--btn
+  float: right
+
+.table-responsive
+  clear: both
 </style>

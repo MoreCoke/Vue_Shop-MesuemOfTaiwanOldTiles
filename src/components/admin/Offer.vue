@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <loading :active.sync="isLoading"></loading>
+    <loading :active.sync="isLoading" color="#71A2A7"></loading>
     <div class="mb-3">
       <h2 class="font-weight-bold admin--title">優惠券管理</h2>
       <button class="btn btn-primary admin--btn" @click="openModal(true)">建立新優惠券</button>
@@ -18,6 +18,11 @@
           </tr>
         </thead>
         <tbody>
+          <tr v-show="!coupons">
+            <td colspan="5">
+              <p class="text-danger">無法取得優惠券資料</p>
+            </td>
+          </tr>
           <tr v-for="item in coupons" :key="item.id">
             <td class="text-center align-middle">
               <!-- 直接修改啟用狀態 -->
@@ -45,7 +50,9 @@
       </table>
     </div>
     <Modal :temp-coupon="tempCoupon" :is-new="isNew" @get_coupons="getCoupons"></Modal>
-    <Pagination :pagination="pagination" @page_change="getCoupons"></Pagination>
+    <Pagination v-show="pagination"
+                :pagination="pagination"
+                @page_change="getCoupons"></Pagination>
   </div>
 </template>
 
@@ -107,5 +114,14 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '@/assets/_admin.sass'
+.admin--title
+  display: inline
+  font-size: 2.5em
+  letter-spacing: 1px
+
+.admin--btn
+  float: right
+
+.table-responsive
+  clear: both
 </style>
